@@ -10,7 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
+|--------------------------------------------------------------------------
+| Ruta ejemplo (predeterminada)
+|--------------------------------------------------------------------------
 Route::get('/', function () {
     return view('welcome');
 });
+*/
+Route::get('/', function () {
+    return "Index";
+});
+
+Route::get('/login', 'LoginController@index');
