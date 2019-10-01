@@ -14,10 +14,11 @@
 |--------------------------------------------------------------------------
 | Ruta ejemplo (predeterminada)
 |--------------------------------------------------------------------------
-Route::get('/', function () {
+*/
+Route::get('/ejemplo', function () {
     return view('welcome');
 });
-*/
+
 Route::get('/', function () {
     return "Index";
 });
