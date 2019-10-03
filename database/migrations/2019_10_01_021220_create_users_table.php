@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('email', 320)->unique();
-            $table->string('password', 8);
+            $table->string('password');
             $table->string('nombre', 50);
             $table->string('apellido', 50);
             $table->dateTime('nacimiento');
@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
 
             $table->bigInteger('id_estudios')->unsigned();
             $table->foreign('id_estudios')->references('id')->on('nestudios');
-            
+
             $table->bigInteger('id_area')->nullable()->unsigned();
             $table->foreign('id_area')->references('id')->on('area');
 

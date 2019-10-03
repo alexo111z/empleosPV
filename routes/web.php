@@ -20,7 +20,10 @@ Route::get('/ejemplo', function () {
 });
 
 Route::get('/', function () {
-    return "Index";
+    //return "Index";
+    return view('formato');
 });
 
 Route::get('/login', 'LoginController@index');
+
+Route::get('/registrousuario', 'UserController@pagregistro');

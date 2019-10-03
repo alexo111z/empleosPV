@@ -17,11 +17,28 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+
+    static $password;
+
     return [
-        'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
+        //'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'password' => $password ?: $password = bcrypt('secret'),
+
+        'nombre' => $faker->name,
+        'apellido' => $faker->lastName,
+        'nacimiento' => $faker->date('Y-m-d'),
+        'genero' => true,
+        'id_estudios' => 1,
+        'edad' => $faker->numberBetween(18,80),
+
         'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];
 });
+    /**
+    $table->dateTime('nacimiento');
+    $table->boolean('genero');   colocarlo en el seed
+    $table->bigInteger('id_estudios')->unsigned(); colocarlo en el seed
+    $table->integer('edad');
+    */
