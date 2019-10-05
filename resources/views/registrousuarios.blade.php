@@ -9,15 +9,14 @@
     </head>
     <body>
 
-        <form action="{!! url('') !!}" method="post">
-
-           {!! csrf_field()!!}
+        <form method="POST" action="{!! url('/usuarios/crear') !!}">
+            {!! csrf_field() !!}
 
             <label>Nombres</label>
             <input type="text" class="form-control" name="firstName" placeholder="">
 
             <label>Apellidos</label>
-            <input type="text" class="form-control" name="lastname" placeholder=""><p></p>
+            <input type="text" class="form-control" name="lastName" placeholder=""><p></p>
 
             <label>Email</label>
             <input type="text" class="form-control" name="email" placeholder=""><p></p>
@@ -40,16 +39,14 @@
 
             <label>Nivel Estudios</label>
             <select class="custom-select d-block w-100" name="estudios">
-                <option value="">Choose...</option>
                 <option value="Primaria">Primaria</option>
                 <option value="Secundaria">Secundaria</option>
             </select><p></p>
 
             <label>Area</label>
             <select class="custom-select d-block w-100" name="area">
-                <option value="">Choose...</option>
-                <option value="lic">Licenciatura</option>
-                <option value="otros">Otros</option>
+                <option value="Comida">Comida</option>
+                <option value="Otros">Otros</option>
             </select><p></p>
 
             <button type="submit">Registrar</button>
