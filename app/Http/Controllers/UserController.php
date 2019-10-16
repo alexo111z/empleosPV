@@ -14,7 +14,22 @@ class UserController extends Controller
 
     function crear(){
 
-        $data = request()->all();
+        //$data = request()->all();
+
+        $data = request()->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'nacimiento' => 'required',
+            'genero' => 'required',
+            'id_estudios' => 'required',
+            'id_estudios' => 'required',
+            'edad' => 'required',
+        ],[
+            'name.required' => 'El campo esta vacio'
+        ]);
 
         dd($data);
         return "texto pagina";
@@ -33,7 +48,7 @@ class UserController extends Controller
         ]);
 
 
-        return redirect()->route('url');
+        return redirect()->route('#');
         */
     }
 
