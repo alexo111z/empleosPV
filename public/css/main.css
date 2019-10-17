@@ -1,0 +1,89 @@
+/* ******HEADER ******** */
+nav.navbar{
+    background-color: #0288D1;
+    padding-right: 5%;
+    padding-left: 5%;
+
+}
+a.nav-link{
+    color:#fff !important;
+}
+a.nav-link:hover{
+    color: #BDBDBD !important;
+}
+a.btn.btn-login{
+   height: 100%;
+   color: #ffffff;
+   border: solid 1px #fff; 
+}
+a.btn.btn-login:hover{
+    height: 100%;
+    background-color: #ffffff;
+    color:#0288D1;
+    border: solid 1px #fff; 
+ }
+/* ***** Buscador ***** */
+div.jumbotron{
+    max-height: 300px;
+}
+.little-title{
+    font-family: k2d;
+    color:#fff;
+    font-size: 18px;
+    opacity: 0.5;
+}
+.title{
+    font-family: k2d;
+    color: #fff;
+    font-size: 40px;
+    font-weight: 600;
+}
+.btn-search{
+    background-color: #009688;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+.btn-search:hover{
+    background-color: #03A9F4 ;
+}
+.input-group.search-group{
+    width: 50%;
+    margin: auto;
+    min-width: 300px;
+}
+.input-group.search-group>input{
+    min-width: 200px;
+}
+.icon-search{
+    width: 24px;;
+}
+/*Publicity*/
+.img-publicity{
+    width: 128px;
+}
+.title-item{
+    font-family: k2d;
+    font-size: 20px;
+    font-weight: 600;
+}
+a.btn.btn-more{
+    background-color: #009688 !important;
+    color: #fff;
+}
+a.btn.btn-more:hover{
+    background-color: #03A9F4 !important;
+    color: #fff;
+}
+.link-register{
+    color:#03A9F4;
+}
+.link-register:hover{
+    color:#009688;
+}
+
+/*footer*/
+.featurette-divider{
+    border-top: 1px solid #757575;
+}
