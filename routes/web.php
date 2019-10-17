@@ -21,7 +21,7 @@ Route::get('/ejemplo', function () {
 
 Route::get('/', function () {
     //return "Index";
-    return view('formato');
+    return view('home');
 });
 
 Route::get('/login', 'LoginController@index');
