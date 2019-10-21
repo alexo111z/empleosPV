@@ -15,7 +15,7 @@ $factory->define(Empresa::class, function (Faker $faker) {
         'rfc' => $faker->unique()->text(13),
         'd_fiscal' => $faker->sentence(5),
         'email' => $faker->unique()->companyEmail,
-        'telefono' => $faker->phoneNumber,
+        'telefono' => '322XXXXXXX',//$faker->phoneNumber,
         'contacto' => $faker->name, //nombre de contacto
         'id_social' => $faker->numberBetween(1, 5), //razon social
         'id_giro' => $faker->numberBetween(1, 5),

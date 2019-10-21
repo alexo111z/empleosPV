@@ -30,6 +30,7 @@ $factory->define(User::class, function (Faker $faker) {
         'nacimiento' => $faker->date('Y-m-d'),
         'genero' => true,
         'id_estudios' => 1,
+        'id_area' => $faker->numberBetween(1, 5),
         'edad' => $faker->numberBetween(18,80),
 
         'email_verified_at' => now(),

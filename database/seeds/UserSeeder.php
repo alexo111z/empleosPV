@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
             'nombre' => 'Luis',
             'email' => 'puerba@correo.com',
             'password' => bcrypt('laravel'),
+            'id_area' => 1,
         ]);
 
         factory(User::class)->times(10)->create();

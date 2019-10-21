@@ -16,13 +16,25 @@ class DatabaseSeeder extends Seeder
 
         $this->truncateTables([
             'giros',
+            'tags',
+            'rsociales',
             'nestudios',
+            'empresas',
             'users',
+            'area',
+            'calificaciones',
+            'comentarios',
         ]);
 
         $this->call(GiroSeeder::class);
+        $this->call(AreasSeeder::class);
+        $this->call(RSocialesSeeder::class);
+        $this->call(TagsSeeder::class);
         $this->call(NEstudiosSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(EmpresasSeeder::class);
+        $this->call(CalificacionesSeeder::class);
+        $this->call(ComentariosSeeder::class);
     }
 
     public function truncateTables(array $tables) {

@@ -16,7 +16,7 @@ class CreateEmpresasTable extends Migration
         Schema::create('empresas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre', 150);
-            $table->string('password', 8);
+            $table->string('password');
             $table->string('rfc', 13)->unique();
             $table->string('d_fiscal');
             $table->string('email', 320)->unique();
@@ -29,7 +29,7 @@ class CreateEmpresasTable extends Migration
             $table->bigInteger('id_giro')->unsigned();
             $table->foreign('id_giro')->references('id')->on('giros');
 
-            $table->string('logo');
+            $table->string('logo')->nullable(); //direccion del logo
 
             $table->timestamps();
         });

@@ -22,7 +22,7 @@ class CreateComentariosTable extends Migration
             $table->bigInteger('id_emp')->unsigned();
             $table->foreign('id_emp')->references('id')->on('empresas');
 
-            $table->string('coment', 90);
+            $table->string('coment', 900);
 
             $table->dateTime('fecha');
 
