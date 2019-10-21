@@ -22,7 +22,7 @@ class CreateSolicitudInformacionTable extends Migration
             $table->bigInteger('id_emp')->unsigned();
             $table->foreign('id_emp')->references('id')->on('empresas');
 
-            $table->boolean('permiso');
+            $table->boolean('permiso')->nullable();
 
             $table->boolean('estado');
 
