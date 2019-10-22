@@ -12,7 +12,8 @@
                         <div class="input-group-prepend">
                             <button class="btn btn-search my-2 my-sm-0" type="submit"><img class="icon-search" src="{{asset('images/icon/search.png')}}"></button>
                         </div>
-                    </div>              
+                    </div>    
+                              
                 </div>
             </div>
             <div class="container marketing">

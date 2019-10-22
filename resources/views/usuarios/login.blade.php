@@ -1,5 +1,6 @@
 @extends('master')
-    @section('body')
+	@section('body')
+	
 	<link href="{{asset('css/login.css')}}" rel="stylesheet">
 		<main role="main">
 		<div class="container h-100">
