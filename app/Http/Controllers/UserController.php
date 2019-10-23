@@ -17,24 +17,22 @@ class UserController extends Controller
         //$data = request()->all();
 
         $data = request()->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'nacimiento' => 'required',
-            'genero' => 'required',
-            'id_estudios' => 'required',
-            'id_estudios' => 'required',
-            'edad' => 'required',
+            "firstName" => 'required',
+            "lastName" => 'required',
+            "email" => ['required', 'email', 'unique:users,email'],
+            "password" => ['required', 'between:1,8'], //unique:tabla,columna
+            "edad" => ['required', 'numeric'],
+            "fecha" => ['required', 'date_format:Y-m-d'],   //'Y-m-d'
+            "genero" => 'required',
+            "estudios" => 'required',
+            "area" => 'required',
         ],[
             'name.required' => 'El campo esta vacio'
         ]);
 
-        dd($data);
-        return "texto pagina";
+//        dd($data);
+//        return "texto pagina";
 
-        /*
         User::create([
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -48,8 +46,8 @@ class UserController extends Controller
         ]);
 
 
-        return redirect()->route('#');
-        */
+        return redirect()->route('home');
+
     }
 
 }

@@ -16,7 +16,7 @@
             <br><br><br>
         @endif
 
-        <form method="POST" action="{!! url('/usuarios/crear') !!}">
+        <form method="POST" action="{!! url('/usuario/crear') !!}">
             {!! csrf_field() !!}
 
             <label for="firstName">Nombres</label>
@@ -35,28 +35,30 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="">
                 <p></p>
             <label for="edad">Edad</label>
-            <input type="text" class="form-control" id="edad" name="edad" placeholder="">
+            <input type="text" class="form-control" id="edad" name="edad" placeholder="" value="{{ old('edad') }}">
                 <p></p>
             <label for="fecha">Fecha Nacimiento</label>
-            <input type="text" class="form-control" id="fecha" name="fecha" placeholder="">
+            <input type="text" class="form-control" id="fecha" name="fecha" placeholder="" value="{{ old('fecha') }}">
                 <p></p>
             <label>Genero</label>
             <select class="custom-select d-block w-100" name="genero">
-                <option value="">Choose...</option>
-                <option value="0">Hombre</option>
-                <option value="1">Mujer</option>
+                <option value="{{ old('genero') }}"> @if(old('genero')) Femenino @else Masculino @endif </option>
+                <option value="1">Femenino</option>
+                <option value="0">Masculino</option>
             </select>
                 <p></p>
             <label>Nivel Estudios</label>
             <select class="custom-select d-block w-100" name="estudios">
-                <option value="Primaria">Primaria</option>
-                <option value="Secundaria">Secundaria</option>
+                <option value="{{ old('estudios') }}">{{ old('estudios') }}</option>
+                <option value="1">Primaria</option>
+                <option value="2">Secundaria</option>
             </select>
                 <p></p>
             <label>Area</label>
             <select class="custom-select d-block w-100" name="area">
-                <option value="Comida">Comida</option>
-                <option value="Otros">Otros</option>
+                <option value="{{ old('area') }}">{{ old('area') }}</option>
+                <option value="1">Comida</option>
+                <option value="2">Otros</option>
             </select>
                 <p></p>
             <button type="submit">Registrar</button>

@@ -22,9 +22,9 @@ Route::get('/ejemplo', function () {
 Route::get('/', function () {
     //return "Index";
     return view('home');
-});
+})->name('home');
 
-Route::get('/login', 'LoginController@index');
+Route::get('/login', 'LoginController@index')->name('login');
 
-Route::get('/registrousuario', 'UserController@registro');
-Route::post('/usuarios/crear', 'UserController@crear');
+Route::get('/usuario/registro', 'UserController@registro')->name('users.registro');
+Route::post('/usuario/crear', 'UserController@crear');

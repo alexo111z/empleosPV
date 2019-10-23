@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
 
             $table->integer('edad');
 
-            $table->boolean('coment');
+            $table->boolean('coment')->default(false);
 
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
