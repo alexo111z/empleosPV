@@ -1,0 +1,20 @@
+.personal-informatio{
+    min-width:313px!important;
+}
+button.icon{
+    font-size: 12px;
+    height: 25px;
+    color:#757575;
+    padding-top: 0 !important;
+    margin-right: 5px !important;
+    margin-bottom: 10px !important;
+    opacity:0.6;
+}
+button.icon>img{
+    width:12px;
+    margin-right: 5px;
+}
+button.icon:hover{
+    color:#757575;
+    opacity: 1;
+}

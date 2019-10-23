@@ -5,7 +5,7 @@
         <div class="container">
             <div class="py-5 text-center">
                 <h1 class="text-uppercase">Crea tu cuenta gratis</h1>
-                <p class="lead">Hay ofertas de empleo esperandote</p>
+                <p class="lead">Tenemos ofertas de empleo esperandote</p>
             </div>
             
             <!-- start personal information -->

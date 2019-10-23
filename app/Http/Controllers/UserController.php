@@ -10,9 +10,18 @@ class UserController extends Controller
     function registrar(){
         return view('usuarios.registrar');
     }
+    function perfil(){
+        return view('usuarios.perfil');
+    }
+
+
+
+
+
     function registro(){
         return view('registrousuarios');
     }
+    
 
     function crear(){
 

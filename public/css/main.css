@@ -15,16 +15,25 @@ a.nav-link:hover{
 }
 a.btn.btn-login{
    height: 100%;
-   color: #ffffff;
-   border: solid 1px #fff; 
+   color: #ffffff !important;
+   border: solid 1px #fff !important; 
 }
-a.btn.btn-login:hover{
-    height: 100%;
-    background-color: #ffffff;
-    color:#0288D1;
-    border: solid 1px #fff; 
- }
 
+a.btn.btn-login:hover, a.btn.btn-login:active {
+    height: 100%;
+    background-color: #ffffff !important;
+    color:#0288D1 !important;
+    border: solid 1px #fff !important; 
+ }
+ a.dropdown-item:hover{
+     color: #fff;
+     background-color: #0288D1;
+ }
+.icon-profile{
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
 
 /*footer*/
 .featurette-divider{

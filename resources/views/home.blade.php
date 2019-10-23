@@ -1,4 +1,5 @@
 @extends('master')
+
     @section('body')
         <link href="{{asset('css/home.css')}}" rel="stylesheet">
         <main role="main">

@@ -26,6 +26,7 @@ Route::get('/', function () {
 
 Route::get('/login', 'LoginController@index');
 Route::get('/registrar', 'UserController@registrar');
+Route::get('/perfil', 'UserController@perfil');
 
 
 Route::get('/registrousuario', 'UserController@registro');
