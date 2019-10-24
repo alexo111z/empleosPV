@@ -2,19 +2,51 @@
     min-width:313px!important;
 }
 button.icon{
-    font-size: 12px;
+    font-size: 14px;
     height: 25px;
-    color:#757575;
+    color:#000;
     padding-top: 0 !important;
     margin-right: 5px !important;
     margin-bottom: 10px !important;
-    opacity:0.6;
+    opacity:0.8;
+    background: #E9E9E9;
+
 }
 button.icon>img{
     width:12px;
     margin-right: 5px;
 }
 button.icon:hover{
-    color:#757575;
+
     opacity: 1;
 }
+.tags>span{
+    border-radius: 10px !important;
+    background-color: #B3E5FC;
+    -webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	        border-radius: 3px;
+    color: #757575;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 11.844px;
+    font-weight: bold;
+    line-height: 21px;
+    margin: 2px 3px 2px 2px;
+    padding: 1px 4px 2px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    vertical-align: baseline;
+}
+.tags>span:after {
+        color: #000000;
+        content: " ×";
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 16px;
+        opacity: 0.2;
+        position: relative;
+        text-shadow: 0 1px 0 #FFFFFF;
+        top: 1px;
+    }
+}
+

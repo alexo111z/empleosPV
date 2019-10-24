@@ -6,7 +6,7 @@
 		<div class="container h-100">
 			<div class="d-flex justify-content-center h-100">
 				<div class="user_card">
-					<div class="form-title text-center">
+					<div class="form-title text-center align-middle">
 						<h1 class="text-uppercase">Inicio de sesión</h1>
 						<h6>Ingresa y encuentra el empleo que deseas</h6>
 					</div>
