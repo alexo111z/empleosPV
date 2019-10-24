@@ -1,7 +1,7 @@
 
        <header>
         @section('header')
-            <nav class="navbar navbar-expand-lg navbar-dark" >
+            <nav class="navbar navbar-expand-lg navbar-dark " >
                 <a class="navbar-brand" href="#"> <img src="{{asset('images/images/logo-white.png')}}" width="125" height="35" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,7 +25,7 @@
             </nav>
         @endsection
         @section('header-user')
-        <nav class="navbar navbar-expand-lg navbar-dark" >
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark " >
                 <a class="navbar-brand" href="#"> <img src="{{asset('images/images/logo-white.png')}}" width="125" height="35" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

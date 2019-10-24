@@ -40,3 +40,9 @@ a.btn.btn-login:hover, a.btn.btn-login:active {
     border-top: 1px solid #757575;
     
 }
+main{
+    margin-top:60px;
+}
+footer{
+    background-color: #fff;
+}

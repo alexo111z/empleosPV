@@ -15,7 +15,7 @@
         <!-- Custom styles for this template -->
         <link href="{{asset('css/main.css')}}" rel="stylesheet">
     </head>
-    <body>
+    <body class="mt-6">
 
 @include('header')
 <!--@yield('header')-->

@@ -1,6 +1,6 @@
               <!-- FOOTER -->
-            <div class="fixed-bottom">
-                <hr class="featurette-divider ">
+            <div class="footer bg-light mt-4">
+                <hr class="featurette-divider mt-0 ">
                 <footer class="text-muted text-center text-small">
                     <p class="mb-1 text-uppercase">&copy; 2019 comunicaciones inteligentes del pacífico</p>
                 </footer>
