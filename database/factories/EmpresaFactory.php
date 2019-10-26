@@ -14,6 +14,9 @@ $factory->define(Empresa::class, function (Faker $faker) {
         'password' => $password ?: $password = bcrypt('empresa'),
         'rfc' => $faker->unique()->text(13),
         'd_fiscal' => $faker->sentence(5),
+        'pais' => $faker->country,
+        'estado' => 'Estado X',
+        'ciudad' => 'Cidudad Y',
         'email' => $faker->unique()->companyEmail,
         'telefono' => '322XXXXXXX',//$faker->phoneNumber,
         'contacto' => $faker->name, //nombre de contacto

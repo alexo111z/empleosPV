@@ -31,7 +31,6 @@ class UserController extends Controller
         ]);
 
 //        dd($data);
-//        return "texto pagina";
 
         User::create([
             'email' => $data['email'],

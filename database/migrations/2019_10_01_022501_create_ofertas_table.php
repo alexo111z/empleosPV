@@ -15,7 +15,7 @@ class CreateOfertasTable extends Migration
     {
         Schema::create('ofertas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+
             $table->bigInteger('id_emp')->unsigned();
             $table->foreign('id_emp')->references('id')->on('empresas');
 
@@ -25,6 +25,9 @@ class CreateOfertasTable extends Migration
             $table->string('salario', 5);
             $table->string('t_contrato', 30)->nullable();
             $table->dateTime('vigencia');
+            $table->string('pais', 100);
+            $table->string('estado', 100);
+            $table->string('ciudad', 100);
 
             $table->timestamps();
         });

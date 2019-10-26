@@ -28,7 +28,11 @@ class CreateUsersTable extends Migration
             $table->bigInteger('id_area')->nullable()->unsigned();
             $table->foreign('id_area')->references('id')->on('area');
 
-            $table->string('direccion')->nullable();
+            //Direccion
+            $table->string('pais', 100)->nullable();
+            $table->string('estado', 100)->nullable();
+            $table->string('ciudad', 100)->nullable();
+
             $table->string('telefono', 10)->nullable();
             $table->string('conocimientos', 900)->nullable();
             $table->string('foto')->nullable();

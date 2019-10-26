@@ -18,7 +18,12 @@ class CreateEmpresasTable extends Migration
             $table->string('nombre', 150);
             $table->string('password');
             $table->string('rfc', 13)->unique();
+
             $table->string('d_fiscal');
+            $table->string('pais', 100);
+            $table->string('estado', 100);
+            $table->string('ciudad', 100);
+
             $table->string('email', 320)->unique();
             $table->string('telefono', 10);
             $table->string('contacto', 150);
