@@ -1,5 +1,9 @@
-.information-personal{
-    min-width: 350px;
+.information-personal, .profesional-information{
+    min-width: 400px!important;
+}
+
+.container{
+    min-width: 80%  !important;
 }
 .text-privacity{
     color:#757575 !important;
@@ -39,7 +43,7 @@ button.icon:hover{
 	   -moz-border-radius: 3px;
 	        border-radius: 3px;
     color: #757575;
-    cursor: pointer;
+
     display: inline-block;
     font-size: 11.844px;
     font-weight: bold;
@@ -59,7 +63,8 @@ button.icon:hover{
         position: relative;
         text-shadow: 0 1px 0 #FFFFFF;
         top: 1px;
-    }
+        cursor: pointer;
+}
 .btn-remove>img{
     width: 12px;
 }
@@ -86,4 +91,13 @@ button.icon:hover{
 }
 .checked {
     color: #FBC02D !important;
+  }
+
+  /* elementos para editar*/
+  #BtnGuardarContacto,#DivPrivacidad2,#CmbFecha,#BtnGuardarPersonal, #DivSexo,#DivCiudad2, #CmbUniversidad,#TxtArea,#BtnGuardarAca, #TxtConocimientos, #BtnGuardarCon, #TxtTel, #TxtEmail{
+      display: none;
+  }
+  input,select{
+      max-width: 90%;
+      min-width: 180px !important;
   }

@@ -48,20 +48,21 @@
                             <input type="date" class="form-control" id="date" name="trip-start" value="2000-01-01" min="1960-01-01" max="2002-12-31">
                         </div>
                         <div class="col-md-6 mb-3">
-                        <label  for="Date">Sexo</label>
-                            <div class="col-md-2 mb-2">
-                                <div class="custom-control custom-radio">
-                                <input id="credit" name="sexo" type="radio" class="custom-control-input" checked required>
-                                    <label class="custom-control-label" for="credit">Femenino</label>
+                            <label  for="Date">Sexo</label>
+                                <div class="col-md-2 mb-2">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="f" name="sexo" class="custom-control-input">
+                                        <label class="custom-control-label" for="f">Femenino</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <div class="custom-control custom-radio">
-                                    <input id="credit" name="sexo" type="radio" class="custom-control-input" checked required>
-                                    <label class="custom-control-label" for="credit">Masculino</label>
+                                <div class="col-md-2 mb-2">
+                                    <div class="custom-control custom-radio">
+                                         <input type="radio" id="m" name="sexo" class="custom-control-input">
+                                        <label class="custom-control-label" for="m">Masculino</label>
+                                    </div>
                                 </div>
+
                             </div>
-                        </div>
                     </div>
                     <hr class="mb-1">
                     <h4 class="mb-1">Formación académica</h4>

@@ -42,6 +42,10 @@ a.btn.btn-login:hover, a.btn.btn-login:active {
 }
 main{
     margin-top:60px;
+    padding: auto;
+}
+body{
+    padding: auto;
 }
 footer{
     background-color: #fff;
