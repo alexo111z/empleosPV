@@ -4,7 +4,7 @@
     <h1>{{ $title }}</h1>
 
     @forelse($empresas as $empresa)
-        <li>{{ $empresa->nombre }} - <a href="#">Editar</a></li>
+        <li>{{ $empresa->nombre }} - <a href="{{ route('emp.edit', $empresa->id) }}">Editar</a></li>
     @empty
         <li>No hay carreras registradas.</li>
     @endforelse

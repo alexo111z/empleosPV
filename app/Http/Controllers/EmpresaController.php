@@ -42,30 +42,31 @@ class EmpresaController extends Controller
         return redirect()->route('emp.show');
     }
 
-    function editar(){
-
+    function editar($empresa){
+        $data = Empresa::findOrFail($empresa);
+        return view('temp.empresas.editar', ['empresa' => $data]);
     }
     function update(){
+        $data = request()->all();
+        $empresa = Empresa::findOrFail($data['id']);
 
+       $empresa->nombre = $data['nombre'];
+       $empresa->rfc = $data['rfc'];
+       $empresa->d_fiscal = $data['d_fiscal'];
+       $empresa->pais = $data['pais'];
+       $empresa->estado = $data['estado'];
+       $empresa->ciudad = $data['ciudad'];
+       $empresa->telefono = $data['telefono'];
+       $empresa->contacto = $data['contacto'];
+       $empresa->id_social = $data['id_social'];
+       $empresa->id_giro = $data['id_giro'];
+
+       $empresa->save();
+       return redirect()->route('emp.show');
     }
 
 }
 /*
-function formEdit(Carrera $carrera){
-
-    return view('Carreras.editar', ['carrera' => $carrera]);
-}
-
-function update(){
-    $data = request()->all();
-
-    $carrera = Carrera::findOrFail($data['clave']);
-    $carrera->Nombre = $data['nombre'];
-    $carrera->save();
-
-    return redirect()->route('carrera.show');
-}
-
 function softDelete(Carrera $carrera){
 
 //        Carrera::destroy($carrera->Clave); //hard delete
