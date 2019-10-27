@@ -21,9 +21,16 @@ class User extends Authenticatable
         'nacimiento',
         'genero',
         'id_estudios',
-        'id_estudios',
+        'id_area',
         'edad',
     ];
+
+    public function estudios(){
+        return $this->belongsTo(NEstudio::class, 'id_estudios');
+    }
+    public function area(){
+        return $this->belongsTo(Area::class, 'id_area');
+    }
 
     /**
      * The attributes that should be hidden for arrays.

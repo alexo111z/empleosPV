@@ -9,12 +9,10 @@ class UserController extends Controller
 {
 
     function registro(){
-        return view('registrousuarios');
+        return view('temp.users.registro');
     }
 
     function crear(){
-
-        //$data = request()->all();
 
         $data = request()->validate([
             "firstName" => 'required',
@@ -30,8 +28,6 @@ class UserController extends Controller
             'name.required' => 'El campo esta vacio'
         ]);
 
-//        dd($data);
-
         User::create([
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -44,9 +40,29 @@ class UserController extends Controller
             'edad' => $data['edad'],
         ]);
 
-
         return redirect()->route('home');
-
     }
 
+    function editar($user){
+        $data = User::findOrFail($user);
+        return view('temp.users.editar', ['user' => $data]);
+    }
+
+    function update(){
+        $data = request()->all();
+        $user = User::findOrFail($data['id']);
+
+        $user->email = $data['email'];
+        $user->nombre = $data['firstName'];
+        $user->apellido = $data['lastName'];
+        $user->nacimiento = $data['fecha'];
+        $user->genero = $data['genero'];
+        $user->id_estudios = $data['estudios'];
+        $user->id_area = $data['area'];
+        $user->edad = $data['edad'];
+
+        $user->save();
+
+        return redirect()->route('home');
+    }
 }

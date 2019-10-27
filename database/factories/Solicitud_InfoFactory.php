@@ -10,7 +10,7 @@ $factory->define(Solicitud_Info::class, function (Faker $faker) {
     return [
         'id_usuario' => $faker->numberBetween(1, 5),
         'id_emp' => $faker->numberBetween(1, 5),
-        'permiso' => null,
+        'permiso' => false,
         'estado' => true,
     ];
 });
