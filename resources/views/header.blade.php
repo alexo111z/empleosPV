@@ -9,7 +9,7 @@
                 <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Buscar Empleos</a>
+                            <a class="nav-link" href="{{route('ofertas.buscar')}}">Buscar Empleos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Soy Empresa</a>
@@ -18,7 +18,7 @@
                     <div class="form-inline ">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item"><a class="nav-link" href="#">!Registrate ya!</a></li>
-                            <li class="nav-item"><a class="btn btn-login btn-outline-secondary" href="#">Iniciar Sesión</a></li>
+                            <li class="nav-item"><a class="btn btn-login btn-outline-secondary" href="{{route('usuarios.login')}}">Iniciar Sesión</a></li>
                          <ul>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Buscar Empleos</a>
+                            <a class="nav-link" href="{{route('ofertas.buscar')}}">Buscar Empleos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Buscar empresas</a>
@@ -48,7 +48,7 @@
                                     <img class="icon-profile" src="https://via.placeholder.com/30x30.png">María Guadalupe
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Mi perfil</a>
+                                    <a class="dropdown-item" href="{{route('usuarios.perfil')}}">Mi perfil</a>
                                     <a class="dropdown-item" href="#">Cambiar contraseña</a>
                                     <a class="dropdown-item" href="#">Cerrar sesión</a>
                                 </div>

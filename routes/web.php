@@ -23,10 +23,15 @@ Route::get('/', function () {
     //return "Index";
     return view('home');
 });
+/* Rutas de usuario */
+Route::get('/login',array('as' => 'usuarios.login', 'uses'=>'LoginController@index'));
+Route::get('/registrar',array('as' =>'usuarios.registrar', 'uses'=> 'UserController@registrar'));
+Route::get('/perfil', array('as' => 'usuarios.perfil', 'uses' => 'UserController@perfil'));
 
-Route::get('/login', 'LoginController@index');
-Route::get('/registrar', 'UserController@registrar');
-Route::get('/perfil', 'UserController@perfil');
+/* rutas oferta */
+Route::get('/ofertas', array( 'as'=> 'ofertas.buscar', 'uses'=>  'OfertasController@ListaOfertas'));
+
+
 
 
 Route::get('/registrousuario', 'UserController@registro');
