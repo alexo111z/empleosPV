@@ -11,10 +11,10 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('users.update', $user) }}">
+    <form method="POST" action="{{ route('users.update', [$user, 'id' => $user->id]) }}">
         {{ csrf_field()  }}
         {{ method_field('PUT') }}
-        <input type="hidden" name="id" value="{{$user->id}}">
+{{--        <input type="hidden" name="id" value="{{$user->id}}" readonly>--}}
 
         <label for="firstName">Nombres</label>
         <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="{{ old('firstName', $user->nombre) }}">

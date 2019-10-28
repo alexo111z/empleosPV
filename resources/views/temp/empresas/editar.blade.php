@@ -1,10 +1,10 @@
 @include('header')
 <main role="main">
 
-    <form action="{{ route('emp.update', $empresa) }}" method="POST">
+    <form action="{{ route('emp.update', [$empresa, 'id' => $empresa->id]) }}" method="POST">
         {{ csrf_field()  }}
         {{ method_field('PUT') }}
-        <input type="hidden" name="id" value="{{$empresa->id}}">
+{{--        <input type="hidden" name="id" value="{{$empresa->id}}" readonly>--}}
 
         <label for="nombre">Nombre de la empresa</label>
         <input type="text" class="form-control" id="nombre" name="nombre" placeholder="" value="{{ old('nombre', $empresa->nombre) }}">

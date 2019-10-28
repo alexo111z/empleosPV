@@ -48,9 +48,9 @@ class UserController extends Controller
         return view('temp.users.editar', ['user' => $data]);
     }
 
-    function update(){
+    function update($id){
         $data = request()->all();
-        $user = User::findOrFail($data['id']);
+        $user = User::findOrFail($id);
 
         $user->email = $data['email'];
         $user->nombre = $data['firstName'];

@@ -46,9 +46,9 @@ class EmpresaController extends Controller
         $data = Empresa::findOrFail($empresa);
         return view('temp.empresas.editar', ['empresa' => $data]);
     }
-    function update(){
+    function update($id){
         $data = request()->all();
-        $empresa = Empresa::findOrFail($data['id']);
+        $empresa = Empresa::findOrFail($id);
 
        $empresa->nombre = $data['nombre'];
        $empresa->rfc = $data['rfc'];

@@ -29,7 +29,8 @@ Route::get('/usuarios/registro', 'UserController@registro')->name('users.registr
 Route::post('/usuarios/crear', 'UserController@crear')->name('users.create');
 
 Route::get('/usuarios/{user}/editar', 'UserController@editar')->name('users.editPage');
-Route::put('/usuarios/{user}', 'UserController@update')->name('users.update');
+Route::put('/usuarios/{user}/{id}', 'UserController@update')->name('users.update');
+
 //Empresas
 Route::get('/empresas', 'EmpresaController@list')->name('emp.show');
 
@@ -37,4 +38,14 @@ Route::get('/empresas/registro', 'EmpresaController@registro')->name('emp.regist
 Route::post('/empresas/crear', 'EmpresaController@crear')->name('emp.create');
 
 Route::get('/empresas/{empresa}/edit', 'EmpresaController@editar')->name('emp.edit');
-Route::put('/empresas/{empresa}', 'EmpresaController@update')->name('emp.update');
+Route::put('/empresas/{empresa}/{id}', 'EmpresaController@update')->name('emp.update');
+
+//ofertas
+Route::get('/ofertas/lista/{empresa}', 'OfertaController@show')->name('oferta.list');
+
+
+Route::get('/ofertas/nueva/{empresa}', 'OfertaController@nueva')->name('oferta.nueva');
+Route::post('/oferta/crear/{id}', 'OfertaController@create')->name('oferta.create');
+
+//GENERAL
+Route::get('/ofertas', 'OfertaController@general')->name('gen.list');
