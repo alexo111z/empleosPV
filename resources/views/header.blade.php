@@ -35,9 +35,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('ofertas.buscar')}}">Buscar Empleos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Buscar empresas</a>
-                        </li>
                         <li class="nav-item"><a class="nav-link" href="#">Mis postulaciones</a></li>
                     </ul>
                     <div class="form-inline ">
