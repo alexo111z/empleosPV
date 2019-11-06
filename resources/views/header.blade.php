@@ -1,7 +1,7 @@
 
        <header>
         @section('header')
-            <nav class="navbar navbar-expand-lg navbar-dark " >
+            <nav class="navbar navbar-expand-lg navbar-dark" >
                 <a class="navbar-brand" href="#"> <img src="{{asset('images/images/logo-white.png')}}" width="125" height="35" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -9,7 +9,7 @@
                 <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ofertas.buscar')}}">Buscar Empleos</a>
+                            <a class="nav-link" href="{{route('ofertas.lista')}}">Buscar Empleos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Soy Empresa</a>
@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ofertas.buscar')}}">Buscar Empleos</a>
+                            <a class="nav-link" href="{{route('ofertas.lista')}}">Buscar Empleos</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="#">Mis postulaciones</a></li>
                     </ul>

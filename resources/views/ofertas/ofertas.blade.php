@@ -3,17 +3,14 @@
 @section('body')
 
   <main role="main" class="col-md-12 py-0 px-0">
-    <nav class="nav-buscador navbar  flex-md-nowrap py-1 mt-6">
-    <div class="row div-search input-group search-group text-center mx-auto w-75 my-1">
+    <nav class="nav-buscador navbar  flex-md-nowrap mt-6">
+    <div class="row div-search input-group search-group text-center pt-2 mx-auto w-50 mb-1">
         <input class="form-control mx-auto form-control-dark " type="text" placeholder="Busca empleos ahora" aria-label="Search">
-        
         <div class="input-group-prepend">
-            <button class="btn btn-search my-sm-0" type="submit"><img class="icon-search" src="{{asset('images/icon/search.png')}}"></button>
-        </div>
-        <div class="col-md-12 text-right">
-            <a id="link-busqueda" href="#">Búsqueda avanzada>></a>
+            <button class="btn btn-search my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </div>
     </div>
+    <div class="div-busqueda-avanzada text-right"><i class="fas fa-cog"></i> <a class="link-busqueda" href="#">Búsqueda avanzada>></a></div>
     </nav>
     <div class="col-md-9 order-md-2 mx-auto mt-4">
         <div class="div-oferta mb-3 no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250" novalidate>
@@ -31,7 +28,7 @@
             <div class="col-sm-4">
               <p class="text-muted"><i class='fas fa-map-marker-alt'></i> Puerto Vallarta, Jalisco</p>
             </div>
-            <div class="tags  col-sm-8 text-right pr-0 mr-0"><i class='fas fa-tags'></i>
+            <div class="tags  col-sm-8 text-right pb-3 pr-0 mr-0"><i class='fas fa-tags'></i>
               @for ($i = 0; $i < 10; $i++)
               <span class="tag">mitag{{$i}}</span>
                 @if($i < 9)

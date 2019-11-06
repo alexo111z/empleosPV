@@ -10,4 +10,7 @@ class OfertasController extends Controller
     function ListaOfertas(){
         return view('ofertas.ofertas');
     }
+    function BusquedaAvanzada(){
+        return view('ofertas.busqueda');
+    }
 }

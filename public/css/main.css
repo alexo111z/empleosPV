@@ -1,11 +1,15 @@
 
 
 /* ******HEADER ******** */
+header{
+    top: 0;
+}
 nav.navbar{
     background-color: #0288D1;
     padding-right: 5%;
     padding-left: 5%;
-
+    padding-bottom: 5px;
+    padding-top:3px;
 }
 a.nav-link{
     color:#fff !important;
@@ -41,7 +45,8 @@ a.btn.btn-login:hover, a.btn.btn-login:active {
     
 }
 main{
-
+    margin-top:50px;
+    min-height:80%;
     padding: auto;
 }
 body{
