@@ -19,10 +19,10 @@ Route::get('/ejemplo', function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
+Route::get('/', array('as' => 'home','uses'=> function () {
     //return "Index";
     return view('home');
-});
+}));
 /* Rutas de usuario */
 Route::get('/login',array('as' => 'usuarios.login', 'uses'=>'LoginController@index'));
 Route::get('/registrar',array('as' =>'usuarios.registrar', 'uses'=> 'UserController@registrar'));

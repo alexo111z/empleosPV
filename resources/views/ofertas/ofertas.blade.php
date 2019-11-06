@@ -10,7 +10,7 @@
             <button class="btn btn-search my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </div>
     </div>
-    <div class="div-busqueda-avanzada text-right"><i class="fas fa-cog"></i> <a class="link-busqueda" href="#">Búsqueda avanzada>></a></div>
+    <div class="div-busqueda-avanzada text-right"><i class="fas fa-cog"></i> <a class="link-busqueda" href="{{route('ofertas.busqueda')}}">Búsqueda avanzada>></a></div>
     </nav>
     <div class="col-md-9 order-md-2 mx-auto mt-4">
         <div class="div-oferta mb-3 no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250" novalidate>
@@ -18,10 +18,7 @@
           <div class="col-sm-12 px-3 mt-0 pt-0"><small class="text-muted text-uppercase">TOTALPLAT TELECOMUNICACIONES SA de CV</small></div>
           <div class="col-sm-12 px-3 mt-1">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, felis rhoncus lacinia vestibulum, magna ipsum tincidunt elit, 
-              et sodales erat diam vitae augue. Quisque tincidunt felis felis. Donec congue ultricies est, 
-              eget rutrum ex tristique vel. Ut bibendum tellus id massa porta aliquet. Nulla pellentesque id augue 
-              sit amet tempor. 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultrices, arcu a sagittis dictum, lorem nulla posuere orci, vel pulvinar posuere. 
             </p>
           </div>
           <div class="row col-sm-12 px-3">
