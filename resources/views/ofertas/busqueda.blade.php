@@ -11,63 +11,70 @@
         <div class="py-3 text-center">
             <h3>Búsqueda avanzada</h3>
         </div>
-        <div class="col-md-8 order-md-1">
-            <div class="mb-3">
+        <div class="row col-sm12 order-md-1">
+            <div class="col-sm-7 mb-3">
                 <label>¿Que empleo búscas?</label>
                 <input type="text" class="form-control" placeholder="Título o palabra clave">
             </div>
+            <div class="col-sm-5 mb-3">
+                <label>¿Que sueldo búscas ganar?</label>
+                <select class="form-control">
+                    <option >Menor a $1000</option>
+                    <option >Entre $1000 - $4000</option>
+                    <option >Entre $4000 - $6500</option>
+                    <option >Entre $6500 - $10000</option>
+                    <option >Mas de $10000</option>
+                </select>
+            </div>
         </div>
+        
         <hr class="mb-1">
         <!-- COLLAPSE-->
         <div class="row">
-            <div class=" mt-2 col-sm-8">
-            <h4 class="text-muted">Seleccionar tags de búsqueda</h4>
-            <div class="list-group d-block" id="list-tab" role="tablist">
-                <a class="list-group-item-action active" id="list-home-list" data-toggle="list" href="#a" role="tab" aria-controls="home">A</a>
-                <a class="list-group-item-action" id="list-profile-list" data-toggle="list" href="#b" role="tab" aria-controls="profile">B</a>
-                <a class="list-group-item-action" id="list-messages-list" data-toggle="list" href="#c" role="tab" aria-controls="messages">C</a>
-                <a class=" list-group-item-action" id="list-settings-list" data-toggle="list" href="#d" role="tab" aria-controls="settings">D</a>
-                <a class=" list-group-item-action" id="list-settings-list" data-toggle="list" href="#e" role="tab" aria-controls="settings">E</a>
-                <a class="list-group-item-action" id="list-profile-list" data-toggle="list" href="#f" role="tab" aria-controls="profile">F</a>
-                <a class="list-group-item-action" id="list-messages-list" data-toggle="list" href="#g" role="tab" aria-controls="messages">G</a>
-                <a class=" list-group-item-action" id="list-settings-list" data-toggle="list" href="#h" role="tab" aria-controls="settings">H</a>
-                <a class="list-group-item-action" id="list-profile-list" data-toggle="list" href="#i" role="tab" aria-controls="profile">I</a>
-                <a class="list-group-item-action" id="list-messages-list" data-toggle="list" href="#j" role="tab" aria-controls="messages">J</a>
-                <a class="list-group-item-action" id="list-settings-list" data-toggle="list" href="#k" role="tab" aria-controls="settings">K</a>
-                <a class="list-group-item-action" id="list-profile-list" data-toggle="list" href="#l" role="tab" aria-controls="profile">L</a>
-                <a class="list-group-item-action" id="list-messages-list" data-toggle="list" href="#m" role="tab" aria-controls="messages">M</a>
-                <a class=" list-group-item-action" id="list-settings-list" data-toggle="list" href="n" role="tab" aria-controls="settings">N</a>
-                <a class="list-group-item-action" id="list-profile-list" data-toggle="list" href="#o" role="tab" aria-controls="profile">O</a>
-                <a class="list-group-item-action" id="list-messages-list" data-toggle="list" href="#p" role="tab" aria-controls="messages">P</a>
-                <a class=" list-group-item-action" id="list-settings-list" data-toggle="list" href="#q" role="tab" aria-controls="settings">Q</a>
-                <a class="list-group-item-action" id="list-profile-list" data-toggle="list" href="#r" role="tab" aria-controls="profile">R</a>
-                <a class="list-group-item-action" id="list-messages-list" data-toggle="list" href="#s" role="tab" aria-controls="messages">S</a>
-                <a class="list-group-item-action" id="list-settings-list" data-toggle="list" href="#t" role="tab" aria-controls="settings">T</a>
-                <a class=" list-group-item-action" id="list-settings-list" data-toggle="list" href="#q" role="tab" aria-controls="settings">U</a>
-                <a class="list-group-item-action" id="list-profile-list" data-toggle="list" href="#r" role="tab" aria-controls="profile">W</a>
-                <a class="list-group-item-action" id="list-messages-list" data-toggle="list" href="#s" role="tab" aria-controls="messages">X</a>
-                <a class="list-group-item-action" id="list-settings-list" data-toggle="list" href="#t" role="tab" aria-controls="settings">Y</a>
-                <a class="list-group-item-action" id="list-settings-list" data-toggle="list" href="#t" role="tab" aria-controls="settings">Z</a>
-            </div>
-            <div class="tab-content " id="nav-tabContent">
-                <div class="tab-pane fade show active" id="a" role="tabpanel" aria-labelledby="list-home-list">
-                    <div class="tags text-uppercase text-secondary">
-                        @for ($i = 0; $i < 5; $i++)
-                        <span id="tag" class="px-2  border rounded ">Programacion{{$i}}</span>
-                        <span  class="px-2 border rounded ">php{{$i}}</span>
-                        <span class="px-2  border rounded ">Programacion{{$i}}</span>
-                        <span  class="px-2 border rounded ">php{{$i}}</span>
-                        <span  class="px-2  border rounded ">laravel{{$i}}</span>
-                        @endfor
-                    </div>
+            
+            <div class=" mt-2 col-sm-8 ">
+                <h4 class="text-muted">Seleccionar tags de búsqueda</h4>
+                <div class="list-group d-block" id="list-tab" role="tablist">
+                    <?php
+                        $abecedario=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'); 
+                        foreach($abecedario AS $letra){ 
+                            if($letra<>'A'){
+                                echo "<a class='list-group-item-action  ml-1' id='list-$letra' data-toggle='list' href='#$letra' role='tab'>".$letra."</a>";
+                            }else{
+                                echo "<a class='list-group-item-action active ml-1' id='list-$letra' data-toggle='list' href='#$letra' role='tab'>".$letra."</a>";
+                            }
+                        }
+                    ?>
                 </div>
-                <div class="tab-pane fade" id="b" role="tabpanel" aria-labelledby="list-messages-list">...</div>
-                <div class="tab-pane fade" id="c" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+                <div class="tab-content " id="nav-tabContent">
+                    <?php
+                       foreach($abecedario AS $letra){ 
+                            if($letra<>'A'){
+                                echo "<div class='tab-pane fade show' id='$letra' role='tabpanel'><div class='tags text-uppercase text-secondary'>";
+                            }else{
+                                echo "<div class='tab-pane fade show active' id='$letra' role='tabpanel'><div class='tags text-uppercase text-secondary'>";
+                                    
+                            }
+                            //Poner tags
+                            for ($i = 0; $i < 20; $i++){echo" <span class='px-2  border rounded'>Tag$i-$letra</span>";}        
+                            echo "</div></div>";
+                        }
+                    ?>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div>tagsseleccionados</diV>
-        </div>
+            <div class="col-sm-4 order-md-2 ">
+                <div class="no-gutters border rounded overflow-hidden mt-2 flex-md-row shadow-sm h-md-250" novalidate>
+                    <div class="title-tags col-sm-12 text-center py-1">
+                        <span>Tags seleccionados</span>
+                    </div>
+                    <div class="tags-container col-sm-12 px-2 py-1">
+                        <!--Tags seleccionados-->
+                    </div>
+                </diV>
+                <div class="col-sm-12 my-3 px-0 text-center">
+                    <button type="button" class="btn btn-buscar "><i class="fas fa-search"></i> Buscar ahora</button>
+                </div>
+            </div>
         </div>
     </div>
 

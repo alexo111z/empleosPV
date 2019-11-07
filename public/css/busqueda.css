@@ -37,9 +37,28 @@
   padding: 1px 4px 2px;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   vertical-align: baseline;
+  cursor:hand;
 }
 .tags{
   max-height: 200px;
   width: 100%;
   overflow: auto;
+}
+/*tags seleciconados*/
+.title-tags{
+  background-color: #009688;
+  color:#fff;
+  border: solid 1px #009688;
+}
+.tags-container{
+  min-height: 100px;
+  border: solid 1px #BDBDBD;
+}
+.btn-buscar{
+  background-color: #009688 !important;
+  min-width: 150px;
+  color: #fff !important;
+}
+.list-group-item-action.active{
+  color:#03A9F4 !important;
 }
