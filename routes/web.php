@@ -24,6 +24,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/login', 'LoginController@index')->name('login');
+
 //Usuarios
 Route::get('/usuarios/registro', 'UserController@registro')->name('users.registro');
 Route::post('/usuarios/crear', 'UserController@crear')->name('users.create');
@@ -43,9 +44,19 @@ Route::put('/empresas/{empresa}/{id}', 'EmpresaController@update')->name('emp.up
 //ofertas
 Route::get('/ofertas/lista/{empresa}', 'OfertaController@show')->name('oferta.list');
 
-
 Route::get('/ofertas/nueva/{empresa}', 'OfertaController@nueva')->name('oferta.nueva');
 Route::post('/oferta/crear/{id}', 'OfertaController@create')->name('oferta.create');
 
 //GENERAL
 Route::get('/ofertas', 'OfertaController@general')->name('gen.list');
+
+//Lupita
+
+/* Rutas de usuario */
+Route::get('/login',array('as' => 'usuarios.login', 'uses'=>'LoginController@index'));
+Route::get('/registrar',array('as' =>'usuarios.registrar', 'uses'=> 'UserController@registrar'));
+Route::get('/perfil', array('as' => 'usuarios.perfil', 'uses' => 'UserController@perfil'));
+
+/* rutas oferta */
+Route::get('/ofertas', array( 'as'=> 'ofertas.buscar', 'uses'=>  'OfertasController@ListaOfertas'));
+

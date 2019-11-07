@@ -1,0 +1,89 @@
+body {
+    font-size: .875rem;
+  }
+  
+  .feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+  }
+  main{
+    margin-top:60px;
+    margin-bottom: 60px;
+  }
+  /*Navegador*/
+header{
+  position: absolute;
+}
+.footer{
+ position: fixed;
+ bottom: 0;
+ width: 100%;
+}
+.btn-search{
+    background-color: #009688!important;
+    margin-top: 0 ;
+    padding-top: 0 ;
+    margin-bottom: 0 ;
+    padding-bottom: 0 ;
+}
+.btn-search:hover{
+    background-color: #03A9F4 !important;
+}
+.nav-buscador{
+  background-color: #e5e5e5 !important;
+}
+.jumbotron{
+  background-color: #e5e5e5 !important;
+  height: 300px;
+  display: none;
+}
+#link-cancelar{
+  display: none;
+}
+
+.div-search{
+    min-width: 270px !important;
+}
+/*OFERTAS*/
+.div-oferta:hover{
+  cursor: hand;
+  border: 1px solid;
+  -webkit-box-shadow: 6px 7px 24px 0px rgba(117,117,117,1)!important;
+  -moz-box-shadow: 6px 7px 24px 0px rgba(117,117,117,1)!important;
+  box-shadow: 6px 7px 24px 0px rgba(117,117,117,1)!important;
+
+}
+.tags{
+  font-size: 12px;
+  border-radius: 10px !important;
+  background-color: #ffffff;
+  color: #757575;
+}
+.tag{
+
+  padding-left: 2px;
+}
+/*TAGS
+.tags>span{
+  border-radius: 10px !important;
+  background-color: #ffffff;
+  -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+        border-radius: 3px;
+  color: #757575;
+
+  display: inline-block;
+  font-size: 11.844px;
+  font-weight: bold;
+  line-height: 21px;
+  margin: 2px 3px 2px 2px;
+  padding: 1px 4px 2px;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  vertical-align: baseline;
+}
+.tags{
+  max-height: 200px;
+  width: 100%;
+  overflow: auto;
+}*/
