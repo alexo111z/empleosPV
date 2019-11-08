@@ -19,6 +19,7 @@
             <div class="col-sm-5 mb-3">
                 <label>¿Que sueldo búscas ganar?</label>
                 <select class="form-control">
+                    <option >Sin sueldo específico</option>
                     <option >Menor a $1000</option>
                     <option >Entre $1000 - $4000</option>
                     <option >Entre $4000 - $6500</option>

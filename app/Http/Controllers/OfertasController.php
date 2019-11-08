@@ -13,4 +13,7 @@ class OfertasController extends Controller
     function BusquedaAvanzada(){
         return view('ofertas.busqueda');
     }
+    function VerOferta(){
+        return view('ofertas.veroferta');
+    }
 }
