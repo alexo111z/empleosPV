@@ -32,6 +32,7 @@ Route::get('/perfil', array('as' => 'usuarios.perfil', 'uses' => 'UserController
 Route::get('/ofertas', array( 'as'=> 'ofertas.lista', 'uses'=>  'OfertasController@ListaOfertas'));
 Route::get('/busqueda', array('as' =>'ofertas.busqueda', 'uses' => 'OfertasController@BusquedaAvanzada'));
 Route::get('/veroferta', array('as' =>'ofertas.veroferta', 'uses' => 'OfertasController@VerOferta'));
+Route::get('/postulaciones',array('as' =>'postulaciones', 'uses' => 'OfertasController@Postulaciones'));
 
 
 Route::get('/registrousuario', 'UserController@registro');

@@ -16,4 +16,7 @@ class OfertasController extends Controller
     function VerOferta(){
         return view('ofertas.veroferta');
     }
+    function Postulaciones(){
+        return view('ofertas.postulaciones');
+    }
 }

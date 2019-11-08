@@ -41,13 +41,13 @@ a.btn.btn-login:hover, a.btn.btn-login:active {
 
 /*footer*/
 .featurette-divider{
-    border-top: 1px solid #757575;
+    border-top: 1px solid #757575 !important;
     
 }
 main{
     margin-top:50px;
-    min-height:80%;
-    padding: auto;
+    min-height:85%;
+    padding: auto !important;
 }
 body{
     padding: auto;
