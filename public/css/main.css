@@ -1,11 +1,15 @@
 
 
 /* ******HEADER ******** */
+header{
+    top: 0;
+}
 nav.navbar{
     background-color: #0288D1;
     padding-right: 5%;
     padding-left: 5%;
-
+    padding-bottom: 5px;
+    padding-top:3px;
 }
 a.nav-link{
     color:#fff !important;
@@ -37,16 +41,21 @@ a.btn.btn-login:hover, a.btn.btn-login:active {
 
 /*footer*/
 .featurette-divider{
-    border-top: 1px solid #757575;
+    border-top: 1px solid #757575 !important;
     
 }
 main{
-
-    padding: auto;
+    margin-top:50px;
+    min-height:85%;
+    padding: auto !important;
 }
 body{
     padding: auto;
 }
 footer{
     background-color: #fff;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: 'k2d', sans-serif !important;
 }

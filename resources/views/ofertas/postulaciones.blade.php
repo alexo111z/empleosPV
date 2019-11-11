@@ -3,14 +3,8 @@
 @section('body')
 
   <main role="main" class="col-md-12 py-0 px-0">
-    <nav class="nav-buscador navbar  flex-md-nowrap mt-6">
-    <div class="row div-search input-group search-group text-center pt-2 mx-auto w-50 mb-1">
-        <input class="form-control mx-auto form-control-dark " type="text" placeholder="Busca empleos ahora" aria-label="Search">
-        <div class="input-group-prepend">
-            <button class="btn btn-search my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </div>
-    </div>
-    <div class="div-busqueda-avanzada text-right"><i class="fas fa-cog"></i> <a class="link-busqueda" href="{{route('ofertas.busqueda')}}">Búsqueda avanzada>></a></div>
+    <nav class="nav-buscador navbar px-auto  flex-md-nowrap  text-center">
+        <h3 class="mx-auto pt-3 pb-0"><i class="fa fa-briefcase"></i> Mis postulaciones</h3>
     </nav>
     
     <div class="col-md-9 order-md-2 mx-auto mt-4">
@@ -29,17 +23,17 @@
             </div>
             <div class="tags  col-sm-8 text-right pb-3 pr-0 mr-0"><i class='fas fa-tags'></i>
               @for ($i = 0; $i < 10; $i++)
-              <span class="tag">mitag{{$i}}</span>
+                <span class="tag">mitag{{$i}}</span>
                 @if($i < 9)
-                <span>,</span>
+                  <span>,</span>
                 @endif  
               @endfor
             </div>
           </div>
+
         </div>
       <!--fin oferta-->
     </div>
-    
-    
-  </main>
+      
+</main>
 @endsection

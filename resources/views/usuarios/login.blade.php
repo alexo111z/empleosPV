@@ -3,7 +3,7 @@
 	
 	<link href="{{asset('css/login.css')}}" rel="stylesheet">
 		<main role="main">
-		<div class="container h-100">
+		<div class="container mb-2">
 			<div class="d-flex justify-content-center h-100">
 				<div class="user_card">
 					<div class="form-title text-center align-middle">

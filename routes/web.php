@@ -19,9 +19,11 @@ Route::get('/ejemplo', function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
+
+Route::get('/', array('as' => 'home','uses'=> function () {
+    //return "Index";
     return view('home');
-})->name('home');
+}));
 
 Route::get('/login', 'LoginController@index')->name('login');
 
@@ -50,13 +52,20 @@ Route::post('/oferta/crear/{id}', 'OfertaController@create')->name('oferta.creat
 //GENERAL
 Route::get('/ofertas', 'OfertaController@general')->name('gen.list');
 
-//Lupita
 
+//Lupita
 /* Rutas de usuario */
 Route::get('/login',array('as' => 'usuarios.login', 'uses'=>'LoginController@index'));
 Route::get('/registrar',array('as' =>'usuarios.registrar', 'uses'=> 'UserController@registrar'));
 Route::get('/perfil', array('as' => 'usuarios.perfil', 'uses' => 'UserController@perfil'));
 
 /* rutas oferta */
-Route::get('/ofertas', array( 'as'=> 'ofertas.buscar', 'uses'=>  'OfertasController@ListaOfertas'));
+Route::get('/ofertas', array( 'as'=> 'ofertas.lista', 'uses'=>  'OfertasController@ListaOfertas'));
+Route::get('/busqueda', array('as' =>'ofertas.busqueda', 'uses' => 'OfertasController@BusquedaAvanzada'));
+Route::get('/veroferta', array('as' =>'ofertas.veroferta', 'uses' => 'OfertasController@VerOferta'));
+Route::get('/postulaciones',array('as' =>'postulaciones', 'uses' => 'OfertasController@Postulaciones'));
+
+
+Route::get('/registrousuario', 'UserController@registro');
+Route::post('/usuarios/crear', 'UserController@crear');
 
