@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 class OfertasController extends Controller
 {
     function ListaOfertas(){
-//        $ofertas = Oferta::where('id_usuario', );
-        $tags = RelacionTag::
-        return view('ofertas.ofertas', compact('ofertas'));
+        $ofertas = Oferta::all();
+        $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
+        return view('ofertas.ofertas', compact('ofertas', 'rTags'));
     }
     function BusquedaAvanzada(){
         return view('ofertas.busqueda');

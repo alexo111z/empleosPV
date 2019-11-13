@@ -40,30 +40,31 @@
         </div>
       <!--fin oferta-->
 
+        @foreach($ofertas as $oferta)
         <!--div oferta-->
         <div class="div-oferta mb-3 no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250" onclick="location.href='{{route('ofertas.veroferta')}}'" novalidate>
-            <div class="col-sm-12 px-3 pt-3"><h4 class="mb-0">Promotora de marca</h4></div>
-            <div class="col-sm-12 px-3 mt-0 pt-0"><small class="text-muted text-uppercase">TOTALPLAT TELECOMUNICACIONES SA de CV</small></div>
+            <div class="col-sm-12 px-3 pt-3"><h4 class="mb-0">{{ $oferta->titulo }}</h4></div>
+            <div class="col-sm-12 px-3 mt-0 pt-0"><small class="text-muted text-uppercase">{{ $oferta->empresa->nombre }}</small></div>
             <div class="col-sm-12 px-3 mt-1">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultrices, arcu a sagittis dictum, lorem nulla posuere orci, vel pulvinar posuere.
+                    {{ $oferta->d_corta }}
                 </p>
             </div>
             <div class="row col-sm-12 px-3">
                 <div class="col-sm-4">
-                    <p class="text-muted"><i class='fas fa-map-marker-alt'></i> Puerto Vallarta, Jalisco</p>
+                    <p class="text-muted"><i class='fas fa-map-marker-alt'></i> {{ $oferta->ciudad }}, {{ $oferta->estado }}</p>
                 </div>
                 <div class="tags  col-sm-8 text-right pb-3 pr-0 mr-0"><i class='fas fa-tags'></i>
-                    @for ($i = 0; $i < 10; $i++)
-                        <span class="tag">mitag{{$i}}</span>
-                        @if($i < 9)
-                            <span>,</span>
+                    @foreach($rTags as $tags)
+                        @if($tags->id_oferta == $oferta->id)
+                            <span>{{ $tags->tag->nombre }}, </span>
                         @endif
-                    @endfor
+                    @endforeach
                 </div>
             </div>
         </div>
         <!--fin oferta-->
+        @endforeach
 
 
 

@@ -21,7 +21,7 @@ class Oferta extends Model
         'ciudad',
     ];
 
-    public function estudios(){
+    public function empresa(){
         return $this->belongsTo(Empresa::class, 'id_emp');
     }
 
