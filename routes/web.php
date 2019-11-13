@@ -26,10 +26,11 @@ Route::get('/', array('as' => 'home','uses'=> function () {
 }));
 
 Route::get('/login', 'LoginController@index')->name('login');
+//Route::get('/login',array('as' => 'usuarios.login', 'uses'=>'LoginController@index'));
 
 //Usuarios
 Route::get('/usuarios/registro', 'UserController@registro')->name('users.registro');
-Route::post('/usuarios/crear', 'UserController@crear')->name('users.create');
+Route::post('/usuarios/crear', array('as' => 'users.create', 'uses' => 'UserController@crear'));
 
 Route::get('/usuarios/{user}/editar', 'UserController@editar')->name('users.editPage');
 Route::put('/usuarios/{user}/{id}', 'UserController@update')->name('users.update');
@@ -50,7 +51,7 @@ Route::get('/ofertas/nueva/{empresa}', 'OfertaController@nueva')->name('oferta.n
 Route::post('/oferta/crear/{id}', 'OfertaController@create')->name('oferta.create');
 
 //GENERAL
-Route::get('/ofertas', 'OfertaController@general')->name('gen.list');
+Route::get('/ofertas2', 'OfertaController@general')->name('gen.list');
 
 
 //Lupita

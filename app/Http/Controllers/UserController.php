@@ -2,53 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Area;
+use App\NEstudio;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     function registrar(){
-        return view('usuarios.registrar');
+        $estudios = NEstudio::all();
+        $areas = Area::all();
+        return view('usuarios.registrar', compact('estudios', 'areas'));
     }
     function perfil(){
         return view('usuarios.perfil');
     }
 
 
-
-
-
+    //Luis - Sin formato
     function registro(){
         return view('temp.users.registro');
     }
-    
 
-    function crear(){
-
-        $data = request()->validate([
+    function crear(Request $request){
+        //validate() -> utiliza el 'name' del campo
+        $data = $request->validate([
+            "email" => ['required', 'email', 'unique:users,email'], //unique:tabla,columna
+            "password" => ['required', 'between:1,8', 'same:password2'],
+            "password2" => ['required', 'between:1,8'],
             "firstName" => 'required',
             "lastName" => 'required',
-            "email" => ['required', 'email', 'unique:users,email'],
-            "password" => ['required', 'between:1,8'], //unique:tabla,columna
-            "edad" => ['required', 'numeric'],
-            "fecha" => ['required', 'date_format:Y-m-d'],   //'Y-m-d'
-            "genero" => 'required',
+            "trip-start" => ['required', 'date_format:Y-m-d'],   //'Y-m-d'  born date
+            "sexo" => 'required', //genero
             "estudios" => 'required',
             "area" => 'required',
+            //Calcular edad para insercion
         ],[
             'name.required' => 'El campo esta vacio'
         ]);
+
+        $date1 = Carbon::createFromDate($data['trip-start']);
+        $ahora = Carbon::now();
+        $edad = $date1->diffInYears($ahora);
 
         User::create([
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'nombre' => $data['firstName'],
             'apellido' => $data['lastName'],
-            'nacimiento' => $data['fecha'],
-            'genero' => $data['genero'],
+            'nacimiento' => $data['trip-start'],
+            'genero' => $data['sexo'],
             'id_estudios' => $data['estudios'],
             'id_estudios' => $data['area'],
-            'edad' => $data['edad'],
+            'edad' => $edad,
         ]);
 
         return redirect()->route('home');

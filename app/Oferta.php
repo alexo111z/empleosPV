@@ -20,4 +20,9 @@ class Oferta extends Model
         'estado',
         'ciudad',
     ];
+
+    public function estudios(){
+        return $this->belongsTo(Empresa::class, 'id_emp');
+    }
+
 }

@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Oferta;
+use App\RelacionTag;
 use Illuminate\Http\Request;
 
 class OfertasController extends Controller
 {
     function ListaOfertas(){
-        return view('ofertas.ofertas');
+//        $ofertas = Oferta::where('id_usuario', );
+        $tags = RelacionTag::
+        return view('ofertas.ofertas', compact('ofertas'));
     }
     function BusquedaAvanzada(){
         return view('ofertas.busqueda');
