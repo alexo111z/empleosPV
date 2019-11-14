@@ -17,8 +17,10 @@ class OfertasController extends Controller
     function BusquedaAvanzada(){
         return view('ofertas.busqueda');
     }
-    function VerOferta(){
-        return view('ofertas.veroferta');
+    function VerOferta($id){
+        $oferta = Oferta::findOrFail($id);
+        $tags = RelacionTag::where('id_oferta', '=', $id)->get();
+        return view('ofertas.veroferta', compact('oferta','tags'));
     }
     function Postulaciones(){
         return view('ofertas.postulaciones');

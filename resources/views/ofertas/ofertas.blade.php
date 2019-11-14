@@ -16,7 +16,7 @@
     <div class="col-md-9 order-md-2 mx-auto mt-4">
 
     <!--div oferta-->
-        <div class="div-oferta mb-3 no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250" onclick="location.href='{{route('ofertas.veroferta')}}'" novalidate>
+        <div class="div-oferta mb-3 no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250" novalidate>
           <div class="col-sm-12 px-3 pt-3"><h4 class="mb-0">Promotora de marca</h4></div>
           <div class="col-sm-12 px-3 mt-0 pt-0"><small class="text-muted text-uppercase">TOTALPLAT TELECOMUNICACIONES SA de CV</small></div>
           <div class="col-sm-12 px-3 mt-1">
@@ -42,7 +42,7 @@
 
         @foreach($ofertas as $oferta)
         <!--div oferta-->
-        <div class="div-oferta mb-3 no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250" onclick="location.href='{{route('ofertas.veroferta')}}'" novalidate>
+        <div class="div-oferta mb-3 no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250" onclick="location.href='{{ route('ofertas.veroferta', ['oferta' => $oferta->id, $oferta->titulo] ) }}'" novalidate>
             <div class="col-sm-12 px-3 pt-3"><h4 class="mb-0">{{ $oferta->titulo }}</h4></div>
             <div class="col-sm-12 px-3 mt-0 pt-0"><small class="text-muted text-uppercase">{{ $oferta->empresa->nombre }}</small></div>
             <div class="col-sm-12 px-3 mt-1">
