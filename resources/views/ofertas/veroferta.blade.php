@@ -51,9 +51,20 @@
                     <img src="https://via.placeholder.com/200x200.png">
                     <h5 class="my-1 mx-3">{{ $oferta->empresa->nombre }}</h5>
                 </div>
-                <div class="col-sm-12 my-3 px-3 text-center">
-                    <button type="button" class="btn btn-postular btn-block "><h5>Postularme</h5></button>
-                </div>
+{{--                Validar, que no deje volver a solicitar al mismo usuario--}}
+                <form method="post" action="{{ route('oferta.solicitud', [$oferta->id]) }}">
+                    <div class="col-sm-12 my-3 px-3 text-center">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-postular btn-block "><h5>Postularme</h5></button>
+                    </div>
+                </form>
+
+                <form method="post" action="{{ route('oferta.solicitud.cancelar', [$oferta->id]) }}">
+                    <div class="col-sm-12 my-3 px-3 text-center">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-danger btn-block "><h5>Cancelar postulación</h5></button>
+                    </div>
+                </form>
 
             </div>
         </div>
