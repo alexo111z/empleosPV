@@ -36,6 +36,8 @@ class CreateEmpresasTable extends Migration
 
             $table->string('logo')->nullable(); //direccion del logo
 
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
