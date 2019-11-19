@@ -37,21 +37,41 @@
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{route('postulaciones')}}">Mis postulaciones</a></li>
                     </ul>
+                    @guest
+                        <div class="form-inline ">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown show">
+                                    <a class="btn btn-login dropdown-toggle" href="{{ route('usuarios.login') }}" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Inicia sesión
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="{{route('usuarios.login')}}">Iniciar sesión</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    @else
                     <div class="form-inline ">
                         <ul class="navbar-nav mr-auto">
-                            
+
                             <li class="nav-item dropdown show">
                                 <a class="btn btn-login dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img class="icon-profile" src="https://via.placeholder.com/30x30.png">María Guadalupe
+                                    <img class="icon-profile" src="https://via.placeholder.com/30x30.png">{{ auth()->user()->fullname }}<!--María Guadalupe-->
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item" href="{{route('usuarios.perfil')}}">Mi perfil</a>
                                     <a class="dropdown-item" href="#">Cambiar contraseña</a>
-                                    <a class="dropdown-item" href="#">Cerrar sesión</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+
                                 </div>
                             </li>
-                         <ul>
+                         </ul>
                     </div>
+                    @endguest
                 </div>
             </nav>
             @endsection

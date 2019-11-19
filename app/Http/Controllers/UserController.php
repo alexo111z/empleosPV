@@ -19,8 +19,7 @@ class UserController extends Controller
         return view('usuarios.perfil');
     }
 
-
-    //Luis - Sin formato
+    //Luis - Sin formato -Eliminar
     function registro(){
         return view('temp.users.registro');
     }
