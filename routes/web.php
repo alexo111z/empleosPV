@@ -30,7 +30,6 @@ Route::get('/login', 'LoginController@index')->name('login');
 
 //Usuarios
 Route::get('/usuarios/registro', 'UserController@registro')->name('users.registro');
-Route::post('/usuarios/crear', array('as' => 'users.create', 'uses' => 'UserController@crear'));
 
 Route::get('/usuarios/{user}/editar', 'UserController@editar')->name('users.editPage');
 Route::put('/usuarios/{user}/{id}', 'UserController@update')->name('users.update');
@@ -57,7 +56,11 @@ Route::get('/ofertas2', 'OfertaController@general')->name('gen.list');
 //Lupita
 /* Rutas de usuario */
 Route::get('/login',array('as' => 'usuarios.login', 'uses'=>'LoginController@index'));
+Route::post('/user/login', array('as' => 'usuarios.sesion', 'uses'=>'LoginController@loginUsuario'));
+
 Route::get('/registrar',array('as' =>'usuarios.registrar', 'uses'=> 'UserController@registrar'));
+Route::post('/usuarios/crear', array('as' => 'users.create', 'uses' => 'UserController@crear'));
+
 Route::get('/perfil', array('as' => 'usuarios.perfil', 'uses' => 'UserController@perfil'));
 
 /* rutas oferta */
@@ -68,7 +71,9 @@ Route::post('/solicitar/{oferta}', array('as' => 'oferta.solicitud', 'uses'=> 'O
 Route::post('/solicitar/{oferta}/cancelar', array('as' => 'oferta.solicitud.cancelar', 'uses'=> 'OfertasController@cancelarPostulacion'));
 Route::get('/postulaciones',array('as' =>'postulaciones', 'uses' => 'OfertasController@Postulaciones'));
 
+//Logout
+Route::post('/user/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));  //is in header.blade
 
-Route::get('/registrousuario', 'UserController@registro');
-Route::post('/usuarios/crear', 'UserController@crear');
+Route::get('/registrousuario', 'UserController@registro');  //Luis - eliminar
+Route::post('/usuarios/crear', 'UserController@crear');   //Luis - eliminar
 

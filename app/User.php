@@ -24,7 +24,9 @@ class User extends Authenticatable
         'id_area',
         'edad',
     ];
-
+    public function getFullnameAttribute(){
+        return $this->nombre .' '. $this->apellido;
+    }
     public function estudios(){
         return $this->belongsTo(NEstudio::class, 'id_estudios');
     }
