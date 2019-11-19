@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Area;
 use App\NEstudio;
+use App\RelacionTag;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,7 +17,10 @@ class UserController extends Controller
         return view('usuarios.registrar', compact('estudios', 'areas'));
     }
     function perfil(){
-        return view('usuarios.perfil');
+        $rTags = RelacionTag::where('id_usuario', '=', auth()->user()->id)->get();
+        $estudios = NEstudio::all();
+        $areas = Area::all();
+        return view('usuarios.perfil', compact('rTags', 'estudios', 'areas'));
     }
 
     //Luis - Sin formato -Eliminar

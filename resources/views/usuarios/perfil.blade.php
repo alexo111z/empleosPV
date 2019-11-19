@@ -113,10 +113,10 @@
                                 <input type="text" class="form-control" id="TxtTel" name="telefono" placeholder="" value="{{ auth()->user()->telefono }}" required>
                             </div>
                             <div id="DivPrivacidad" class="ml-4">
-                                <small class="text-privacity text-muted">Privacidad:</small><small class="text-privacity text-muted">Publico</small>
+                                <small class="text-privacity text-muted">Privacidad:</small><small class="text-privacity text-muted">{{ auth()->user()->coment ? 'Publico' : 'Privado' }}</small>
                             </div>
                            <div id="DivPrivacidad2" class="ml-4">
-                                <h6 class="my-0">Privacidad</h6>
+                                <h6 class="my-0">Privacidad</h6>  <!-- Acomodar edicion -->
                                 <select id="CmbCiudad"  class="form-control">
                                         <option value="volvo">Privado</option>
                                         <option value="saab">Publico</option>
@@ -136,9 +136,9 @@
 
                                 <div class="col-md-5 mb-3">
                                     <h6>Nivel de estudios</h6>
-                                    <span id="LblUniversidad">Universidad</span>
+                                    <span id="LblUniversidad">{{ auth()->user()->estudios->nivel }}</span>
 
-                                    <select id="CmbUniversidad"  class="form-control">
+                                    <select id="CmbUniversidad"  class="form-control"> <!-- Acomodar edicion -->
                                         <option value="volvo">Primaria</option>
                                         <option value="saab">Secundaria</option>
                                         <option value="mercedes">Preparatoria</option>
@@ -147,8 +147,8 @@
                                 </div>
                                 <div class="col-md-5 mb-3">
                                     <h6 class="t">Área</h6>
-                                    <span id="LblArea">Sistemas Computacionales</span>
-                                    <select id="TxtArea"  class="form-control">
+                                    <span id="LblArea">{{ auth()->user()->area->area }}</span>
+                                    <select id="TxtArea"  class="form-control"> <!-- Acomodar edicion -->
                                         <option value="volvo">Primaria</option>
                                         <option value="saab">Secundaria</option>
                                         <option value="mercedes">Preparatoria</option>
@@ -168,7 +168,7 @@
                                 <div class="col-md-12 mb-3">
                                     <h6>Conocimientos</h6>
                                     <blockquote id="BlockConocimientos">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        {{ auth()->user()->conocimientos == null ? 'Actualiza tu información' : auth()->user()->conocimientos }}
                                     </blockquote>
                                     <textarea class="form-control mb-2" id="TxtConocimientos" rows="3"></textarea>
                                     <div class="col-md-12 mb-0 ml-0  text-right ">
@@ -181,13 +181,14 @@
                                 <div class="col-md-12 mb-3">
                                     <h6>Habilidades (Tags)</h6>
                                     <div class="tags text-uppercase text-secondary">
-                                        @for ($i = 0; $i < 5; $i++)
-                                        <span id="tag" class="px-2  border rounded ">Programacion</span>
-                                        <span  class="px-2 border rounded ">php</span>
-                                        <span class="px-2  border rounded ">Programacion</span>
-                                        <span  class="px-2 border rounded ">php</span>
-                                        <span  class="px-2  border rounded ">laravel</span>
-                                        @endfor
+{{--                                        <span id="tag" class="px-2  border rounded ">prueba</span>--}}
+                                        @if($rTags->count() != 0)
+                                        @foreach($rTags as $tag)
+                                            <span id="tag" class="px-2  border rounded ">{{ $tag->tag->nombre }}</span>
+                                        @endforeach
+                                        @else
+                                            Actualiza tu información
+                                        @endif
                                     </div>
                                     <div class="col-md-12 mb-0 ml-0  text-right">
                                         <button type="button " onclick="javascript:mostrar_habilidades();" class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/plus.png')}}">Agregar</button>
