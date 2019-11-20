@@ -48,6 +48,7 @@ class UserController extends Controller
         $date1 = Carbon::createFromDate($data['trip-start']);
         $ahora = Carbon::now();
         $edad = $date1->diffInYears($ahora);
+        $alias = substr($data['email'], 0, strpos($data['email'], "@"));
 
         User::create([
             'email' => $data['email'],
@@ -59,6 +60,7 @@ class UserController extends Controller
             'id_estudios' => $data['estudios'],
             'id_estudios' => $data['area'],
             'edad' => $edad,
+            'alias' => $alias,
         ]);
 
         return redirect()->route('home');

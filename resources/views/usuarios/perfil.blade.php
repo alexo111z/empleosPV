@@ -35,7 +35,7 @@
                             <hr class="ml-4 mr-4">
                             <div class="col-md-5 ml-4">
                                 <h6 class="my-0">Fecha de nacimiento</h6>
-                                <small id="TxtFecha" class="text-muted">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', auth()->user()->nacimiento)->format('d-m-Y') }}</small>
+                                <small id="TxtFecha" class="text-muted">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', auth()->user()->nacimiento)->format('j-F-Y') }}</small><!-- d-m-Y, j-F-Y-->
                                 <input id="CmbFecha"type="date" class="form-control" id="date"  value="2000-01-01" min="1960-01-01" max="2002-12-31">
                             </div>
                             <div id="DivEdad"class="col-md-5 ml-4">
