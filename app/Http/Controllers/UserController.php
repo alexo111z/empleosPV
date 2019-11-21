@@ -88,4 +88,44 @@ class UserController extends Controller
 
         return redirect()->route('home');
     }
+    function editarPersonal(Request $request){
+        $data = $request->all();
+        $user = User::findOrFail(auth()->user()->id);
+
+        $date1 = Carbon::createFromDate($data['nacimiento']);
+        $ahora = Carbon::now();
+        $edad = $date1->diffInYears($ahora);
+
+//        dd($data['pais'], $data['estado'],$data['ciudad']);
+
+        $user->nacimiento = $data['nacimiento'];
+        $user->edad = $edad;
+        $user->genero = $data['genero'];
+        $user->estado = $data['estado'];
+        $user->ciudad = $data['ciudad'];
+        $user->pais = $data['pais'];
+        $user->save();
+
+        return redirect()->back();
+    }
+    function editarContacto(Request $request){
+        $data = $request->all();
+        User::findOrFail(auth()->user()->id)->update($data);
+        return redirect()->back();
+    }
+    function editarAcademica(Request $request){
+        $data = $request->all();
+        User::findOrFail(auth()->user()->id)->update([
+            'id_estudios' => $data['estudios'],
+            'id_area' => $data['area'],
+        ]);
+        return redirect()->back();
+    }
+    function editarLaboral(Request $request){
+        $data = $request->all();
+        User::findOrFail(auth()->user()->id)->update([
+            'conocimientos' => $data['conocimientos'],
+        ]);
+        return redirect()->back();
+    }
 }

@@ -94,7 +94,7 @@ button.icon:hover{
   }
 
   /* elementos para editar*/
-  #BtnGuardarContacto,#DivPrivacidad2,#CmbFecha,#BtnGuardarPersonal, #DivSexo,#DivCiudad2, #CmbUniversidad,#TxtArea,#BtnGuardarAca, #TxtConocimientos, #BtnGuardarCon, #TxtTel, #TxtEmail{
+  #SavePersonal,#SaveContacto,#SaveAca,#SaveCon,#BtnGuardarContacto,#DivPrivacidad2,#CmbFecha,#BtnGuardarPersonal, #DivSexo,#DivCiudad2, #CmbUniversidad,#TxtArea,#BtnGuardarAca, #TxtConocimientos, #BtnGuardarCon, #TxtTel, #TxtEmail{
       display: none;
   }
   input,select{

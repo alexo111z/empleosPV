@@ -8,6 +8,7 @@ use App\RelacionTag;
 use App\Solicitud;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OfertasController extends Controller
 {
@@ -20,13 +21,17 @@ class OfertasController extends Controller
         return view('ofertas.busqueda');
     }
     function VerOferta($id){
+        $ufer = null;
+        if (Auth::check()){
+            $user = User::findOrFail(auth()->user()->id);
+            $ufer = Solicitud::where('id_usuario', $user->id)->where('id_oferta', $id)->where('estado', 1)->get();
+        }
         $oferta = Oferta::findOrFail($id);
         $tags = RelacionTag::where('id_oferta', '=', $id)->get();
-        return view('ofertas.veroferta', compact('oferta','tags'));
+        return view('ofertas.veroferta', compact('oferta','tags', 'ufer'));
     }
     function solicitar($id){
-        $correo = 'puerba@correo.com';  //Obtener id o correo mediante la Autentificacion
-        $user = User::where('email', $correo)->firstOrFail();
+        $user = User::findOrFail(auth()->user()->id);
 
         Solicitud::create([
             'id_oferta' => $id,
@@ -36,8 +41,7 @@ class OfertasController extends Controller
     }
 
     function Postulaciones(){
-        $correo = 'puerba@correo.com';  //Obtener id o correo mediante la Autentificacion
-        $user = User::where('email', $correo)->firstOrFail();
+        $user = User::findOrFail(auth()->user()->id);
 
         $ofertas = Solicitud::where('id_usuario', $user->id)->where('estado', 1)->get();
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
@@ -45,8 +49,7 @@ class OfertasController extends Controller
         return view('ofertas.postulaciones', compact('ofertas', 'rTags'));
     }
     function cancelarPostulacion($id){
-        $correo = 'puerba@correo.com';  //Obtener id o correo mediante la Autentificacion
-        $user = User::where('email', $correo)->firstOrFail();
+        $user = User::findOrFail(auth()->user()->id);
 
         $solicitud = Solicitud::where('id_oferta', $id)->where('id_usuario', $user->id)->firstOrFail();
         $solicitud->delete();

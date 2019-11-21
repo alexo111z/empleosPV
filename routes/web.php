@@ -62,6 +62,10 @@ Route::get('/registrar',array('as' =>'usuarios.registrar', 'uses'=> 'UserControl
 Route::post('/usuarios/crear', array('as' => 'users.create', 'uses' => 'UserController@crear'));
 
 Route::get('/perfil', array('as' => 'usuarios.perfil', 'uses' => 'UserController@perfil'));
+Route::post('/perfil/Personal', array('as' => 'perfil.personal', 'uses' => 'UserController@editarPersonal'));
+Route::post('/perfil/Contacto', array('as' => 'perfil.contacto', 'uses' => 'UserController@editarContacto'));
+Route::post('/perfil/Academica', array('as' => 'perfil.academica', 'uses' => 'UserController@editarAcademica'));
+Route::post('/perfil/Laboral', array('as' => 'perfil.laboral', 'uses' => 'UserController@editarLaboral'));
 
 /* rutas oferta */
 Route::get('/ofertas', array( 'as'=> 'ofertas.lista', 'uses'=>  'OfertasController@ListaOfertas'));
@@ -72,7 +76,7 @@ Route::post('/solicitar/{oferta}/cancelar', array('as' => 'oferta.solicitud.canc
 Route::get('/postulaciones',array('as' =>'postulaciones', 'uses' => 'OfertasController@Postulaciones'));
 
 //Logout
-Route::post('/user/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));  //is in header.blade
+Route::post('/user/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));  //logout en header.blade
 
 Route::get('/registrousuario', 'UserController@registro');  //Luis - eliminar
 Route::post('/usuarios/crear', 'UserController@crear');   //Luis - eliminar
