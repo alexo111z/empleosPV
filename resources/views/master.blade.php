@@ -6,6 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Jekyll v3.8.5">
+        <meta name="_token" content="{{csrf_token()}}" />
         <title>PV-WORK</title>
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700|K2D:200,400,700,800&display=swap" rel="stylesheet">
         <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/carousel/">

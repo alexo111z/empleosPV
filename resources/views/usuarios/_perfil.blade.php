@@ -1,6 +1,5 @@
 @extends('master')
 @section('body')
-
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="{{asset('css/perfil.css')}}" rel="stylesheet">
         <script src="{{asset('js/perfil.js')}}"type="text/javascript">
@@ -178,32 +177,23 @@
                                     </div>
                                     <hr class="ml-3 mr-3">
                                 </div>
-                            <!-- SECCION DE TAGS*****-->
+
                                 <div class="col-md-12 mb-3">
                                     <h6>Habilidades (Tags)</h6>
-    
                                     <div class="tags text-uppercase text-secondary">
-                                    @foreach($rtags as $tags)
-                                        @if($tags->id_usuario == auth()->user()->id)
-                                            <span>{{ $tags->tag->nombre }}</span>
-                                        @endif
-                                    @endforeach
+                                        @for ($i = 0; $i < 5; $i++)
+                                        <span id="tag" class="px-2  border rounded ">Programacion</span>
+                                        <span  class="px-2 border rounded ">php</span>
+                                        <span class="px-2  border rounded ">Programacion</span>
+                                        <span  class="px-2 border rounded ">php</span>
+                                        <span  class="px-2  border rounded ">laravel</span>
+                                        @endfor
                                     </div>
-                                    <div class="col-md-12 mb-0 ml-0  text-left">
-                                   <form method="post" action="{{url('/perfil/createtags')}}">
-                                        {{ csrf_field() }}
-                                        <input type="text" class="form-control"  name="inputtag" placeholder="Introduce tag" >
-                                        <button type="submit" id="addTags" data-href="{{url('/perfil/createtags')}}" class="form-inline icon btn btn-light "><img src="{{asset('images/icon/plus.png')}}">Agregar</button>
-                                    </form>
-                                    </div>
-                                    <!--<div class="col-md-12 mb-0 ml-0  text-right"> 
+                                    <div class="col-md-12 mb-0 ml-0  text-right">
                                         <button type="button " onclick="javascript:mostrar_habilidades();" class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/plus.png')}}">Agregar</button>
-                                    </div>-->
+                                    </div>
                                     <hr class="ml-3 mr-3">
                                 </div>
-                            <!-- SECCION DE TAGS*****-->
-
-
                                 <div class="col-md-12 mb-3">
                                     <h6>Curriculum</h6>
                                     <div class="row mr-4 ml-4">
@@ -218,6 +208,7 @@
                                         </div>
                                   </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -225,8 +216,5 @@
                 <!-- -->
             </div>
         </main>
-@endsection
-@section('scripts')
 
-   <script src="{{asset('js/EditPerfil.js')}}"> </script>
 @endsection

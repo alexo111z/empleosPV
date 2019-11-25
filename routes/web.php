@@ -43,6 +43,10 @@ Route::post('/empresas/crear', 'EmpresaController@crear')->name('emp.create');
 Route::get('/empresas/{empresa}/edit', 'EmpresaController@editar')->name('emp.edit');
 Route::put('/empresas/{empresa}/{id}', 'EmpresaController@update')->name('emp.update');
 
+
+//LUPITA TAGS
+Route::post('/perfil/createtags', 'TagsController@Insert')->name('tags.insert');
+
 //ofertas
 Route::get('/ofertas/lista/{empresa}', 'OfertaController@show')->name('oferta.list');
 

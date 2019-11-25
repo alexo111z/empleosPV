@@ -7,7 +7,7 @@ use App\NEstudio;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use App\RelacionTag;
 class UserController extends Controller
 {
     function registrar(){
@@ -16,7 +16,10 @@ class UserController extends Controller
         return view('usuarios.registrar', compact('estudios', 'areas'));
     }
     function perfil(){
-        return view('usuarios.perfil');
+      
+        $rtags = RelacionTag::where('id_usuario', '=', auth()->user()->id)->get();
+        
+        return view('usuarios.perfil',compact('rtags'));
     }
 
     //Luis - Sin formato -Eliminar

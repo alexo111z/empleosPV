@@ -11,4 +11,8 @@ class RelacionTag extends Model
     public function tag(){
         return $this->belongsTo(Tag::class, 'id_tag');
     }
+    protected $fillable = [
+        'id_usuario', 
+        'id_tag',
+    ];
 }
