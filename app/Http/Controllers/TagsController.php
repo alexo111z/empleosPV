@@ -10,8 +10,30 @@ use App\RelacionTag;
 
 class TagsController extends Controller
 {
-
-   public function Insert(){
+    public function Insert(){
+        
+        $data = request()->all();
+        $nombreTag =$data['nombre'];
+        $idTag =Tag::where('nombre', $nombreTag)->value('id');
+        if( $idTag ==null){
+            Tag::create([
+                'nombre' => $nombreTag,
+            ]);
+            $idTag =Tag::where('nombre', $nombreTag)->value('id');
+        }
+        $rtags = RelacionTag::where([
+            ['id_usuario', auth()->user()->id],
+            ['id_tag',$idTag],
+        ])->value('id');
+        if($rtags==null){
+            RelacionTag::create([
+                'id_usuario' => auth()->user()->id,
+                'id_tag' => $idTag,
+            ]);
+        }
+        
+    }
+    /*public function Insert(){
         
         $data = request()->all();
         $idTag =Tag::where('nombre', $data['inputtag'])->value('id');
@@ -32,5 +54,5 @@ class TagsController extends Controller
             ]);
         }
         return redirect()->route('usuarios.perfil');
-    }
+    }*/
 }

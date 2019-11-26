@@ -182,7 +182,7 @@
                                 <div class="col-md-12 mb-3">
                                     <h6>Habilidades (Tags)</h6>
     
-                                    <div class="tags text-uppercase text-secondary">
+                                    <div id="DivTags" class="tags text-lowercase text-secondary">
                                     @foreach($rtags as $tags)
                                         @if($tags->id_usuario == auth()->user()->id)
                                             <span>{{ $tags->tag->nombre }}</span>
@@ -190,12 +190,17 @@
                                     @endforeach
                                     </div>
                                     <div class="col-md-12 mb-0 ml-0  text-left">
+                                        <input type="text" class="form-control text-lowercase"  id="inputtag" name="inputtag" placeholder="Introduce tag" >
+                                        <button type="submit" id="addTag" data-href="{{url('/perfil/createtags')}}" class="form-inline icon btn btn-light "><img src="{{asset('images/icon/plus.png')}}">Agregar</button>
+                               
+                                    </div>
+                                   <!--<div class="col-md-12 mb-0 ml-0  text-left">
                                    <form method="post" action="{{url('/perfil/createtags')}}">
                                         {{ csrf_field() }}
                                         <input type="text" class="form-control"  name="inputtag" placeholder="Introduce tag" >
                                         <button type="submit" id="addTags" data-href="{{url('/perfil/createtags')}}" class="form-inline icon btn btn-light "><img src="{{asset('images/icon/plus.png')}}">Agregar</button>
                                     </form>
-                                    </div>
+                                    </div>-->
                                     <!--<div class="col-md-12 mb-0 ml-0  text-right"> 
                                         <button type="button " onclick="javascript:mostrar_habilidades();" class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/plus.png')}}">Agregar</button>
                                     </div>-->
