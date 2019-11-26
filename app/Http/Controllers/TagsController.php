@@ -10,49 +10,17 @@ use App\RelacionTag;
 
 class TagsController extends Controller
 {
-    public function Insert(){
-        
+    public function Insert(){     
         $data = request()->all();
-        $nombreTag =$data['nombre'];
-        $idTag =Tag::where('nombre', $nombreTag)->value('id');
+        $idTag =Tag::where('nombre', $data['nombre'])->value('id');
         if( $idTag ==null){
-            Tag::create([
-                'nombre' => $nombreTag,
-            ]);
-            $idTag =Tag::where('nombre', $nombreTag)->value('id');
+            Tag::create(['nombre' => $data['nombre'],]);
+            $idTag =Tag::where('nombre', $data['nombre'])->value('id');
         }
-        $rtags = RelacionTag::where([
-            ['id_usuario', auth()->user()->id],
-            ['id_tag',$idTag],
-        ])->value('id');
+        $rtags = RelacionTag::where([['id_usuario', auth()->user()->id], ['id_tag',$idTag],])->value('id');
         if($rtags==null){
-            RelacionTag::create([
-                'id_usuario' => auth()->user()->id,
-                'id_tag' => $idTag,
-            ]);
+            RelacionTag::create(['id_usuario' => auth()->user()->id,'id_tag' => $idTag,]);
         }
         
     }
-    /*public function Insert(){
-        
-        $data = request()->all();
-        $idTag =Tag::where('nombre', $data['inputtag'])->value('id');
-        if( $idTag ==null){
-            Tag::create([
-                'nombre' => $data['inputtag'],
-            ]);
-            $idTag =Tag::where('nombre', $data['inputtag'])->value('id');
-        }
-        $rtags = RelacionTag::where([
-            ['id_usuario', auth()->user()->id],
-            ['id_tag',$idTag],
-        ])->value('id');
-        if($rtags==null){
-            RelacionTag::create([
-                'id_usuario' => auth()->user()->id,
-                'id_tag' => $idTag,
-            ]);
-        }
-        return redirect()->route('usuarios.perfil');
-    }*/
 }

@@ -110,7 +110,7 @@
                             <hr class="ml-4 mr-4">
                             <div class="ml-4">
                                 <h6 class="my-0">Telefono</h6>
-                                <small id="LblTel"class="text-muted">{{ auth()->user()->telefono == null ? 'Actutaliza tu informacion' : auth()->user()->telefono }}</small><br>
+                                <small id="LblTel"class="text-muted">{{ auth()->user()->telefono == null ? 'Actualiza tu informacion' : auth()->user()->telefono }}</small><br>
                                 <input type="text" class="form-control" id="TxtTel" name="telefono" placeholder="" value="{{ auth()->user()->telefono }}" required>
                             </div>
                             <div id="DivPrivacidad" class="ml-4">
@@ -181,7 +181,10 @@
                             <!-- SECCION DE TAGS*****-->
                                 <div class="col-md-12 mb-3">
                                     <h6>Habilidades (Tags)</h6>
-    
+                                    <div class="col-md-12  ml-0 pl-0 my-2 text-left">
+                                        <small id="TxtSexo" class="text-muted"> Introduce habilidad (Presiona 'enter' para añadir) </small><br>
+                                        <div class="col-md-8 ml-0 mr-2 pl-0"><input type="text" class="form-control"  id="inputtag" data-href="{{url('/perfil/createtags')}}" name="inputtag" placeholder="ej. computación, office, vendedora" ></div>
+                                    </div>
                                     <div id="DivTags" class="tags text-lowercase text-secondary">
                                     @foreach($rtags as $tags)
                                         @if($tags->id_usuario == auth()->user()->id)
@@ -189,21 +192,7 @@
                                         @endif
                                     @endforeach
                                     </div>
-                                    <div class="col-md-12 mb-0 ml-0  text-left">
-                                        <input type="text" class="form-control text-lowercase"  id="inputtag" name="inputtag" placeholder="Introduce tag" >
-                                        <button type="submit" id="addTag" data-href="{{url('/perfil/createtags')}}" class="form-inline icon btn btn-light "><img src="{{asset('images/icon/plus.png')}}">Agregar</button>
-                               
-                                    </div>
-                                   <!--<div class="col-md-12 mb-0 ml-0  text-left">
-                                   <form method="post" action="{{url('/perfil/createtags')}}">
-                                        {{ csrf_field() }}
-                                        <input type="text" class="form-control"  name="inputtag" placeholder="Introduce tag" >
-                                        <button type="submit" id="addTags" data-href="{{url('/perfil/createtags')}}" class="form-inline icon btn btn-light "><img src="{{asset('images/icon/plus.png')}}">Agregar</button>
-                                    </form>
-                                    </div>-->
-                                    <!--<div class="col-md-12 mb-0 ml-0  text-right"> 
-                                        <button type="button " onclick="javascript:mostrar_habilidades();" class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/plus.png')}}">Agregar</button>
-                                    </div>-->
+                                    
                                     <hr class="ml-3 mr-3">
                                 </div>
                             <!-- SECCION DE TAGS*****-->
