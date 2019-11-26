@@ -45,25 +45,19 @@ button.icon:hover{
     color: #757575;
 
     display: inline-block;
-    font-size: 11.844px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 300;
     line-height: 21px;
     margin: 2px 3px 2px 2px;
     padding: 1px 4px 2px;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     vertical-align: baseline;
 }
-.tags>span:after {
-        color: #000000;
-        /*content: " ×";*/
-        font-size: 20px;
-        font-weight: bold;
-        line-height: 16px;
-        opacity: 0.2;
-        position: relative;
-        text-shadow: 0 1px 0 #FFFFFF;
-        top: 1px;
-        cursor: pointer;
+.delete-tag{
+    cursor: pointer;
+}
+.delete-tag:hover{
+    color:red;
 }
 .btn-remove>img{
     width: 12px;

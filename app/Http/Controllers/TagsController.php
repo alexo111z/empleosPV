@@ -21,6 +21,10 @@ class TagsController extends Controller
         if($rtags==null){
             RelacionTag::create(['id_usuario' => auth()->user()->id,'id_tag' => $idTag,]);
         }
-        
+    }
+    public function destroy(){
+        $data = request()->all();
+        $tag = RelacionTag::where('id', $data['id']);
+        $tag->delete();
     }
 }

@@ -188,7 +188,7 @@
                                     <div id="DivTags" class="tags text-lowercase text-secondary">
                                     @foreach($rtags as $tags)
                                         @if($tags->id_usuario == auth()->user()->id)
-                                            <span>{{ $tags->tag->nombre }}</span>
+                                            <span class="tag">{{ $tags->tag->nombre }} <i id="{{$tags->id}}" data-href="{{url('/perfil/deletetags')}}"class="delete-tag fa fa-close"></i></span>
                                         @endif
                                     @endforeach
                                     </div>

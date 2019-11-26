@@ -1,6 +1,7 @@
 
 jQuery(document).ready(function(){
    /*SECCION PARA AGREGAR TAGS*/
+   
    jQuery('#inputtag').keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which);
       if(keycode == '13'){
@@ -37,5 +38,25 @@ jQuery(document).ready(function(){
             return false;
       });
       /*FIN DE VALIDACION INPUT TAGS*/
-        
+
+         
+         $(document).on("click", ".delete-tag", function(){
+               event.preventDefault();
+               $.ajaxSetup({
+                  headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                  }
+               });
+               jQuery.ajax({
+                  url: $(this).data('href') ,
+                  method: 'post',
+                  data: {
+                     id: $(this).attr("id")
+                  },
+                  success: function(){
+                     $('#DivTags').load(' #DivTags');
+                  }}); 
+        });
+
+      
    });
