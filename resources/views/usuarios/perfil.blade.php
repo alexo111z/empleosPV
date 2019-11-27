@@ -179,20 +179,24 @@
                                     <hr class="ml-3 mr-3">
                                 </div>
                             <!-- SECCION DE TAGS*****-->
-                                <div class="col-md-12 mb-3">
-                                    <h6>Habilidades (Tags)</h6>
-                                    <div class="col-md-12  ml-0 pl-0 my-2 text-left">
-                                        <small id="TxtSexo" class="text-muted"> Introduce habilidad (Presiona 'enter' para añadir) </small><br>
+                                <div class="col-md-12 mb-0 pt-0">
+                                    <h6>Habilidades (Tags) <small id="contador-tags" class=" text-muted">{{count($rtags)}} de 10</small></h6> 
+                                    <div class="DivTags col-md-12  ml-0 pl-0 mb-2 mt-0 pt-0 text-left">
+                                        <small  class="text-muted"> Introduce habilidad (Presiona 'enter' para añadir) </small><br>
                                         <div class="col-md-8 ml-0 mr-2 pl-0"><input type="text" class="form-control"  id="inputtag" data-href="{{url('/perfil/createtags')}}" name="inputtag" placeholder="ej. computación, office, vendedora" ></div>
+                                        <small class="text-warning info-tags"><i class="fa fa-info-circle"></i>Tienes el limites de tags permitido, elimina algunos para agregar más.</small>
                                     </div>
                                     <div id="DivTags" class="tags text-lowercase text-secondary">
                                     @foreach($rtags as $tags)
                                         @if($tags->id_usuario == auth()->user()->id)
-                                            <span class="tag">{{ $tags->tag->nombre }} <i id="{{$tags->id}}" data-href="{{url('/perfil/deletetags')}}"class="delete-tag fa fa-close"></i></span>
+                                        <span class="tag">{{ $tags->tag->nombre }} <i id="{{$tags->id}}" data-href="{{url('/perfil/deletetags')}}"class="delete-tag fa fa-close"></i></span>
                                         @endif
                                     @endforeach
                                     </div>
-                                    
+                                    <div class="col-md-12 mb-0 ml-0  text-right ">
+                                        <button id="BtnEditarTag" onclick="" type="button " class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
+                                        <button id="BtnGuardarTag" onclick="" type="button " class=" form-inline icon btn btn-primary text-primary ">Guardar</button>
+                                    </div>
                                     <hr class="ml-3 mr-3">
                                 </div>
                             <!-- SECCION DE TAGS*****-->

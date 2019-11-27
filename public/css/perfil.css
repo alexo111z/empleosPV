@@ -36,14 +36,16 @@ button.icon:hover{
 
     opacity: 1;
 }
+#inputtag{
+    min-width: 300px !important;
+}
 .tags>span{
     border-radius: 10px !important;
-    background-color: #B3E5FC;
     -webkit-border-radius: 3px;
 	   -moz-border-radius: 3px;
 	        border-radius: 3px;
     color: #757575;
-
+    border: 1px solid #BDBDBD;
     display: inline-block;
     font-size: 15px;
     font-weight: 300;
@@ -86,9 +88,11 @@ button.icon:hover{
 .checked {
     color: #FBC02D !important;
   }
-
+#contador-tags{
+    font-size: 12px !important;
+}
   /* elementos para editar*/
-  #BtnGuardarContacto,#DivPrivacidad2,#CmbFecha,#BtnGuardarPersonal, #DivSexo,#DivCiudad2, #CmbUniversidad,#TxtArea,#BtnGuardarAca, #TxtConocimientos, #BtnGuardarCon, #TxtTel, #TxtEmail{
+.info-tags,.DivTags,#BtnGuardarTag,#BtnGuardarContacto,#DivPrivacidad2,#CmbFecha,#BtnGuardarPersonal, #DivSexo,#DivCiudad2, #CmbUniversidad,#TxtArea,#BtnGuardarAca, #TxtConocimientos, #BtnGuardarCon, #TxtTel, #TxtEmail{
       display: none;
   }
   input,select{
