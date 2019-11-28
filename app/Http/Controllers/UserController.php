@@ -86,4 +86,11 @@ class UserController extends Controller
 
         return redirect()->route('home');
     }
+    /*EDITAR y/o AGREGAR */
+    public function addConocimientos(){
+        $data = request()->all();
+        $user = User::findOrFail(auth()->user()->id);
+        $user->conocimientos=$data['conocimientos'];
+        $user->save();
+    }
 }

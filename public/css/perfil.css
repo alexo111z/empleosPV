@@ -4,7 +4,10 @@
 .information-personal, .profesional-information{
     min-width: 400px!important;
 }
-
+#BlockConocimientos{
+    color:#757575;
+    white-space: pre-line;
+}
 .container{
     min-width: 80%  !important;
 }

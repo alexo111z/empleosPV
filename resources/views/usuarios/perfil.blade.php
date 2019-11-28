@@ -166,15 +166,19 @@
                         <div class="no-gutters border rounded overflow-hidden mt-2 flex-md-row shadow-sm h-md-250" novalidate>
                             <h4 class=" ml-4  mb-3 ">Información laboral</h4>
                             <div class="row mr-4 ml-4">
-                                <div class="col-md-12 mb-3">
-                                    <h6>Conocimientos</h6>
-                                    <blockquote id="BlockConocimientos">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                <div id="DivConocimientos" class="col-md-12 mb-3 px-0">
+                                    <h6 class="text-uppercase mx-0">Conocimientos</h6>
+                                    <blockquote class="mx-0" id="BlockConocimientos">
+                                        @if(auth()->user()->conocimientos!=null)
+                                            {{auth()->user()->conocimientos}}
+                                        @else
+                                        <i class="fa fa-info-circle"></i>Introduce tus conocimientos para tener un perfil más completo.
+                                        @endif
                                     </blockquote>
-                                    <textarea class="form-control mb-2" id="TxtConocimientos" rows="3"></textarea>
+                                    <textarea class="form-control mb-2" id="TxtConocimientos" rows="3">{{auth()->user()->conocimientos}}</textarea>
                                     <div class="col-md-12 mb-0 ml-0  text-right ">
                                         <button id="BtnEditarCon" onclick="javascript:mostrar_conocimientos();" type="button " class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
-                                        <button id="BtnGuardarCon" onclick="javascript:ocultar_conocimientos();" type="button " class=" form-inline icon btn btn-primary ">Guardar</button>
+                                        <button data-href="{{url('/perfil/addconocimientos')}}" id="BtnGuardarCon"  type="button " class=" form-inline icon btn btn-primary ">Guardar</button>
                                     </div>
                                     <hr class="ml-3 mr-3">
                                 </div>

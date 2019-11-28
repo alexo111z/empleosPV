@@ -2,6 +2,34 @@
 
 jQuery(document).ready(function(){
    $('.delete-tag').hide();
+   jQuery('#BtnEditarCon').click(function(e){
+      $('#BlockConocimientos').load(' #BlockConocimientos');
+              $('#TxtConocimientos').show();
+              $('#BtnGuardarCon').show();
+              $('#BlockConocimientos').hide();
+              $('#BtnEditarCon').hide();
+   });
+   $(document).on("click", "#BtnGuardarCon", function(){
+      event.preventDefault();
+      $.ajaxSetup({
+         headers: {
+               'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+         }
+      });
+      jQuery.ajax({
+         url: $(this).data('href') ,
+         method: 'post',
+         data: {
+            conocimientos: jQuery('#TxtConocimientos').val()
+         },
+         success: function(result){
+              $('#DivConocimientos').load(' #DivConocimientos');
+              $('#TxtConocimientos').hide();
+              $('#BtnGuardarCon').hide();
+              $('#BlockConocimientos').show();
+              $('#BtnEditarCon').show();
+         }}); 
+   });
    /*SECCION PARA AGREGAR TAGS*/
    jQuery('#inputtag').keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which);
