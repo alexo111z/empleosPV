@@ -1,3 +1,6 @@
+#inputtag::-webkit-calendar-picker-indicator {
+    display: none;
+  }
 .information-personal, .profesional-information{
     min-width: 400px!important;
 }

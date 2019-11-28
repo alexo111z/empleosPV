@@ -1,4 +1,5 @@
 
+
 jQuery(document).ready(function(){
    $('.delete-tag').hide();
    /*SECCION PARA AGREGAR TAGS*/
@@ -65,6 +66,7 @@ jQuery(document).ready(function(){
          }}); 
         });
       /* FIN DE ELIMINACION DE TAGS*/
+      /*Mostrar y ocutal agregar tags*/
       $("#BtnEditarTag").on( "click", function() {
          $('.delete-tag').show(); //muestro mediante clase
          $('.DivTags').show();
@@ -79,4 +81,21 @@ jQuery(document).ready(function(){
          $('#BtnEditarTag').show();
          $('.DivTags').hide();
        });
+       /*Fin de Mostrar y ocutal agregar tags*/
+       /*Mostrar tags ya guardados mientras se escribe uno nuevo en el input*/
+       var search = document.querySelector('#inputtag');
+       var results = document.querySelector('#searchresults');
+       var templateContent = document.querySelector('#listtag').content;
+       search.addEventListener('keyup', function handler(event) {
+           while (results.children.length) results.removeChild(results.firstChild);
+           var inputVal = new RegExp(search.value.trim(), 'i');
+           var set = Array.prototype.reduce.call(templateContent.cloneNode(true).children, function searchFilter(frag, item, i) {
+               if (inputVal.test(item.textContent) && frag.children.length < 5) frag.appendChild(item);
+               return frag;
+           }, document.createDocumentFragment());
+           results.appendChild(set);
+       });
+       /*Fin Mostrar tags ya guardados mientras se escribe uno nuevo en el input*/
+       
    });
+

@@ -8,6 +8,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\RelacionTag;
+use App\Tag;
 class UserController extends Controller
 {
     function registrar(){
@@ -18,8 +19,8 @@ class UserController extends Controller
     function perfil(){
       
         $rtags = RelacionTag::where('id_usuario', '=', auth()->user()->id)->get();
-        
-        return view('usuarios.perfil',compact('rtags'));
+        $tags = Tag::all();
+        return view('usuarios.perfil',compact('rtags','tags'));
     }
 
     //Luis - Sin formato -Eliminar

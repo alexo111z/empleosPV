@@ -35,9 +35,9 @@
                             <div class="text-center"><a href="">Ver comentarios>></a></div>
                             <hr class="ml-4 mr-4">
                             <div class="col-md-5 ml-4">
-                                <h6 class="my-0">Fecha de nacimiento</h6>
+                                <h6 class="my-0">Fecha de nacimiento</h6> 
                                 <small id="TxtFecha" class="text-muted">{{ Date::createFromFormat('Y-m-d H:i:s', auth()->user()->nacimiento)->format('d-F-Y') }}</small>
-                                <input id="CmbFecha"type="date" class="form-control" id="date"  value="2000-01-01" min="1960-01-01" max="2002-12-31">
+                                <input id="CmbFecha"type="date" class="form-control" id="date"  value="{{Date::createFromFormat('Y-m-d H:i:s', auth()->user()->nacimiento)->format('Y-m-d') }}" min="1960-01-01" max="2002-12-31">
                             </div>
                             <div id="DivEdad"class="col-md-5 ml-4">
                                 <span>Edad:</span> <small class="text-muted">{{ auth()->user()->edad }}</small>
@@ -183,10 +183,19 @@
                                     <h6>Habilidades (Tags) <small id="contador-tags" class=" text-muted">{{count($rtags)}} de 10</small></h6> 
                                     <div class="DivTags col-md-12  ml-0 pl-0 mb-2 mt-0 pt-0 text-left">
                                         <small  class="text-muted"> Introduce habilidad (Presiona 'enter' para añadir) </small><br>
-                                        <div class="col-md-8 ml-0 mr-2 pl-0"><input type="text" class="form-control"  id="inputtag" data-href="{{url('/perfil/createtags')}}" name="inputtag" placeholder="ej. computación, office, vendedora" ></div>
+                                        <div class="col-md-8 ml-0 mr-2 pl-0">
+                                            <template id="listtag" size="5">
+                                                @foreach($tags as $tag)
+                                                    <option >{{ $tag->nombre }}</option>
+                                                @endforeach    
+                                            </template>
+                                            <input name="inputtag" autocomplete="off"  list="searchresults" data-min-length='1' type="text" class="form-control"  id="inputtag" data-href="{{url('/perfil/createtags')}}" name="inputtag" placeholder="ej. computación, office, vendedora" >
+                                            <datalist id="searchresults"></datalist>
+                                        </div>
                                         <small class="text-warning info-tags"><i class="fa fa-info-circle"></i>Tienes el limites de tags permitido, elimina algunos para agregar más.</small>
                                     </div>
-                                    <div id="DivTags" class="tags text-lowercase text-secondary">
+                                    <div id="DivTags" class="tags mb-2 text-lowercase text-secondary">
+                                    
                                     @foreach($rtags as $tags)
                                         @if($tags->id_usuario == auth()->user()->id)
                                         <span class="tag">{{ $tags->tag->nombre }} <i id="{{$tags->id}}" data-href="{{url('/perfil/deletetags')}}"class="delete-tag fa fa-close"></i></span>
