@@ -132,54 +132,58 @@
                     </div>
                     <div class="profesional-information col-md-7 order-md-2 mx-auto mt-4">
                         <div class="no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250" novalidate>
-                            <h4 class=" ml-4  mb-3 ">Formación académica</h4>
+                            <h4 class=" ml-4  my-3 ">Formación académica</h4>
                             <div class="row mr-4 ml-4">
 
-                                <div class="col-md-5 mb-3">
-                                    <h6>Nivel de estudios</h6>
-                                    <span id="LblUniversidad">Universidad</span>
+                                <div class="col-md-6 min-200 mb-3">
+                                    <h6 class="text-uppercase">Nivel de estudios</h6>
+                                    <span id="LblUniversidad">{{$userest->nivel}}</span>
 
                                     <select id="CmbUniversidad"  class="form-control">
-                                        <option value="volvo">Primaria</option>
-                                        <option value="saab">Secundaria</option>
-                                        <option value="mercedes">Preparatoria</option>
-                                        <option value="audi">Universidad</option>
+                                        @foreach($estudios as $estudio)
+                                            @if($estudio->id == $userest->id)
+                                                <option value="{{ $estudio->id }}" selected>{{ $estudio->nivel }}</option>
+                                            @else
+                                                <option value="{{ $estudio->id }}">{{ $estudio->nivel }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-5 mb-3">
-                                    <h6 class="t">Área</h6>
-                                    <span id="LblArea">Sistemas Computacionales</span>
+                                <div class="col-md-6 min-200 mb-3">
+                                    <h6  class="text-uppercase">Área</h6>
+                                    <span id="LblArea">{{$userarea->area}}</span>
                                     <select id="TxtArea"  class="form-control">
-                                        <option value="volvo">Primaria</option>
-                                        <option value="saab">Secundaria</option>
-                                        <option value="mercedes">Preparatoria</option>
-                                        <option value="audi">Universidad</option>
+                                        @foreach($areas as $area)
+                                            @if($area->id == $userarea->id)
+                                                <option value="{{ $area->id }}" selected>{{ $area->area }}</option>
+                                            @else
+                                                <option value="{{ $area->id }}">{{ $area->area }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-12 mb-0 ml-0 mr-1 text-right ">
-                                    <button id="BtnEditarAca" type="button "   onclick="javascript:mostrar_academica();" class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
-                                    <button id="BtnGuardarAca" type="button "   onclick="javascript:ocultar_academica();" class=" form-inline icon btn btn-primary">Guardar</button>
+                                    <button id="BtnEditarAca" type="button "    class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
+                                    <button id="BtnGuardarAca" data-href="{{url('/perfil/nivelyarea')}}" type="button "   class=" form-inline icon btn btn-primary">Guardar</button>
                                 </div>
                             </div>
 
                         </div>
                         <div class="no-gutters border rounded overflow-hidden mt-2 flex-md-row shadow-sm h-md-250" novalidate>
-                            <h4 class=" ml-4  mb-3 ">Información laboral</h4>
+                            <h4 class=" ml-4  my-3 ">Información laboral</h4>
                             <div class="row mr-4 ml-4">
-                                <div id="DivConocimientos" class="col-md-12 mb-3 px-0">
-                                    <h6 class="text-uppercase mx-0">Conocimientos</h6>
-                                    <blockquote class="mx-0" id="BlockConocimientos">
-                                        @if(auth()->user()->conocimientos!=null)
-                                            {{auth()->user()->conocimientos}}
+                                <div  class="col-md-12 mb-0 pt-0">
+                                <div id="DivConocimientos" class="pl-0 ml-0"><h6 class="text-uppercase mx-0 ">Conocimientos</h6>
+                                    <blockquote class="mx-0 mt-0 pt-0" id="BlockConocimientos">@if(auth()->user()->conocimientos!=null){{auth()->user()->conocimientos}}
                                         @else
                                         <i class="fa fa-info-circle"></i>Introduce tus conocimientos para tener un perfil más completo.
                                         @endif
                                     </blockquote>
                                     <textarea class="form-control mb-2" id="TxtConocimientos" rows="3">{{auth()->user()->conocimientos}}</textarea>
                                     <div class="col-md-12 mb-0 ml-0  text-right ">
-                                        <button id="BtnEditarCon" onclick="javascript:mostrar_conocimientos();" type="button " class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
-                                        <button data-href="{{url('/perfil/addconocimientos')}}" id="BtnGuardarCon"  type="button " class=" form-inline icon btn btn-primary ">Guardar</button>
-                                    </div>
+                                        <button id="BtnEditarCon" type="button " class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
+                                        <button data-href="{{url('/perfil/addconocimientos')}}" id="BtnGuardarCon"  type="button " class=" form-inline icon btn btn-primary text-primary">Guardar</button>
+                                    </div></div>
                                     <hr class="ml-3 mr-3">
                                 </div>
                             <!-- SECCION DE TAGS*****-->

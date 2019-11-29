@@ -2,12 +2,19 @@
 
 jQuery(document).ready(function(){
    $('.delete-tag').hide();
-   jQuery('#BtnEditarCon').click(function(e){
-      $('#BlockConocimientos').load(' #BlockConocimientos');
-              $('#TxtConocimientos').show();
-              $('#BtnGuardarCon').show();
-              $('#BlockConocimientos').hide();
-              $('#BtnEditarCon').hide();
+   $(document).on("click",'#BtnEditarCon',function(e){
+      $('#TxtConocimientos').show();
+      $('#BtnGuardarCon').show();
+      $('#BlockConocimientos').hide();
+      $('#BtnEditarCon').hide();
+   });
+   $(document).on("click",'#BtnEditarAca',function(e){
+      $('#CmbUniversidad').show();
+      $('#TxtArea').show();
+      $('#BtnGuardarAca').show();
+      $('#LblUniversidad').hide();
+      $('#LblArea').hide();
+      $('#BtnEditarAca').hide();
    });
    $(document).on("click", "#BtnGuardarCon", function(){
       event.preventDefault();
@@ -28,6 +35,31 @@ jQuery(document).ready(function(){
               $('#BtnGuardarCon').hide();
               $('#BlockConocimientos').show();
               $('#BtnEditarCon').show();
+         }}); 
+   });
+   $(document).on("click", "#BtnGuardarAca", function(){
+      event.preventDefault();
+      $.ajaxSetup({
+         headers: {
+               'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+         }
+      });
+      jQuery.ajax({
+         url: $(this).data('href') ,
+         method: 'post',
+         data: {
+            area: jQuery('#TxtArea').val(),
+            nivel: jQuery('#CmbUniversidad').val()
+         },
+         success: function(result){
+            $('#LblUniversidad').load(' #LblUniversidad');
+            $('#LblArea').load(' #LblArea');
+            $('#CmbUniversidad').hide();
+            $('#TxtArea').hide();
+            $('#BtnGuardarAca').hide();
+            $('#LblUniversidad').show();
+            $('#LblArea').show();
+            $('#BtnEditarAca').show();
          }}); 
    });
    /*SECCION PARA AGREGAR TAGS*/

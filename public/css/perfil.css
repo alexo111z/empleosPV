@@ -2,11 +2,17 @@
     display: none;
   }
 .information-personal, .profesional-information{
-    min-width: 400px!important;
+    min-width: 451px!important;
+}
+.min-200{
+    min-width: 200px!important;
 }
 #BlockConocimientos{
     color:#757575;
     white-space: pre-line;
+}
+#TxtConocimientos{
+    height:  200px;
 }
 .container{
     min-width: 80%  !important;

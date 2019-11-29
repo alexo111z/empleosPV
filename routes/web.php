@@ -50,6 +50,9 @@ Route::post('/perfil/deletetags','TagsController@destroy')->name('tags.destroy')
 
 //LUPITA PERFIL//
 Route::post('/perfil/addconocimientos','UserController@addConocimientos')->name('user.conocimientos');
+Route::post('/perfil/nivelyarea','UserController@addNivelyArea')->name('user.nivelyarea');
+
+
 
 //ofertas
 Route::get('/ofertas/lista/{empresa}', 'OfertaController@show')->name('oferta.list');

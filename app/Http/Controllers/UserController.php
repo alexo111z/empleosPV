@@ -20,7 +20,11 @@ class UserController extends Controller
       
         $rtags = RelacionTag::where('id_usuario', '=', auth()->user()->id)->get();
         $tags = Tag::all();
-        return view('usuarios.perfil',compact('rtags','tags'));
+        $estudios = NEstudio::all();
+        $areas = Area::all();
+        $userest=NEstudio::findOrFail(auth()->user()->id_estudios);
+        $userarea=Area::findOrFail(auth()->user()->id_area);
+        return view('usuarios.perfil',compact('userest','userarea','rtags','tags','estudios', 'areas'));
     }
 
     //Luis - Sin formato -Eliminar
@@ -91,6 +95,13 @@ class UserController extends Controller
         $data = request()->all();
         $user = User::findOrFail(auth()->user()->id);
         $user->conocimientos=$data['conocimientos'];
+        $user->save();
+    }
+    public function addNivelyArea(){
+        $data = request()->all();
+        $user = User::findOrFail(auth()->user()->id);
+        $user->id_estudios=$data['nivel'];
+        $user->id_area=$data['area'];
         $user->save();
     }
 }
