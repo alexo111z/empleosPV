@@ -11,7 +11,7 @@
             </div>
 @endif
 
-<form method="POST" action="{{ route('users.create') }}">
+<form method="POST" action="{{ url('/usuarios/crear') }}">
     {!! csrf_field() !!}
 
     <label for="firstName">Nombres</label>

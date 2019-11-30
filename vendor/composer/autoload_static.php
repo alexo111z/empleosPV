@@ -99,6 +99,7 @@ class ComposerStaticInit25cdbf7af55c3f99a54de72bd3e07042
         ),
         'J' => 
         array (
+            'Jenssegers\\Date\\' => 16,
             'JakubOnderka\\PhpConsoleHighlighter\\' => 35,
             'JakubOnderka\\PhpConsoleColor\\' => 29,
         ),
@@ -296,6 +297,10 @@ class ComposerStaticInit25cdbf7af55c3f99a54de72bd3e07042
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
+        'Jenssegers\\Date\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jenssegers/date/src',
+        ),
         'JakubOnderka\\PhpConsoleHighlighter\\' => 
         array (
             0 => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src',
@@ -416,6 +421,7 @@ class ComposerStaticInit25cdbf7af55c3f99a54de72bd3e07042
         'App\\Http\\Controllers\\EmpresaController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpresaController.php',
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
         'App\\Http\\Controllers\\OfertaController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfertaController.php',
+        'App\\Http\\Controllers\\OfertasController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfertasController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -2074,6 +2080,8 @@ class ComposerStaticInit25cdbf7af55c3f99a54de72bd3e07042
         'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/ConsoleColor.php',
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/Highlighter.php',
+        'Jenssegers\\Date\\Date' => __DIR__ . '/..' . '/jenssegers/date/src/Date.php',
+        'Jenssegers\\Date\\DateServiceProvider' => __DIR__ . '/..' . '/jenssegers/date/src/DateServiceProvider.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Laravel\\Tinker\\ClassAliasAutoloader' => __DIR__ . '/..' . '/laravel/tinker/src/ClassAliasAutoloader.php',
         'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
@@ -3326,6 +3334,7 @@ class ComposerStaticInit25cdbf7af55c3f99a54de72bd3e07042
         'Ramsey\\Uuid\\UuidFactory' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidFactory.php',
         'Ramsey\\Uuid\\UuidFactoryInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidFactoryInterface.php',
         'Ramsey\\Uuid\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidInterface.php',
+        'RelacionTagSeeder' => __DIR__ . '/../..' . '/database/seeds/RelacionTagSeeder.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',

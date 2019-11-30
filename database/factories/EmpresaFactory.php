@@ -23,5 +23,8 @@ $factory->define(Empresa::class, function (Faker $faker) {
         'id_social' => $faker->numberBetween(1, 5), //razon social
         'id_giro' => $faker->numberBetween(1, 5),
         'logo' => null,
+
+        'email_verified_at' => now(),
+        'remember_token' => Str::random(10),
     ];
 });

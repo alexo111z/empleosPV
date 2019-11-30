@@ -1,0 +1,52 @@
+
+  /*Navegador*/
+header{
+  position: absolute;
+}
+.div-search>input.form-control{
+  border: solid 1px #009688;
+}
+.btn-search{
+    background-color: #009688!important;
+      color:#fff !important;
+}
+.btn-search:hover{
+    background-color: #0288D1!important;
+}
+.nav-buscador{
+  background-color: #fff!important;
+  border-bottom: solid 2px	#E6E6FA;
+}
+
+.div-busqueda-avanzada{
+  color: #009688 !important;
+}
+.link-busqueda{
+  font-size:12px;
+  color: #009688;
+}
+.div-busqueda-avanzada:hover,.link-busqueda:hover{
+  color: #0288D1!important;
+}
+.div-search{
+    min-width: 270px !important;
+}
+/*OFERTAS*/
+.div-oferta:hover{
+  cursor: hand;
+  border: 1px solid;
+  -webkit-box-shadow: 6px 7px 24px 0px rgba(117,117,117,1)!important;
+  -moz-box-shadow: 6px 7px 24px 0px rgba(117,117,117,1)!important;
+  box-shadow: 6px 7px 24px 0px rgba(117,117,117,1)!important;
+
+}
+.tags{
+  font-size: 12px;
+  border-radius: 10px !important;
+  background-color: #ffffff;
+  color: #757575;
+}
+.tag{
+
+  padding-left: 2px;
+}

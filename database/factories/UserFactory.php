@@ -21,7 +21,7 @@ $factory->define(User::class, function (Faker $faker) {
     static $password;
 
     return [
-        'email' => $faker->unique()->safeEmail,
+        'email' => $mail = $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
 
         'nombre' => $faker->name,
@@ -31,6 +31,12 @@ $factory->define(User::class, function (Faker $faker) {
         'id_estudios' => 1,
         'id_area' => $faker->numberBetween(1, 5),
         'edad' => $faker->numberBetween(18,80),
+
+//        'pais' => $faker->country,
+//        'estado' => 'Estado1',
+//        'telefono' => '322XXXXXXX',
+//        'conocimientos' => 'Prueba. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        'alias' => substr($mail, 0, strpos($mail, "@")),
 
         'email_verified_at' => now(),
         'remember_token' => Str::random(10),

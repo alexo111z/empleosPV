@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             'area',
             'calificaciones',
             'comentarios',
-            'ofertas'
+            'ofertas',
+            'relacion_tags',
         ]);
 
         $this->call(GiroSeeder::class);
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CalificacionesSeeder::class);
         $this->call(ComentariosSeeder::class);
         $this->call(OfertaSeeder::class);
+        $this->call(RelacionTagSeeder::class);
     }
 
     public function truncateTables(array $tables) {

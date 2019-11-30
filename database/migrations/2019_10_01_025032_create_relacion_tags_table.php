@@ -15,14 +15,16 @@ class CreateRelacionTagsTable extends Migration
     {
         Schema::create('relacion_tags', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+
             $table->bigInteger('id_usuario')->nullable()->unsigned();
             $table->foreign('id_usuario')->references('id')->on('users');
 
             $table->bigInteger('id_oferta')->nullable()->unsigned();
             $table->foreign('id_oferta')->references('id')->on('ofertas');
 
-            $table->bigInteger('id_tag');
+            $table->bigInteger('id_tag')->unsigned();
+            $table->foreign('id_tag')->references('id')->on('tags');
+
             $table->timestamps();
         });
     }
