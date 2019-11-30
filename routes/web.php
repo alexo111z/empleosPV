@@ -25,33 +25,18 @@ Route::get('/', array('as' => 'home','uses'=> function () {
     return view('home');
 }));
 
-Route::get('/login', 'LoginController@index')->name('login');
+//Route::get('/login', 'LoginController@index')->name('login');
 //Route::get('/login',array('as' => 'usuarios.login', 'uses'=>'LoginController@index'));
-
-//Usuarios
-Route::get('/usuarios/registro', 'UserController@registro')->name('users.registro');
-
-Route::get('/usuarios/{user}/editar', 'UserController@editar')->name('users.editPage');
-Route::put('/usuarios/{user}/{id}', 'UserController@update')->name('users.update');
-
-//Empresas
+//Empresas - nope
 Route::get('/empresas', 'EmpresaController@list')->name('emp.show');
-
 Route::get('/empresas/registro', 'EmpresaController@registro')->name('emp.registro');
 Route::post('/empresas/crear', 'EmpresaController@crear')->name('emp.create');
-
 Route::get('/empresas/{empresa}/edit', 'EmpresaController@editar')->name('emp.edit');
 Route::put('/empresas/{empresa}/{id}', 'EmpresaController@update')->name('emp.update');
-
-//ofertas
-Route::get('/ofertas/lista/{empresa}', 'OfertaController@show')->name('oferta.list');
-
-Route::get('/ofertas/nueva/{empresa}', 'OfertaController@nueva')->name('oferta.nueva');
-Route::post('/oferta/crear/{id}', 'OfertaController@create')->name('oferta.create');
-
-//GENERAL
-Route::get('/ofertas2', 'OfertaController@general')->name('gen.list');
-
+//Admin
+Route::get('/administrator',array('as' => 'admin.index', 'uses'=>'AdminController@index'));
+Route::get('/administrator/emp',array('as' => 'admin.emp', 'uses'=>'AdminController@empresas'));
+Route::get('/administrator/us',array('as' => 'admin.users', 'uses'=>'AdminController@usuarios'));
 
 //Lupita
 /* Rutas de usuario */
@@ -78,6 +63,17 @@ Route::get('/postulaciones',array('as' =>'postulaciones', 'uses' => 'OfertasCont
 //Logout
 Route::post('/user/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));  //logout en header.blade
 
+
+//Pruebas
 Route::get('/registrousuario', 'UserController@registro');  //Luis - eliminar
 Route::post('/usuarios/crear', 'UserController@crear');   //Luis - eliminar
-
+/*ofertas*/
+Route::get('/ofertas/lista/{empresa}', 'OfertaController@show')->name('oferta.list');
+Route::get('/ofertas/nueva/{empresa}', 'OfertaController@nueva')->name('oferta.nueva');
+Route::post('/oferta/crear/{id}', 'OfertaController@create')->name('oferta.create');
+/*GENERAL*/
+Route::get('/ofertas2', 'OfertaController@general')->name('gen.list');
+//Usuarios
+Route::get('/usuarios/registro', 'UserController@registro')->name('users.registro');
+Route::get('/usuarios/{user}/editar', 'UserController@editar')->name('users.editPage');
+Route::put('/usuarios/{user}/{id}', 'UserController@update')->name('users.update');

@@ -1,0 +1,35 @@
+
+  /*Navegador*/
+  header{
+    position: absolute;
+  }
+  .div-search>input.form-control{
+    border: solid 1px #707070;
+  }
+  .btn-search{
+      background-color: #707070!important;
+        color:#fff !important;
+  }
+  .btn-search:hover{
+      background-color: #0288D1!important;
+  }
+  .nav-buscador{
+    background-color: #fff!important;
+    border-bottom: solid 2px	#E6E6FA;
+  }
+
+  /*Empresas*/
+  div.data-table{
+    margin: auto;
+    margin-top: 15px;
+  }
+  table{
+    margin-bottom: 25px;
+    margin-top: 2px;
+  }
+  th.actions{
+    width: 25%;
+  }
+  td.actions{
+    width: 12%;
+  }
