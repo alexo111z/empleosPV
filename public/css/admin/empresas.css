@@ -5,23 +5,20 @@
   }
   .div-search>input.form-control{
     border: solid 1px #707070;
+    float: left;
   }
   .btn-search{
-      background-color: #707070!important;
-        color:#fff !important;
+    background-color: #707070!important;
+    color:#fff !important;
   }
   .btn-search:hover{
-      background-color: #0288D1!important;
-  }
-  .nav-buscador{
-    background-color: #fff!important;
-    border-bottom: solid 2px	#E6E6FA;
+    background-color: #0288D1!important;
   }
 
+
   /*Empresas*/
-  div.data-table{
+  div.conten{
     margin: auto;
-    margin-top: 15px;
   }
   table{
     margin-bottom: 25px;
@@ -33,3 +30,19 @@
   td.actions{
     width: 12%;
   }
+  div.componet{
+    margin-top: .8%;
+    width: 20%;
+    float: right;
+  }
+  div.buscador{
+    width: 80%;
+    float: left;
+  }
+  button.add{
+    float: right;
+  }
+  div.div-buscador{
+    margin-left: 2%;
+  }
+
