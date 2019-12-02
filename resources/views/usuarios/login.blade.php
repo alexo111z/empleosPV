@@ -14,13 +14,20 @@
 
                         <form class="form-signin" method="post" action="{{ route('usuarios.sesion') }}">
                             {{ csrf_field() }}
-                            <div class="input-group mb-3 {{ $errors->has('email') ? 'has-error' : '' }}">
+                            <div class="input-group text-center ">
+                                <span class="help-block text-danger mx-auto">{{ $errors->first('error', ':message') }}</span>
+                            </div>
+                            <div class="input-group  {{ $errors->has('email') ? 'has-error' : '' }}">
                                 <input type="text" name="email" class="form-control" value="{{ old('email' ) }}" placeholder="Correo electrónico">
-                                {{ $errors->first('email', '<span class="help-block">:message</span>') }}
+                            </div>
+                            <div class="input-group text-center mb-3 ">
+                                <span class="help-block text-danger mx-auto">{{ $errors->first('email', ':message') }}</span>
                             </div>
                             <div class="input-group mb-2 {{ $errors->has('password') ? 'has-error' : '' }}">
                                 <input type="password" name="password" class="form-control" value="" placeholder="Contraseña">
-                                {{ $errors->first('password', '<span class="help-block">:message</span>') }}
+                            </div>
+                            <div class="input-group text-center mb-2 ">
+                                <span class="help-block text-danger mx-auto">{{ $errors->first('password', ':message') }}</span>
                             </div>
 
                             <div class="form-group text-center">

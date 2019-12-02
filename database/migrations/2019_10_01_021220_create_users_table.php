@@ -29,9 +29,18 @@ class CreateUsersTable extends Migration
             $table->foreign('id_area')->references('id')->on('area');
 
             //Direccion
-            $table->string('pais', 100)->nullable();
-            $table->string('estado', 100)->nullable();
-            $table->string('ciudad', 100)->nullable();
+            $table->bigInteger('id_pais')->nullable()->unsigned();
+            $table->foreign('id_pais')->references('id')->on('paises');
+            $table->bigInteger('id_estado')->nullable()->unsigned();
+            $table->foreign('id_estado')->references('id')->on('estado');
+            $table->bigInteger('id_ciudad')->nullable()->unsigned();
+            $table->foreign('id_ciudad')->references('id')->on('municipios');
+
+            /*$table->foreign('id_pais')->references('id')->on('paises')->onDelete('cascade');
+            $table->bigInteger('estado')->nullable()->unsigned();
+            $table->foreign('estado')->references('id')->on('estado');
+            $table->bigInteger('ciudad')->nullable()->unsigned();
+            $table->foreign('ciudad')->references('id')->on('municipios');*/
 
             $table->string('telefono', 10)->nullable();
             $table->string('conocimientos', 900)->nullable();

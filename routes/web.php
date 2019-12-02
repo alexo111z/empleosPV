@@ -33,6 +33,7 @@ Route::get('/empresas/registro', 'EmpresaController@registro')->name('emp.regist
 Route::post('/empresas/crear', 'EmpresaController@crear')->name('emp.create');
 Route::get('/empresas/{empresa}/edit', 'EmpresaController@editar')->name('emp.edit');
 Route::put('/empresas/{empresa}/{id}', 'EmpresaController@update')->name('emp.update');
+
 //Admin
 Route::get('/administrator',array('as' => 'admin.index', 'uses'=>'AdminController@index'));
 Route::get('/administrator/empresas',array('as' => 'admin.emp', 'uses'=>'AdminController@empresas'));
@@ -42,6 +43,17 @@ Route::get('/administrator/administradores', array('as'=>'admin.admins', 'uses'=
 Route::get('/administrator/registro/administrador', array('as'=>'admin.reg.admin','uses'=>'AdminController@regAdministrador'));
 Route::get('/administrator/registro/usuario', array('as'=>'admin.reg.user','uses'=>'AdminController@regUser'));
 Route::get('/administrator/registro/empresa', array('as'=>'admin.reg.emp','uses'=>'AdminController@regEmpresa'));
+
+
+//LUPITA TAGS
+Route::post('/perfil/createtags', 'TagsController@Insert')->name('tags.insert');
+Route::post('/perfil/deletetags','TagsController@destroy')->name('tags.destroy');
+
+//LUPITA PERFIL//
+Route::post('/perfil/addconocimientos','UserController@addConocimientos')->name('user.conocimientos');
+Route::post('/perfil/nivelyarea','UserController@addNivelyArea')->name('user.nivelyarea');
+Route::post('/perfil/actualizar','UserController@update')->name('user.actualizar');
+Route::post('/perfil/contacto','UserController@addContacto')->name('user.contacto');
 
 //Lupita
 /* Rutas de usuario */

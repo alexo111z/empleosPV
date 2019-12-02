@@ -1,7 +1,19 @@
+#inputtag::-webkit-calendar-picker-indicator {
+    display: none;
+  }
 .information-personal, .profesional-information{
-    min-width: 400px!important;
+    min-width: 451px!important;
 }
-
+.min-200{
+    min-width: 200px!important;
+}
+#BlockConocimientos{
+    color:#757575;
+    white-space: pre-line;
+}
+#TxtConocimientos{
+    height:  200px;
+}
 .container{
     min-width: 80%  !important;
 }
@@ -36,34 +48,30 @@ button.icon:hover{
 
     opacity: 1;
 }
+#inputtag{
+    min-width: 300px !important;
+}
 .tags>span{
     border-radius: 10px !important;
-    background-color: #B3E5FC;
     -webkit-border-radius: 3px;
 	   -moz-border-radius: 3px;
 	        border-radius: 3px;
     color: #757575;
-
+    border: 1px solid #BDBDBD;
     display: inline-block;
-    font-size: 11.844px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 300;
     line-height: 21px;
     margin: 2px 3px 2px 2px;
     padding: 1px 4px 2px;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     vertical-align: baseline;
 }
-.tags>span:after {
-        color: #000000;
-        content: " ×";
-        font-size: 20px;
-        font-weight: bold;
-        line-height: 16px;
-        opacity: 0.2;
-        position: relative;
-        text-shadow: 0 1px 0 #FFFFFF;
-        top: 1px;
-        cursor: pointer;
+.delete-tag{
+    cursor: pointer;
+}
+.delete-tag:hover{
+    color:red;
 }
 .btn-remove>img{
     width: 12px;
@@ -92,9 +100,15 @@ button.icon:hover{
 .checked {
     color: #FBC02D !important;
   }
-
+#contador-tags{
+    font-size: 12px !important;
+}
   /* elementos para editar*/
+<<<<<<< HEAD
   #SavePersonal,#SaveContacto,#SaveAca,#SaveCon,#BtnGuardarContacto,#DivPrivacidad2,#CmbFecha,#BtnGuardarPersonal, #DivSexo,#DivCiudad2, #CmbUniversidad,#TxtArea,#BtnGuardarAca, #TxtConocimientos, #BtnGuardarCon, #TxtTel, #TxtEmail{
+=======
+.info-tags,.DivTags,#BtnGuardarTag,#infopersonal2, #CmbUniversidad,#TxtArea,#BtnGuardarAca, #TxtConocimientos, #BtnGuardarCon,#DivContacto2{
+>>>>>>> elodia
       display: none;
   }
   input,select{

@@ -8,7 +8,10 @@ use App\RelacionTag;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use App\Tag;
+use App\Pais;
+use App\Estado;
+use App\Municipio;
 class UserController extends Controller
 {
     function registrar(){
@@ -17,10 +20,20 @@ class UserController extends Controller
         return view('usuarios.registrar', compact('estudios', 'areas'));
     }
     function perfil(){
-        $rTags = RelacionTag::where('id_usuario', '=', auth()->user()->id)->get();
+
+        $paises = Pais::all();
+        /*$upais = Pais::findOrFail(auth()->user()->id_pais);
+        $uestado = Estado::findOrFail(auth()->user()->id_estado);
+        $umunicipio = Municipio::findOrFail(auth()->user()->id_ciudad);*/
+        $estados = Estado::all();
+        $municipios = municipio::all();
+        $rtags = RelacionTag::where('id_usuario', '=', auth()->user()->id)->get();
+        $tags = Tag::all();
         $estudios = NEstudio::all();
         $areas = Area::all();
-        return view('usuarios.perfil', compact('rTags', 'estudios', 'areas'));
+        $userest=NEstudio::findOrFail(auth()->user()->id_estudios);
+        $userarea=Area::findOrFail(auth()->user()->id_area);
+        return view('usuarios.perfil',compact('paises','estados','municipios','userest','userarea','rtags','tags','estudios', 'areas'));
     }
 
     //Luis - Sin formato -Eliminar
@@ -58,7 +71,7 @@ class UserController extends Controller
             'nacimiento' => $data['trip-start'],
             'genero' => $data['sexo'],
             'id_estudios' => $data['estudios'],
-            'id_estudios' => $data['area'],
+            'id_area' => $data['area'],
             'edad' => $edad,
             'alias' => $alias,
         ]);
@@ -71,22 +84,60 @@ class UserController extends Controller
         return view('temp.users.editar', ['user' => $data]);
     }
 
-    function update($id){
-        $data = request()->all();
-        $user = User::findOrFail($id);
-
-        $user->email = $data['email'];
-        $user->nombre = $data['firstName'];
-        $user->apellido = $data['lastName'];
-        $user->nacimiento = $data['fecha'];
+    function update(Request $request){
+        
+        $data = $this->validate(request(), [
+            'nombre' => 'required', 
+            'apellido' => 'required',
+        ],[
+            'nombre.required' => 'El campo nombre esta vacio, favor de llenarlo correctamente',
+            'apellido.required' => 'El campo apellido esta vacio, favor de llenarlo correctamente',
+        ]);
+        $data = $request->all();
+        $user = User::findOrFail(auth()->user()->id);
+        $date1 = Carbon::createFromDate($data['nacimiento']);
+        $ahora = Carbon::now();
+        $edad = $date1->diffInYears($ahora);
+        $user->nombre = $data['nombre'];
+        $user->apellido = $data['apellido'];
+        $user->nacimiento = $data['nacimiento'];
+        $user->genero = $data['sexo'];
+        $user->edad = $edad;
+        if($data['pais']!=null && $data['estado']!=null && $data['ciudad']!='null'){
+            $user->id_pais= $data['pais'];
+            $user->id_estado= $data['estado'];
+            $user->id_ciudad= $data['ciudad'];
+        }
+        
+        /*$user->nacimiento = $data['nacimiento'];
         $user->genero = $data['genero'];
+        $user->email = $data['email'];
         $user->id_estudios = $data['estudios'];
-        $user->id_area = $data['area'];
-        $user->edad = $data['edad'];
-
+        $user->id_area = $data['area'];}*/
         $user->save();
-
-        return redirect()->route('home');
+        return back()
+        ->withErrors(['error' => 'Por favor introduce tu información correctamente.'])
+        ->withInput(request(['error']));
+    }
+    /*EDITAR y/o AGREGAR */
+    public function addConocimientos(){
+        $data = request()->all();
+        $user = User::findOrFail(auth()->user()->id);
+        $user->conocimientos=$data['conocimientos'];
+        $user->save();
+    }
+    public function addNivelyArea(){
+        $data = request()->all();
+        $user = User::findOrFail(auth()->user()->id);
+        $user->id_estudios=$data['nivel'];
+        $user->id_area=$data['area'];
+        $user->save();
+    }
+    public function addContacto(){
+       $data = request()->all();
+        $user = User::findOrFail(auth()->user()->id);
+        $user->telefono=$data['telefono'];
+        $user->save();
     }
     function editarPersonal(Request $request){
         $data = $request->all();

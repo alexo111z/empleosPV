@@ -19,9 +19,9 @@ class LoginController extends Controller
             'email' => ['required', 'email', 'string'],
             'password' => ['required', 'string']
         ],[
-            'email.required' => 'Campo vacio, porfavor introdusca su email',
-            'email.email' => 'Por favor ingrese un email',
-            'password.required' => 'Campo vacio, porfavor introdusca su contraseña',
+            'email.required' => 'Campo vacío, introduce tu email',
+            'email.email' => 'Ingresar un email válido ej. email@example.com',
+            'password.required' => 'Campo vacío, introduce tu contraseña',
         ]);
 
         if (Auth::attempt($data)){
@@ -30,8 +30,8 @@ class LoginController extends Controller
         }
 
         return back()
-            ->withErrors(['email' => 'Usuario no valido'])
-            ->withInput(request(['email']));
+            ->withErrors(['error' => 'Usuario y/o Contraseña incorrectos, por favor verifique sus datos.'])
+            ->withInput(request(['error']));
     }
     function logout(){
         Auth::logout();
