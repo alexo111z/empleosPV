@@ -104,7 +104,7 @@ button.icon:hover{
     font-size: 12px !important;
 }
   /* elementos para editar*/
-.info-tags,.DivTags,#BtnGuardarTag,#BtnGuardarContacto,#DivPrivacidad2,#CmbFecha,#BtnGuardarPersonal, #DivSexo,#DivCiudad2, #CmbUniversidad,#TxtArea,#BtnGuardarAca, #TxtConocimientos, #BtnGuardarCon, #TxtTel, #TxtEmail{
+.info-tags,.DivTags,#BtnGuardarTag,#infopersonal2, #CmbUniversidad,#TxtArea,#BtnGuardarAca, #TxtConocimientos, #BtnGuardarCon,#DivContacto2{
       display: none;
   }
   input,select{

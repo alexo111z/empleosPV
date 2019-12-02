@@ -2,6 +2,61 @@
 
 jQuery(document).ready(function(){
    $('.delete-tag').hide();
+ 
+   $(document).on("click",'#BtnEditarPersonal',function(e){
+      $('#infopersonal').hide();
+      $('#infopersonal2').show();
+   });
+   $(document).on("click",'#BtnEditarContacto',function(e){
+      $('#DivContacto').hide();
+      $('#DivContacto2').show();
+   });
+   $(document).on("click",'#BtnGuardarContacto',function(e){
+      event.preventDefault();
+      $.ajaxSetup({
+         headers: {
+               'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+         }
+      });
+      jQuery.ajax({
+         url: $(this).data('href') ,
+         method: 'post',
+         data: {
+            telefono: jQuery('#TxtTel').val()
+         },
+         success: function(){
+            $('#DivContacto').load(' #DivContacto');
+            $('#DivContacto').show();
+            $('#DivContacto2').hide();
+         }});
+      
+   });
+   $(document).on("click",'#BtnGuardarPersonal',function(e){
+      event.preventDefault();
+      $.ajaxSetup({
+         headers: {
+               'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+         }
+      });
+      jQuery.ajax({
+         url: $(this).data('href') ,
+         method: 'post',
+         data: {
+            nombre: jQuery('#txtnombre').val(),
+            apellido: jQuery('#txtapellido').val(),
+            nacimiento:  document.getElementById("CmbFecha").value,
+            sexo: $('input[name=sexo]:checked').val()
+         },
+         success: function($result){
+            $('#infopersonal').load(' #infopersonal');
+            $('#infopersonal').show();
+            $('#infopersonal2').hide();
+         },
+         error: function($result){
+            
+         }});
+         $('#infopersonal2').show();
+   });
    $(document).on("click",'#BtnEditarCon',function(e){
       $('#TxtConocimientos').show();
       $('#BtnGuardarCon').show();
@@ -156,6 +211,53 @@ jQuery(document).ready(function(){
            results.appendChild(set);
        });
        /*Fin Mostrar tags ya guardados mientras se escribe uno nuevo en el input*/
-       
+      $("#TxtTel").keypress(function (key) {
+      window.console.log(key.charCode)
+      if (($(this).val().length>=10)||((key.charCode < 48 || key.charCode > 57))
+            )
+            return false;
+      });
+      $("#txtnombre").keypress(function (key) {
+         window.console.log(key.charCode)
+         if (($(this).val().length>=50)||((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+         && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+         && (key.charCode != 45) //retroceso
+         && (key.charCode != 241) //ñ
+          && (key.charCode != 209) //Ñ
+          && (key.charCode != 32) //espacio
+          && (key.charCode != 225) //á
+          && (key.charCode != 233) //é
+          && (key.charCode != 237) //í
+          && (key.charCode != 243) //ó
+          && (key.charCode != 250) //ú
+          && (key.charCode != 193) //Á
+          && (key.charCode != 201) //É
+          && (key.charCode != 205) //Í
+          && (key.charCode != 211) //Ó
+          && (key.charCode != 218) //Ú
+               ))
+               return false;
+         });
+         $("#txtapellido").keypress(function (key) {
+            window.console.log(key.charCode)
+            if (($(this).val().length>=50)||((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+            && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+            && (key.charCode != 45) //retroceso
+            && (key.charCode != 241) //ñ
+             && (key.charCode != 209) //Ñ
+             && (key.charCode != 32) //espacio
+             && (key.charCode != 225) //á
+             && (key.charCode != 233) //é
+             && (key.charCode != 237) //í
+             && (key.charCode != 243) //ó
+             && (key.charCode != 250) //ú
+             && (key.charCode != 193) //Á
+             && (key.charCode != 201) //É
+             && (key.charCode != 205) //Í
+             && (key.charCode != 211) //Ó
+             && (key.charCode != 218) //Ú
+                  ))
+                  return false;
+            });
    });
 

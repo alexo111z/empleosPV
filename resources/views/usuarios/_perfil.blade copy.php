@@ -1,5 +1,6 @@
 @extends('master')
 @section('body')
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="{{asset('css/perfil.css')}}" rel="stylesheet">
         <script src="{{asset('js/perfil.js')}}"type="text/javascript">
@@ -34,9 +35,9 @@
                             <div class="text-center"><a href="">Ver comentarios>></a></div>
                             <hr class="ml-4 mr-4">
                             <div class="col-md-5 ml-4">
-                                <h6 class="my-0">Fecha de nacimiento</h6>
+                                <h6 class="my-0">Fecha de nacimiento</h6> 
                                 <small id="TxtFecha" class="text-muted">{{ Date::createFromFormat('Y-m-d H:i:s', auth()->user()->nacimiento)->format('d-F-Y') }}</small>
-                                <input id="CmbFecha"type="date" class="form-control" id="date"  value="2000-01-01" min="1960-01-01" max="2002-12-31">
+                                <input id="CmbFecha"type="date" class="form-control" id="date"  value="{{Date::createFromFormat('Y-m-d H:i:s', auth()->user()->nacimiento)->format('Y-m-d') }}" min="1960-01-01" max="2002-12-31">
                             </div>
                             <div id="DivEdad"class="col-md-5 ml-4">
                                 <span>Edad:</span> <small class="text-muted">{{ auth()->user()->edad }}</small>
@@ -109,7 +110,7 @@
                             <hr class="ml-4 mr-4">
                             <div class="ml-4">
                                 <h6 class="my-0">Telefono</h6>
-                                <small id="LblTel"class="text-muted">{{ auth()->user()->telefono == null ? 'Actutaliza tu informacion' : auth()->user()->telefono }}</small><br>
+                                <small id="LblTel"class="text-muted">{{ auth()->user()->telefono == null ? 'Actualiza tu informacion' : auth()->user()->telefono }}</small><br>
                                 <input type="text" class="form-control" id="TxtTel" name="telefono" placeholder="" value="{{ auth()->user()->telefono }}" required>
                             </div>
                             <div id="DivPrivacidad" class="ml-4">
@@ -131,69 +132,93 @@
                     </div>
                     <div class="profesional-information col-md-7 order-md-2 mx-auto mt-4">
                         <div class="no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250" novalidate>
-                            <h4 class=" ml-4  mb-3 ">Formación académica</h4>
+                            <h4 class=" ml-4  my-3 ">Formación académica</h4>
                             <div class="row mr-4 ml-4">
 
-                                <div class="col-md-5 mb-3">
-                                    <h6>Nivel de estudios</h6>
-                                    <span id="LblUniversidad">Universidad</span>
+                                <div class="col-md-6 min-200 mb-3">
+                                    <h6 class="text-uppercase">Nivel de estudios</h6>
+                                    <span id="LblUniversidad">{{$userest->nivel}}</span>
 
                                     <select id="CmbUniversidad"  class="form-control">
-                                        <option value="volvo">Primaria</option>
-                                        <option value="saab">Secundaria</option>
-                                        <option value="mercedes">Preparatoria</option>
-                                        <option value="audi">Universidad</option>
+                                        @foreach($estudios as $estudio)
+                                            @if($estudio->id == $userest->id)
+                                                <option value="{{ $estudio->id }}" selected>{{ $estudio->nivel }}</option>
+                                            @else
+                                                <option value="{{ $estudio->id }}">{{ $estudio->nivel }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-5 mb-3">
-                                    <h6 class="t">Área</h6>
-                                    <span id="LblArea">Sistemas Computacionales</span>
+                                <div class="col-md-6 min-200 mb-3">
+                                    <h6  class="text-uppercase">Área</h6>
+                                    <span id="LblArea">{{$userarea->area}}</span>
                                     <select id="TxtArea"  class="form-control">
-                                        <option value="volvo">Primaria</option>
-                                        <option value="saab">Secundaria</option>
-                                        <option value="mercedes">Preparatoria</option>
-                                        <option value="audi">Universidad</option>
+                                        @foreach($areas as $area)
+                                            @if($area->id == $userarea->id)
+                                                <option value="{{ $area->id }}" selected>{{ $area->area }}</option>
+                                            @else
+                                                <option value="{{ $area->id }}">{{ $area->area }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-12 mb-0 ml-0 mr-1 text-right ">
-                                    <button id="BtnEditarAca" type="button "   onclick="javascript:mostrar_academica();" class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
-                                    <button id="BtnGuardarAca" type="button "   onclick="javascript:ocultar_academica();" class=" form-inline icon btn btn-primary">Guardar</button>
+                                    <button id="BtnEditarAca" type="button "    class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
+                                    <button id="BtnGuardarAca" data-href="{{url('/perfil/nivelyarea')}}" type="button "   class=" form-inline icon btn btn-primary">Guardar</button>
                                 </div>
                             </div>
 
                         </div>
                         <div class="no-gutters border rounded overflow-hidden mt-2 flex-md-row shadow-sm h-md-250" novalidate>
-                            <h4 class=" ml-4  mb-3 ">Información laboral</h4>
+                            <h4 class=" ml-4  my-3 ">Información laboral</h4>
                             <div class="row mr-4 ml-4">
-                                <div class="col-md-12 mb-3">
-                                    <h6>Conocimientos</h6>
-                                    <blockquote id="BlockConocimientos">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                <div  class="col-md-12 mb-0 pt-0">
+                                <div id="DivConocimientos" class="pl-0 ml-0"><h6 class="text-uppercase mx-0 ">Conocimientos</h6>
+                                    <blockquote class="mx-0 mt-0 pt-0" id="BlockConocimientos">@if(auth()->user()->conocimientos!=null){{auth()->user()->conocimientos}}
+                                        @else
+                                        <i class="fa fa-info-circle"></i>Introduce tus conocimientos para tener un perfil más completo.
+                                        @endif
                                     </blockquote>
-                                    <textarea class="form-control mb-2" id="TxtConocimientos" rows="3"></textarea>
+                                    <textarea class="form-control mb-2" id="TxtConocimientos" rows="3">{{auth()->user()->conocimientos}}</textarea>
                                     <div class="col-md-12 mb-0 ml-0  text-right ">
-                                        <button id="BtnEditarCon" onclick="javascript:mostrar_conocimientos();" type="button " class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
-                                        <button id="BtnGuardarCon" onclick="javascript:ocultar_conocimientos();" type="button " class=" form-inline icon btn btn-primary ">Guardar</button>
+                                        <button id="BtnEditarCon" type="button " class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
+                                        <button data-href="{{url('/perfil/addconocimientos')}}" id="BtnGuardarCon"  type="button " class=" form-inline icon btn btn-primary text-primary">Guardar</button>
+                                    </div></div>
+                                    <hr class="ml-3 mr-3">
+                                </div>
+                            <!-- SECCION DE TAGS*****-->
+                                <div class="col-md-12 mb-0 pt-0">
+                                    <h6>Habilidades (Tags) <small id="contador-tags" class=" text-muted">{{count($rtags)}} de 10</small></h6> 
+                                    <div class="DivTags col-md-12  ml-0 pl-0 mb-2 mt-0 pt-0 text-left">
+                                        <small  class="text-muted"> Introduce habilidad (Presiona 'enter' para añadir) </small><br>
+                                        <div class="col-md-8 ml-0 mr-2 pl-0">
+                                            <template id="listtag" size="5">
+                                                @foreach($tags as $tag)
+                                                    <option >{{ $tag->nombre }}</option>
+                                                @endforeach    
+                                            </template>
+                                            <input name="inputtag" autocomplete="off"  list="searchresults" data-min-length='1' type="text" class="form-control"  id="inputtag" data-href="{{url('/perfil/createtags')}}" name="inputtag" placeholder="ej. computación, office, vendedora" >
+                                            <datalist id="searchresults"></datalist>
+                                        </div>
+                                        <small class="text-warning info-tags"><i class="fa fa-info-circle"></i>Tienes el limites de tags permitido, elimina algunos para agregar más.</small>
+                                    </div>
+                                    <div id="DivTags" class="tags mb-2 text-lowercase text-secondary">
+                                    
+                                    @foreach($rtags as $tags)
+                                        @if($tags->id_usuario == auth()->user()->id)
+                                        <span class="tag">{{ $tags->tag->nombre }} <i id="{{$tags->id}}" data-href="{{url('/perfil/deletetags')}}"class="delete-tag fa fa-close"></i></span>
+                                        @endif
+                                    @endforeach
+                                    </div>
+                                    <div class="col-md-12 mb-0 ml-0  text-right ">
+                                        <button id="BtnEditarTag" onclick="" type="button " class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
+                                        <button id="BtnGuardarTag" onclick="" type="button " class=" form-inline icon btn btn-primary text-primary ">Guardar</button>
                                     </div>
                                     <hr class="ml-3 mr-3">
                                 </div>
+                            <!-- SECCION DE TAGS*****-->
 
-                                <div class="col-md-12 mb-3">
-                                    <h6>Habilidades (Tags)</h6>
-                                    <div class="tags text-uppercase text-secondary">
-                                        @for ($i = 0; $i < 5; $i++)
-                                        <span id="tag" class="px-2  border rounded ">Programacion</span>
-                                        <span  class="px-2 border rounded ">php</span>
-                                        <span class="px-2  border rounded ">Programacion</span>
-                                        <span  class="px-2 border rounded ">php</span>
-                                        <span  class="px-2  border rounded ">laravel</span>
-                                        @endfor
-                                    </div>
-                                    <div class="col-md-12 mb-0 ml-0  text-right">
-                                        <button type="button " onclick="javascript:mostrar_habilidades();" class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/plus.png')}}">Agregar</button>
-                                    </div>
-                                    <hr class="ml-3 mr-3">
-                                </div>
+
                                 <div class="col-md-12 mb-3">
                                     <h6>Curriculum</h6>
                                     <div class="row mr-4 ml-4">
@@ -208,7 +233,6 @@
                                         </div>
                                   </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -216,5 +240,8 @@
                 <!-- -->
             </div>
         </main>
+@endsection
+@section('scripts')
 
+   <script src="{{asset('js/EditPerfil.js')}}"> </script>
 @endsection

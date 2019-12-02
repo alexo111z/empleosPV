@@ -73,22 +73,34 @@ class UserController extends Controller
         return view('temp.users.editar', ['user' => $data]);
     }
 
-    function update($id){
-        $data = request()->all();
-        $user = User::findOrFail($id);
-
-        $user->email = $data['email'];
-        $user->nombre = $data['firstName'];
-        $user->apellido = $data['lastName'];
-        $user->nacimiento = $data['fecha'];
+    function update(Request $request){
+        
+        $data = $this->validate(request(), [
+            'nombre' => 'required', 
+            'apellido' => 'required',
+        ],[
+            'nombre.required' => 'El campo nombre esta vacio, favor de llenarlo correctamente',
+            'apellido.required' => 'El campo apellido esta vacio, favor de llenarlo correctamente',
+        ]);
+        $data = $request->all();
+        $user = User::findOrFail(auth()->user()->id);
+        $date1 = Carbon::createFromDate($data['nacimiento']);
+        $ahora = Carbon::now();
+        $edad = $date1->diffInYears($ahora);
+        $user->nombre = $data['nombre'];
+        $user->apellido = $data['apellido'];
+        $user->nacimiento = $data['nacimiento'];
+        $user->genero = $data['sexo'];
+        $user->edad = $edad;
+        /*$user->nacimiento = $data['nacimiento'];
         $user->genero = $data['genero'];
+        $user->email = $data['email'];
         $user->id_estudios = $data['estudios'];
-        $user->id_area = $data['area'];
-        $user->edad = $data['edad'];
-
+        $user->id_area = $data['area'];}*/
         $user->save();
-
-        return redirect()->route('home');
+        return back()
+        ->withErrors(['error' => 'Por favor introduce tu información correctamente.'])
+        ->withInput(request(['error']));
     }
     /*EDITAR y/o AGREGAR */
     public function addConocimientos(){
@@ -102,6 +114,12 @@ class UserController extends Controller
         $user = User::findOrFail(auth()->user()->id);
         $user->id_estudios=$data['nivel'];
         $user->id_area=$data['area'];
+        $user->save();
+    }
+    public function addContacto(){
+       $data = request()->all();
+        $user = User::findOrFail(auth()->user()->id);
+        $user->telefono=$data['telefono'];
         $user->save();
     }
 }
