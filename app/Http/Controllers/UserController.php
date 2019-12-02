@@ -9,6 +9,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\RelacionTag;
 use App\Tag;
+use App\Pais;
+use App\Estado;
+use App\Municipio;
 class UserController extends Controller
 {
     function registrar(){
@@ -17,14 +20,19 @@ class UserController extends Controller
         return view('usuarios.registrar', compact('estudios', 'areas'));
     }
     function perfil(){
-      
+        $paises = Pais::all();
+        /*$upais = Pais::findOrFail(auth()->user()->id_pais);
+        $uestado = Estado::findOrFail(auth()->user()->id_estado);
+        $umunicipio = Municipio::findOrFail(auth()->user()->id_ciudad);*/
+        $estados = Estado::all();
+        $municipios = municipio::all();
         $rtags = RelacionTag::where('id_usuario', '=', auth()->user()->id)->get();
         $tags = Tag::all();
         $estudios = NEstudio::all();
         $areas = Area::all();
         $userest=NEstudio::findOrFail(auth()->user()->id_estudios);
         $userarea=Area::findOrFail(auth()->user()->id_area);
-        return view('usuarios.perfil',compact('userest','userarea','rtags','tags','estudios', 'areas'));
+        return view('usuarios.perfil',compact('paises','estados','municipios','userest','userarea','rtags','tags','estudios', 'areas'));
     }
 
     //Luis - Sin formato -Eliminar
@@ -61,7 +69,7 @@ class UserController extends Controller
             'nacimiento' => $data['trip-start'],
             'genero' => $data['sexo'],
             'id_estudios' => $data['estudios'],
-            'id_estudios' => $data['area'],
+            'id_area' => $data['area'],
             'edad' => $edad,
         ]);
 
@@ -92,6 +100,12 @@ class UserController extends Controller
         $user->nacimiento = $data['nacimiento'];
         $user->genero = $data['sexo'];
         $user->edad = $edad;
+        if($data['pais']!=null && $data['estado']!=null && $data['ciudad']!='null'){
+            $user->id_pais= $data['pais'];
+            $user->id_estado= $data['estado'];
+            $user->id_ciudad= $data['ciudad'];
+        }
+        
         /*$user->nacimiento = $data['nacimiento'];
         $user->genero = $data['genero'];
         $user->email = $data['email'];

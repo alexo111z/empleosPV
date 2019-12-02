@@ -1,8 +1,34 @@
 
-
+function funcpais(a,b) {
+   $("#CmbEstado").prop( "disabled", false );
+   $("#CmbEstado").prepend("<option selected disabled hidden>Seleccionar...</option>");
+   for(var i=0;i<b.length;i++){
+      if(JSON.stringify(b[i].id_pais)==a){
+         $("#CmbEstado option[value=" + b[i].id + "]").show();
+      }else{
+         $("#CmbEstado option[value=" + b[i].id + "]").hide();
+      }
+   }  
+}
+function funcestado(a,b) {
+   $("#CmbCiudad").prop( "disabled", false );
+   $("#CmbCiudad").prepend("<option selected disabled hidden>Seleccionar...</option>"); 
+   for(var i=0;i<b.length;i++){
+      if(JSON.stringify(b[i].id_estado)==a){
+         $("#CmbCiudad option[value=" + b[i].id + "]").show();
+      }else{
+         $("#CmbCiudad option[value=" + b[i].id + "]").hide();
+      }
+   }  
+}
 jQuery(document).ready(function(){
+   if($('#CmbPais').val()==null){
+      $("#CmbEstado").prop( "disabled", true );
+      $("#CmbCiudad").prop( "disabled", true );
+      $("#CmbCiudad").prepend("<option selected disabled hidden>Selecciona primero un Estado</option>");
+      $("#CmbEstado").prepend("<option selected disabled hidden>Selecciona primero un País</option>");
+   }
    $('.delete-tag').hide();
- 
    $(document).on("click",'#BtnEditarPersonal',function(e){
       $('#infopersonal').hide();
       $('#infopersonal2').show();
@@ -32,30 +58,48 @@ jQuery(document).ready(function(){
       
    });
    $(document).on("click",'#BtnGuardarPersonal',function(e){
-      event.preventDefault();
-      $.ajaxSetup({
-         headers: {
-               'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+      $('#error').html('');
+      $('#error2').html('');
+      if(jQuery('#txtnombre').val()!="" && jQuery('#txtnombre').val()!=" " && jQuery('#txtapellido').val()!="" && jQuery('#txtapellido').val()!=" " ){
+         event.preventDefault();
+         $.ajaxSetup({
+            headers: {
+                  'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+         });
+         jQuery.ajax({
+            url: $(this).data('href') ,
+            method: 'post',
+            data: {
+               nombre: jQuery('#txtnombre').val(),
+               apellido: jQuery('#txtapellido').val(),
+               nacimiento:  document.getElementById("CmbFecha").value,
+               sexo: $('input[name=sexo]:checked').val(),
+               ciudad: jQuery('#CmbCiudad').val(),
+               estado: jQuery('#CmbEstado').val(),
+               pais: jQuery('#CmbPais').val(),
+            },
+            success: function($result){
+               $('#infopersonal').load(' #infopersonal');
+               $('#infopersonal').show();
+               $('#infopersonal2').hide();
+            },
+            error: function($result){
+               alert("Eror al actualizar, intentelo más tarde");
+               $('#infopersonal').load(' #infopersonal');
+               $('#infopersonal').show();
+               $('#infopersonal2').hide();
+            }});
+        
+         }else{
+            if(jQuery('#txtnombre').val()=="" || jQuery('#txtnombre').val()==" "){
+               $('#error').html('Campo vacío, por favor introduce tu nombre <br>');
+            }
+            if(jQuery('#txtapellido').val()=="" || jQuery('#txtapellido').val()==" "){
+               $('#error2').html('Campo vacío, por favor introduce tu apelldo <br>');
+            }
          }
-      });
-      jQuery.ajax({
-         url: $(this).data('href') ,
-         method: 'post',
-         data: {
-            nombre: jQuery('#txtnombre').val(),
-            apellido: jQuery('#txtapellido').val(),
-            nacimiento:  document.getElementById("CmbFecha").value,
-            sexo: $('input[name=sexo]:checked').val()
-         },
-         success: function($result){
-            $('#infopersonal').load(' #infopersonal');
-            $('#infopersonal').show();
-            $('#infopersonal2').hide();
-         },
-         error: function($result){
-            
-         }});
-         $('#infopersonal2').show();
+      
    });
    $(document).on("click",'#BtnEditarCon',function(e){
       $('#TxtConocimientos').show();

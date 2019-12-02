@@ -35,14 +35,20 @@
                                 <div class="text-center"><a href="">Ver comentarios>></a></div>
                                 <hr class="ml-4 mr-4">
                                 <h6 class="my-0 ml-4">PRESENTACIÓN </h6>
-                                <div class="col-md-12 ml-4">
+                                <div class="col-md-12 ml-4 pr-5">
                                     @if(auth()->user()->genero==1)
                                     <Span id="TxtSexo" class="text-muted"><i class="fa fa-female"></i> Mujer</span> de <Span id="TxtSexo" class="text-muted">{{ auth()->user()->edad}} años</span><br>
                                     @else
                                     <Span id="TxtSexo" class="text-muted"><i class="fa fa-male"></i> Hombre</span> de <Span id="TxtSexo" class="text-muted">{{ auth()->user()->edad}} años</span><br>
                                     @endif
                                     <span class="fa fa-birthday-cake text-muted"></span><span id="TxtFecha"  class="text-muted"> Nació el {{ Date::createFromFormat('Y-m-d H:i:s', auth()->user()->nacimiento)->format('d-F-Y') }}</span><br>
-                                    <Span class="text-muted"><i class="fas fa-map-marker-alt"></i> Vive en Puerto Vallarta, Jalisco, México</span><br>
+                                    <Span class="text-muted  mr-5">
+                                    @if(auth()->user()->id_ciudad!=null && auth()->user()->id_estado!=null && auth()->user()->id_pais!=null)
+                                        <i class="fas fa-map-marker-alt"></i> Vive en {{$municipios[auth()->user()->id_ciudad - 1]->municipio}}, {{$estados[auth()->user()->id_estado- 1]->estado}}, {{$paises[auth()->user()->id_pais - 1]->pais }}</span><br>
+                                    @else
+                                        <i class="fa fa-info-circle"></i>Introduce donde vives para tener un perfil más completo. 
+                                    @endif
+                                    
                                 </div>
                                 <div class="text-right ">
                                     <button type="button "id="BtnEditarPersonal"  class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
@@ -50,12 +56,13 @@
                              </div>
                              <div id="infopersonal2">
                                  <h6 class="text-uppercase ml-3">Modificar datos personales</h6>
-                                <div class="ml-4 mb-2 {{ $errors->has('nombre') ? 'has-error' : '' }}">   
+                                <div class="ml-4 mb-2">   
                                     <span class="text-muted">Nombre:</span>
                                     <input id="txtnombre" class="form-control" value="{{auth()->user()->nombre}}">
-                                    <span id="error" class="help-block text-danger mx-auto">{{ $errors->first('nombre', ':message') }}</span>
+                                    <span id="error" class="help-block text-danger mx-auto"></span>
                                     <span class="text-muted" >Apellido:</span>
                                     <input id="txtapellido" class="form-control" value="{{auth()->user()->apellido}}">
+                                    <span id="error2" class="help-block text-danger mx-auto"></span>
                                 </div>
                                 <div class="col-md-5 ml-2">
                                     <span class="text-muted">Fecha de nacimiento:</span>
@@ -86,22 +93,38 @@
                                 </div>
                                 <div class="ml-4 mb-2">   
                                     <span class="text-muted">País</span>
-                                    <select id="CmbPais"  class="form-control">
-                                        <option value="volvo">México</option>
-                                        <option value="saab">Estados unidos</option>
-                                        <option value="mercedes">Canada</option>
+                                    {{$selectpais=""}}
+                                    <select id="CmbPais"  onchange='funcpais(this.value,<?php echo json_encode($estados); ?>)'  class="form-control">
+                                        <option selected disabled hidden>Seleccionar....</option>
+                                        @foreach($paises as $pais)
+                                            @if($pais->id == auth()->user()->id_pais)
+                                                <option value="{{ $pais->id }}" selected>{{ $pais->pais }}</option>
+                                            @else
+                                                <option value="{{ $pais->id }}">{{ $pais->pais }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                     <span class="text-muted">Estado</span>
-                                    <select id="CmbEstado"  class="form-control">
-                                        <option value="volvo">Jalisco</option>
-                                        <option value="saab">solima</option>
-                                        <option value="mercedes">Aguascalientes</option>
+                                    <select id="CmbEstado" class="form-control" onchange='funcestado(this.value,<?php echo json_encode($municipios); ?>)'>
+                                        <option selected disabled hidden>Seleccionar....</option>
+                                        @foreach($estados as $estado)
+                                            @if($estado->id == auth()->user()->id_estado)
+                                                <option value="{{ $estado->id }}" selected>{{ $estado->estado }}</option>
+                                            @else
+                                                <option value="{{ $estado->id }}">{{ $estado->estado }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                     <span class="text-muted">Ciudad</span>
-                                    <select id="CmbCiudad"  class="form-control">
-                                        <option value="volvo">Puerto Vallarta</option>
-                                        <option value="saab">Guadalajara</option>
-                                        <option value="mercedes">Chapala</option>
+                                    <select id="CmbCiudad"  class="form-control"  >
+                                    <option selected disabled hidden>Seleccionar....</option>
+                                        @foreach($municipios as $municipio)
+                                        @if($municipio->id == auth()->user()->id_ciudad)
+                                            <option value="{{ $municipio->id }}" selected>{{ $municipio->municipio }}</option>
+                                        @else
+                                            <option value="{{ $municipio->id }}">{{ $municipio->municipio }}</option>
+                                        @endif
+                                        @endforeach
                                     </select>
                             </div>
                                 <div class="text-right ">
