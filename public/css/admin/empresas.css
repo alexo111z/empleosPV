@@ -17,12 +17,14 @@
 
 
   /*Empresas*/
-  div.conten{
+  .conten{
     margin: auto;
   }
-  table{
-    margin-bottom: 25px;
-    margin-top: 2px;
+  .title{
+    margin-top: 6%;
+  }
+  .data-table{
+    margin-top: 6%;
   }
   th.actions{
     width: 25%;
@@ -30,19 +32,19 @@
   td.actions{
     width: 12%;
   }
-  div.componet{
+  .componet{
     margin-top: .8%;
     width: 20%;
     float: right;
   }
-  div.buscador{
+  .buscador{
     width: 80%;
     float: left;
   }
   button.add{
     float: right;
   }
-  div.div-buscador{
+  .div-buscador{
     margin-left: 2%;
   }
 

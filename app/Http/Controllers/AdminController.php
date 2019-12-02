@@ -11,9 +11,24 @@ class AdminController extends Controller
         return view('admins.index');
     }
     function empresas(){
-        return view('admins.empresas');
+        return view('admins.lista.empresas');
     }
     function usuarios(){
-        return view('admins.users');
+        return view('admins.lista.users');
+    }
+    function empOfertas(){
+        return view('admins.lista.ofertasE');
+    }
+    function administradores(){
+        return view('admins.lista.administradores');
+    }
+    function regAdministrador(){
+        return view('admins.registrar.administrador');
+    }
+    function regUser(){
+        return view('admins.registrar.user');
+    }
+    function regEmpresa(){
+        return view('admins.registrar.empresa');
     }
 }

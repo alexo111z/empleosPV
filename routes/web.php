@@ -35,8 +35,13 @@ Route::get('/empresas/{empresa}/edit', 'EmpresaController@editar')->name('emp.ed
 Route::put('/empresas/{empresa}/{id}', 'EmpresaController@update')->name('emp.update');
 //Admin
 Route::get('/administrator',array('as' => 'admin.index', 'uses'=>'AdminController@index'));
-Route::get('/administrator/emp',array('as' => 'admin.emp', 'uses'=>'AdminController@empresas'));
-Route::get('/administrator/us',array('as' => 'admin.users', 'uses'=>'AdminController@usuarios'));
+Route::get('/administrator/empresas',array('as' => 'admin.emp', 'uses'=>'AdminController@empresas'));
+Route::get('/administrator/ususarios',array('as' => 'admin.users', 'uses'=>'AdminController@usuarios'));
+Route::get('/administrator/empresas/ofertas', array('as' => 'admin.emp.ofr', 'uses'=>'AdminController@empOfertas'));
+Route::get('/administrator/administradores', array('as'=>'admin.admins', 'uses'=>'AdminController@administradores'));
+Route::get('/administrator/registro/administrador', array('as'=>'admin.reg.admin','uses'=>'AdminController@regAdministrador'));
+Route::get('/administrator/registro/usuario', array('as'=>'admin.reg.user','uses'=>'AdminController@regUser'));
+Route::get('/administrator/registro/empresa', array('as'=>'admin.reg.emp','uses'=>'AdminController@regEmpresa'));
 
 //Lupita
 /* Rutas de usuario */

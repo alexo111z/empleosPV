@@ -16,7 +16,7 @@
                         <a class="nav-link" href="{{ route('admin.emp') }}">Emprsas</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('admin.users') }}">Usuarios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Otros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.admins') }}">Otros/Administradores</a></li>
                 </ul>
 
                 <div class="form-inline ">
