@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
             'area',
             'calificaciones',
             'comentarios',
-            'ofertas',
             'relacion_tags',
             'paises',
             'estado',
             'municipios',
             'users',
+            'ofertas',
         ]);
 
         $this->call(GiroSeeder::class);
@@ -40,11 +40,11 @@ class DatabaseSeeder extends Seeder
         $this->call(EmpresasSeeder::class);
         $this->call(CalificacionesSeeder::class);
         $this->call(ComentariosSeeder::class);
-        $this->call(OfertaSeeder::class);
-        $this->call(RelacionTagSeeder::class);
         $this->call(PaisesSeeder::class);
         $this->call(EstadosSeeder::class);
         $this->call(MunicipiosSeeder::class);
+        $this->call(OfertaSeeder::class);
+        $this->call(RelacionTagSeeder::class);
     }
 
     public function truncateTables(array $tables) {

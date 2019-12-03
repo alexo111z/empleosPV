@@ -25,9 +25,14 @@ class CreateOfertasTable extends Migration
             $table->string('salario', 5);
             $table->string('t_contrato', 30)->nullable();
             $table->dateTime('vigencia');
-            $table->string('pais', 100);
-            $table->string('estado', 100);
-            $table->string('ciudad', 100);
+
+            //Direccion
+            $table->bigInteger('id_pais')->nullable()->unsigned();
+            $table->foreign('id_pais')->references('id')->on('paises');
+            $table->bigInteger('id_estado')->nullable()->unsigned();
+            $table->foreign('id_estado')->references('id')->on('estado');
+            $table->bigInteger('id_ciudad')->nullable()->unsigned();
+            $table->foreign('id_ciudad')->references('id')->on('municipios');
 
             $table->timestamps();
         });

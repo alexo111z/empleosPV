@@ -15,8 +15,8 @@ $factory->define(Oferta::class, function (Faker $faker) {
         'salario'=> $faker->numberBetween(1, 99999),
         't_contrato' => null,
         'vigencia' => $faker->date(),
-        'pais' => $faker->country,
-        'estado' => 'Estado X',
-        'ciudad' => 'Cidudad Y',
+        'id_pais' => $faker->numberBetween(1, 5),
+        'id_estado' => $faker->numberBetween(1, 5),
+        'id_ciudad' => $faker->numberBetween(1, 5),
     ];
 });

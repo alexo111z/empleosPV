@@ -8,13 +8,18 @@ use App\RelacionTag;
 use App\Solicitud;
 use App\User;
 use Illuminate\Http\Request;
-
+use App\Pais;
+use App\Estado;
+use App\Municipio;
 class OfertasController extends Controller
 {
     function ListaOfertas(){
-        $ofertas = Oferta::all();
+        $ofertas = Oferta::paginate(10);
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
-        return view('ofertas.ofertas', compact('ofertas', 'rTags'));
+        $paises = Pais::all();
+        $estados =Estado::all();
+        $ciudades = Municipio::all();
+        return view('ofertas.ofertas', compact('paises','estados','ciudades','ofertas', 'rTags'));
     }
     function BusquedaAvanzada(){
         return view('ofertas.busqueda');
@@ -52,5 +57,14 @@ class OfertasController extends Controller
         $solicitud->delete();
 
         return back();
+    }
+    function Buscar(){
+        $data = request()->all();
+        $ofertas = Oferta::where('titulo','like','%'.$data['inputtitulo'].'%')->paginate(10);
+        $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
+        $paises = Pais::all();
+        $estados =Estado::all();
+        $ciudades = Municipio::all();
+        return view('ofertas.ofertas', compact('paises','estados','ciudades','ofertas', 'rTags'));
     }
 }

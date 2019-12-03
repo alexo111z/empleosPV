@@ -20,7 +20,7 @@
     <body class="mt-6">
 
 @include('header')
-<!--@yield('header')-->
+
 @yield('header-user')
 
 @yield('body')

@@ -54,6 +54,10 @@ Route::post('/perfil/nivelyarea','UserController@addNivelyArea')->name('user.niv
 Route::post('/perfil/actualizar','UserController@update')->name('user.actualizar');
 Route::post('/perfil/contacto','UserController@addContacto')->name('user.contacto');
 
+
+//LUPITA OFERTAS
+Route::post('/ofertas','OfertasController@Buscar')->name('ofertas.buscar');
+
 //ofertas
 Route::get('/ofertas/lista/{empresa}', 'OfertaController@show')->name('oferta.list');
 
