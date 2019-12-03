@@ -31,4 +31,7 @@ class AdminController extends Controller
     function regEmpresa(){
         return view('admins.registrar.empresa');
     }
+    function regOferta(){
+        return view('admins.registrar.oferta');
+    }
 }

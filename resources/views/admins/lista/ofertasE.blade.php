@@ -19,10 +19,12 @@
                     </div>
                 </div>
                 <div class="componet">
-                    <button class="btn btn-primary add">
-                        Crear oferta    
-                        <i class="fa fa-plus"></i>
-                    </button>
+                    <a href="{{ route('admin.reg.ofr') }}">
+                        <button class="btn btn-primary add">
+                            Crear oferta    
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </a>
                 </div>
             <div class="data-table">
                 <table class="table data">

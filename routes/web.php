@@ -43,6 +43,7 @@ Route::get('/administrator/administradores', array('as'=>'admin.admins', 'uses'=
 Route::get('/administrator/registro/administrador', array('as'=>'admin.reg.admin','uses'=>'AdminController@regAdministrador'));
 Route::get('/administrator/registro/usuario', array('as'=>'admin.reg.user','uses'=>'AdminController@regUser'));
 Route::get('/administrator/registro/empresa', array('as'=>'admin.reg.emp','uses'=>'AdminController@regEmpresa'));
+Route::get('/administrator/registro/oferta', array('as'=>'admin.reg.ofr','uses'=>'AdminController@regOferta'));
 
 
 //LUPITA TAGS
