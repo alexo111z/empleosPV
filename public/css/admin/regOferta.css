@@ -16,5 +16,8 @@
     background-color:#03A9F4 !important;
   }
   .div-ubicacion{
-      float: left;
+        float: left;
+  }
+  .div-det{
+        float: left; 
   }

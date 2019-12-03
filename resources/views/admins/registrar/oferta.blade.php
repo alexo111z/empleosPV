@@ -18,7 +18,7 @@
                 <h4 class="mb-1">Datos de la oferta</h4>
                 <div class="mb-3">
                     <label for="titulo">Titulo</label>
-                    <input type="titulo" class="form-control" id="titulo" name="titulo" placeholder="Ingeniero para pvwork.com">
+                    <input type="titulo" class="form-control" id="titulo" name="titulo" placeholder="Deseñador para pvwork.com">
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
@@ -94,16 +94,27 @@
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-1">Detalles de la oferta</h4>
                 <div class="row">
+                    <div class="col-md-6 mb-3">
+                            <label for="desc_corta">Fecha de vigencia</label>
+                            <small  class="text-muted"> (Fecha limite para la oferta) </small><br>
+                            <input id="CmbFecha" type="date" class="form-control" value="1983-01-16" min="1960-01-01" max="2002-12-31">
+                    </div>
                     <div class="col-md-12 mb-3">
                             <label for="desc_corta">Descripcion detallada</label>
                             <textarea class="form-control" id="desc_corta" name="desc_corta" rows="3" style="display: inline-block;">
                             </textarea>
                     </div>
-                    <div class="salario col-md-6 mb-3">
+                    <div class="div-det col-md-6 mb-3">
                         <label for="titulo">Salario</label>
                         <small  class="text-muted"> (Opcional) </small><br>
                         <input type="titulo" class="form-control" id="titulo" name="titulo" placeholder="00000.00">     
                     </div>
+                    <div class="div-det col-md-6 mb-3">
+                            <label for="tContrato">Tiempo de Contrato</label>
+                            <small  class="text-muted"> (Opcional) </small><br>
+                            <input type="text" class="form-control" id="tContrato" name="tContrato" placeholder="Indefinido, 1 semana">     
+                    </div>
+                    
                 </div>
                 <div class="col-md-8 order-md-1">
                     <button class="btn btn-register btn-lg btn-block" type="submit">Crear oferta</button>
