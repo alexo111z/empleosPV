@@ -15,11 +15,12 @@ class OfertasController extends Controller
 {
     function ListaOfertas(){
         $ofertas = Oferta::paginate(10);
+        $inputtitulo="";
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
         $paises = Pais::all();
         $estados =Estado::all();
         $ciudades = Municipio::all();
-        return view('ofertas.ofertas', compact('paises','estados','ciudades','ofertas', 'rTags'));
+        return view('ofertas.ofertas', compact('inputtitulo','paises','estados','ciudades','ofertas', 'rTags'));
     }
     function BusquedaAvanzada(){
         return view('ofertas.busqueda');
@@ -60,11 +61,12 @@ class OfertasController extends Controller
     }
     function Buscar(){
         $data = request()->all();
+        $inputtitulo=$data['inputtitulo'];
         $ofertas = Oferta::where('titulo','like','%'.$data['inputtitulo'].'%')->paginate(10);
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
         $paises = Pais::all();
         $estados =Estado::all();
         $ciudades = Municipio::all();
-        return view('ofertas.ofertas', compact('paises','estados','ciudades','ofertas', 'rTags'));
+        return view('ofertas.ofertas', compact('inputtitulo','paises','estados','ciudades','ofertas', 'rTags'));
     }
 }

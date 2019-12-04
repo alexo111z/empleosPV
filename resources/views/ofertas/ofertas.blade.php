@@ -7,19 +7,16 @@
     <nav class="nav-buscador navbar  flex-md-nowrap mt-6">
     
     <div class="row div-search input-group search-group text-center pt-2 mx-auto w-50 mb-1">
-        <input id="inputtitulo" name="inputtitulo" class="form-control mx-auto form-control-dark " type="text" placeholder="Busca empleos ahora" aria-label="Search">
+        <input value="{{$inputtitulo}}" id="inputtitulo" name="inputtitulo" class="form-control mx-auto form-control-dark " type="text" placeholder="Busca empleos ahora" aria-label="Search">
         <div class="input-group-prepend">
-      
-            <button class="btn btn-search my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        
-        </div>
-        
+            <button id="btn-search"class="btn btn-search my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        </div> 
+        <div class="col-sm-12 text-right mb-0 pb-0 pr-0 "><small><a href="{{route('ofertas.lista')}}">Limpiar búsqueda</a></small></div>
     </div>
-   
     <div class="div-busqueda-avanzada text-right"><i class="fas fa-cog"></i> <a class="link-busqueda" href="{{route('ofertas.busqueda')}}">Búsqueda avanzada>></a></div>
     </nav>
     {!! Form::close() !!}
-    <div class="col-md-9 order-md-2 mx-auto mt-4">
+    <div id="lista-ofertas" class="col-md-9 order-md-2 mx-auto mt-4">
         
         @forelse($ofertas as $oferta)
         <!--div oferta-->
@@ -70,16 +67,23 @@
         <!--fin oferta-->
         @empty
         <div class="alert alert-info" role="alert">
-          No hay empleos que mostrar.
+          <i class="fa fa-info-circle" aria-hidden="true"></i> No hay empleos que mostrar que coincidan con tu búsqueda.<br><br>
+          <p>Te sugerimos:</p>
+          <ul>
+              <li>Utilizar palabras comunes o sinónimos</li>
+              <li>Evitar el uso de muchos filtros</li>
+              <li>Revisar la ortografía</li>
+              <li>Realizar una nueva búsqueda</li>
+          </ul>
         </div>
         @endforelse
         <div class="col-sm-12 text-right pr-0 mr-0">
-          
           {{ $ofertas->links() }}
-        </div>
-        
+        </div>    
     </div>
-
-
   </main>
+@endsection
+@section('scripts')
+
+   <script src="{{asset('js/ofertas.js')}}"> </script>
 @endsection
