@@ -83,7 +83,3 @@
     </div>
   </main>
 @endsection
-@section('scripts')
-
-   <script src="{{asset('js/ofertas.js')}}"> </script>
-@endsection

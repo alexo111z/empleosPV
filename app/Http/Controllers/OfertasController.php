@@ -28,17 +28,24 @@ class OfertasController extends Controller
     function VerOferta($id){
         $oferta = Oferta::findOrFail($id);
         $tags = RelacionTag::where('id_oferta', '=', $id)->get();
-        return view('ofertas.veroferta', compact('oferta','tags'));
+        $paises = Pais::all();
+        $estados =Estado::all();
+        $ciudades = Municipio::all();
+        $solicitud="";
+        if(isset(auth()->user()->id)){
+            $solicitud = Solicitud::where('id_oferta', $id)
+                ->where('id_usuario', auth()->user()->id)
+                ->get();
+        }
+        return view('ofertas.veroferta', compact('solicitud','paises','estados','ciudades','oferta','tags'));   
     }
     function solicitar($id){
-        $correo = 'puerba@correo.com';  //Obtener id o correo mediante la Autentificacion
-        $user = User::where('email', $correo)->firstOrFail();
-
+        $oferta = Oferta::findOrFail($id);
         Solicitud::create([
             'id_oferta' => $id,
-            'id_usuario' => $user->id,
+            'id_usuario' =>  auth()->user()->id,
         ]);
-        return back();
+        return \App::make('redirect')->back();
     }
 
     function Postulaciones(){
@@ -51,13 +58,9 @@ class OfertasController extends Controller
         return view('ofertas.postulaciones', compact('ofertas', 'rTags'));
     }
     function cancelarPostulacion($id){
-        $correo = 'puerba@correo.com';  //Obtener id o correo mediante la Autentificacion
-        $user = User::where('email', $correo)->firstOrFail();
-
-        $solicitud = Solicitud::where('id_oferta', $id)->where('id_usuario', $user->id)->firstOrFail();
+        $solicitud = Solicitud::where('id_oferta', $id)->where('id_usuario', auth()->user()->id)->firstOrFail();
         $solicitud->delete();
-
-        return back();
+        return \App::make('redirect')->back();
     }
     function Buscar(){
         $data = request()->all();

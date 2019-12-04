@@ -39,3 +39,6 @@
   width: 100%;
   overflow: auto;
 }
+.d-larga{
+  white-space: pre-line;
+}
