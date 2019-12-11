@@ -78,7 +78,7 @@
         </div>
         @endforelse
         <div class="col-sm-12 text-right pr-0 mr-0">
-          {{ $ofertas->links() }}
+          
         </div>    
     </div>
   </main>
