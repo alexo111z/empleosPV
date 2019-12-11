@@ -16,7 +16,7 @@
                 <h4 class="mb-1">Datos de la cuenta</h4>
                 <div class="mb-3">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com"required>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">

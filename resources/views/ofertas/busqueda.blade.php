@@ -7,6 +7,7 @@
             <a class="regresar" href="{{route('ofertas.lista')}}"><i class="	fas fa-arrow-left"></i> volver</a>
         </div>   
     </nav>
+    {!! Form::open(array('url'=>"/ofertas/34",'method'=>'POST', 'id'=>'buscador')) !!}
     <div class="container">
         <div class="py-3 text-center">
             <h3>Búsqueda avanzada</h3>
@@ -14,11 +15,11 @@
         <div class="row col-sm12 order-md-1">
             <div class="col-sm-7 mb-3">
                 <label>¿Que empleo búscas?</label>
-                <input type="text" class="form-control" placeholder="Título o palabra clave">
+                <input id="inputtitulo" name="inputtitulo"type="text" class="form-control" placeholder="Título o palabra clave">
             </div>
             <div class="col-sm-5 mb-3">
                 <label>¿Que sueldo búscas ganar?</label>
-                <select class="form-control">
+                <select name="selsueldo" class="form-control">
                     <option >Sin sueldo específico</option>
                     <option >Menor a $1000</option>
                     <option >Entre $1000 - $4000</option>
@@ -51,13 +52,22 @@
                     <?php
                        foreach($abecedario AS $letra){ 
                             if($letra<>'A'){
-                                echo "<div class='tab-pane fade show' id='$letra' role='tabpanel'><div class='tags text-uppercase text-secondary'>";
+                                echo "<div class='tab-pane fade show' id='$letra' role='tabpanel'><div class='tags text-secondary'>";
                             }else{
-                                echo "<div class='tab-pane fade show active' id='$letra' role='tabpanel'><div class='tags text-uppercase text-secondary'>";
+                                echo "<div class='tab-pane fade show active' id='$letra' role='tabpanel'><div class='tags text-secondary'>";
                                     
                             }
+                            $existe=true;
                             //Poner tags
-                            for ($i = 0; $i < 20; $i++){echo" <span class='px-2  border rounded'>Tag$i-$letra</span>";}        
+                            foreach($tags as $tag){
+                                if(strpos($tag->nombre, strtolower ($letra))==" "){
+                                    echo" <span class='tag px-2  text-lowercase  border rounded' id='$tag->id'> $tag->nombre</span>";
+                                    $existe=false;
+                                }
+                            }
+                            if($existe){
+                                echo" <span><i class='fa fa-info-circle' aria-hidden='true'></i> No hay tags registrados con esta letra.</span>";
+                            }
                             echo "</div></div>";
                         }
                     ?>
@@ -68,16 +78,20 @@
                     <div class="title-tags col-sm-12 text-center py-1">
                         <span>Tags seleccionados</span>
                     </div>
-                    <div class="tags-container col-sm-12 px-2 py-1">
+                    <div id="addtag" class="tags-container tags text-secondary col-sm-12 px-2 py-1">
                         <!--Tags seleccionados-->
                     </div>
                 </diV>
                 <div class="col-sm-12 my-3 px-0 text-center">
-                    <button type="button" class="btn btn-buscar "><i class="fas fa-search"></i> Buscar ahora</button>
+                    <button class="btn btn-buscar " ><i class="fas fa-search"></i> Buscar ahora</button>
                 </div>
             </div>
         </div>
     </div>
-
+    {!! Form::close() !!}
 </main>
+@endsection
+@section('scripts')
+
+   <script src="{{asset('js/busqueda.js')}}"> </script>
 @endsection

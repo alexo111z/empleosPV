@@ -41,7 +41,7 @@
                                     @else
                                     <Span id="TxtSexo" class="text-muted"><i class="fa fa-male"></i> Hombre</span> de <Span id="TxtSexo" class="text-muted">{{ auth()->user()->edad}} años</span><br>
                                     @endif
-                                    <span class="fa fa-birthday-cake text-muted"></span><span id="TxtFecha"  class="text-muted"> Nació el {{ Date::createFromFormat('Y-m-d H:i:s', auth()->user()->nacimiento)->format('d-F-Y') }}</span><br>
+                                    <span class="fa fa-birthday-cake text-muted"></span><span id="TxtFecha"  class="text-muted"> Nació el {{ Date::createFromFormat('Y-m-d H:i:s', auth()->user()->nacimiento)->format('d \d\e F \d\e Y') }}</span><br>
                                     <Span class="text-muted  mr-5">
                                     @if(auth()->user()->id_ciudad!=null && auth()->user()->id_estado!=null && auth()->user()->id_pais!=null)
                                         <i class="fas fa-map-marker-alt"></i> Vive en {{$municipios[auth()->user()->id_ciudad - 1]->municipio}}, {{$estados[auth()->user()->id_estado- 1]->estado}}, {{$paises[auth()->user()->id_pais - 1]->pais }}</span><br>

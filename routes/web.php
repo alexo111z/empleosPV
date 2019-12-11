@@ -45,7 +45,6 @@ Route::get('/administrator/registro/usuario', array('as'=>'admin.reg.user','uses
 Route::get('/administrator/registro/empresa', array('as'=>'admin.reg.emp','uses'=>'AdminController@regEmpresa'));
 Route::get('/administrator/registro/oferta', array('as'=>'admin.reg.ofr','uses'=>'AdminController@regOferta'));
 
-
 //LUPITA TAGS
 Route::post('/perfil/createtags', 'TagsController@Insert')->name('tags.insert');
 Route::post('/perfil/deletetags','TagsController@destroy')->name('tags.destroy');
@@ -55,6 +54,17 @@ Route::post('/perfil/addconocimientos','UserController@addConocimientos')->name(
 Route::post('/perfil/nivelyarea','UserController@addNivelyArea')->name('user.nivelyarea');
 Route::post('/perfil/actualizar','UserController@update')->name('user.actualizar');
 Route::post('/perfil/contacto','UserController@addContacto')->name('user.contacto');
+
+//LUPITA OFERTAS
+Route::post('/ofertas','OfertasController@Buscar')->name('ofertas.buscar');
+
+//ofertas
+Route::get('/ofertas/lista/{empresa}', 'OfertaController@show')->name('oferta.list');
+Route::get('/ofertas/nueva/{empresa}', 'OfertaController@nueva')->name('oferta.nueva');
+Route::post('/oferta/crear/{id}', 'OfertaController@create')->name('oferta.create');
+
+//GENERAL
+Route::get('/ofertas2', 'OfertaController@general')->name('gen.list');
 
 //Lupita
 /* Rutas de usuario */
@@ -72,14 +82,17 @@ Route::post('/perfil/Laboral', array('as' => 'perfil.laboral', 'uses' => 'UserCo
 
 /* rutas oferta */
 Route::get('/ofertas', array( 'as'=> 'ofertas.lista', 'uses'=>  'OfertasController@ListaOfertas'));
-Route::get('/busqueda', array('as' =>'ofertas.busqueda', 'uses' => 'OfertasController@BusquedaAvanzada'));
 Route::get('/veroferta/{oferta}', array('as' =>'ofertas.veroferta', 'uses' => 'OfertasController@VerOferta'));
 Route::post('/solicitar/{oferta}', array('as' => 'oferta.solicitud', 'uses'=> 'OfertasController@solicitar'));
 Route::post('/solicitar/{oferta}/cancelar', array('as' => 'oferta.solicitud.cancelar', 'uses'=> 'OfertasController@cancelarPostulacion'));
 Route::get('/postulaciones',array('as' =>'postulaciones', 'uses' => 'OfertasController@Postulaciones'));
+/*Busqueda avanzada*/
+Route::get('/busqueda', array('as' =>'ofertas.busqueda', 'uses' => 'OfertasController@BusquedaAvanzada'));
+Route::post('/busqueda/{idtags?}','OfertasController@BuscarAvanzado')->name('ofertas.buscaravanzado');
 
 //Logout
 Route::post('/user/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));  //logout en header.blade
+
 
 
 //Pruebas
@@ -95,3 +108,4 @@ Route::get('/ofertas2', 'OfertaController@general')->name('gen.list');
 Route::get('/usuarios/registro', 'UserController@registro')->name('users.registro');
 Route::get('/usuarios/{user}/editar', 'UserController@editar')->name('users.editPage');
 Route::put('/usuarios/{user}/{id}', 'UserController@update')->name('users.update');
+
