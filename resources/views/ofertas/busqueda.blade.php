@@ -19,13 +19,13 @@
             </div>
             <div class="col-sm-5 mb-3">
                 <label>¿Que sueldo búscas ganar?</label>
-                <select name="selsueldo" class="form-control">
-                    <option >Sin sueldo específico</option>
-                    <option >Menor a $1000</option>
-                    <option >Entre $1000 - $4000</option>
-                    <option >Entre $4000 - $6500</option>
-                    <option >Entre $6500 - $10000</option>
-                    <option >Mas de $10000</option>
+                <select id="selsueldo" name="selsueldo" class="form-control">
+                    <option data-min="null" data-max="null">Sin sueldo específico</option>
+                    <option data-min="0" data-max="1000">Menor a $1000</option>
+                    <option data-min="1000" data-max="4000">Entre $1000 - $4000</option>
+                    <option data-min="4000" data-max="7000">Entre $4000 - $7000</option>
+                    <option data-min="7000" data-max="10000">Entre $7000 - $10000</option>
+                    <option data-min="10000" data-max="null">Mas de $10000</option>
                 </select>
             </div>
         </div>

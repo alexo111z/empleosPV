@@ -84,12 +84,21 @@ class OfertasController extends Controller
     
     function BuscarAvanzado(){
         $data = request()->all();
+        $min=$data['min'];
+        $max=$data['max'];
         $empleo=(string)$data['empleo'];
         $etiquetas= json_decode($data['etiquetas']);
-        $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')->get();
-        if($etiquetas==null or $etiquetas=="" or $etiquetas==" "){
-            $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')->paginate(10); 
-        }else{
+        if($min!="null" && $max!="null"){
+            $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')
+            ->whereBetween('salario', [$min, $max])
+            ->get();
+        }elseif($min!=null){
+            $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')
+            ->where('salario',">", $min)
+            ->get();
+        }
+        else{$ofertas=Oferta::where('titulo','like','%'.$empleo.'%')->get();}
+        if($etiquetas!=null && $etiquetas!="" && $etiquetas!=" "){
             foreach($ofertas as $oferta){
                 foreach($etiquetas as $etiqueta){
                     $relacion=Tag::where('nombre','=',$etiqueta)
@@ -113,11 +122,12 @@ class OfertasController extends Controller
         }
         if(isset($data['page'])){ $page=$data['page'];}
         else{ $page=1;}
-        $ofertas = new LengthAwarePaginator($ofertas->forPage($page,10), $ofertas->count(), 10, $page, ['path'=>url('/ofertas/busqueda-de'),'pageName' => 'page']);
+        $ofertas = new LengthAwarePaginator($ofertas->forPage($page,1), $ofertas->count(), 1, $page, ['path'=>url('/ofertas/busqueda-de'),'pageName' => 'page']);
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
         $paises = Pais::all();
         $estados =Estado::all();
         $ciudades = Municipio::all();
+        if($empleo=="" or $empleo==null){$data["empleo"]="";}
         return view('ofertas.ofertas', compact('data','empleo','paises','estados','ciudades','ofertas', 'rTags')); 
     }
 }

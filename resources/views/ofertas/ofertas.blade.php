@@ -79,8 +79,8 @@
         @endforelse
         <div class="col-sm-12 text-right pr-0 mr-0">
         
-        @if(isset($_GET["etiquetas"]))
-        {{$ofertas->appends(["empleo"=> $data["empleo"],"etiquetas"=>$data["etiquetas"]])->links() }}
+        @if(isset($data))
+        {{$ofertas->appends(["empleo"=> $data["empleo"],"etiquetas"=>$data["etiquetas"],"min"=>$data["min"],"max"=>$data["max"]])->links() }}
         @else
           {{$ofertas->appends(["empleo"=> $empleo])->links() }}
         @endif
