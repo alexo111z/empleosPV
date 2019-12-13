@@ -7,7 +7,7 @@
             <a class="regresar" href="{{route('ofertas.lista')}}"><i class="	fas fa-arrow-left"></i> volver</a>
         </div>   
     </nav>
-    {!! Form::open(array('url'=>"/ofertas/busqueda-de",'method'=>'POST', 'id'=>'buscador')) !!}
+    {!! Form::open(array('url'=>"/ofertas/34",'method'=>'POST', 'id'=>'buscador')) !!}
     <div class="container">
         <div class="py-3 text-center">
             <h3>Búsqueda avanzada</h3>
@@ -15,7 +15,7 @@
         <div class="row col-sm12 order-md-1">
             <div class="col-sm-7 mb-3">
                 <label>¿Que empleo búscas?</label>
-                <input id="empleo" name="empleo"type="text" class="form-control" placeholder="Título o palabra clave">
+                <input id="inputtitulo" name="inputtitulo"type="text" class="form-control" placeholder="Título o palabra clave">
             </div>
             <div class="col-sm-5 mb-3">
                 <label>¿Que sueldo búscas ganar?</label>
@@ -54,13 +54,14 @@
                             if($letra<>'A'){
                                 echo "<div class='tab-pane fade show' id='$letra' role='tabpanel'><div class='tags text-secondary'>";
                             }else{
-                                echo "<div class='tab-pane fade show active' id='$letra' role='tabpanel'><div class='tags text-secondary'>";  
+                                echo "<div class='tab-pane fade show active' id='$letra' role='tabpanel'><div class='tags text-secondary'>";
+                                    
                             }
                             $existe=true;
                             //Poner tags
                             foreach($tags as $tag){
                                 if(strpos($tag->nombre, strtolower ($letra))==" "){
-                                    echo" <span class='tag px-2  text-lowercase  border rounded' id='$tag->id'>$tag->nombre</span>";
+                                    echo" <span class='tag px-2  text-lowercase  border rounded' id='$tag->id'> $tag->nombre</span>";
                                     $existe=false;
                                 }
                             }
@@ -82,7 +83,7 @@
                     </div>
                 </diV>
                 <div class="col-sm-12 my-3 px-0 text-center">
-                    <button  class="btn btn-buscar " ><i class="fas fa-search"></i> Buscar ahora</button>
+                    <button class="btn btn-buscar " ><i class="fas fa-search"></i> Buscar ahora</button>
                 </div>
             </div>
         </div>

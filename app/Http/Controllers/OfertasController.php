@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller;
 use App\Oferta;
 use App\RelacionTag;
@@ -13,16 +13,17 @@ use App\Estado;
 use App\Municipio;
 use App\Tag;
 use App\Empresa;
+
 class OfertasController extends Controller
 {
     function ListaOfertas(){
         $ofertas = Oferta::paginate(10);
-        $inputtitulo="";
+        $empleo="";
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
         $paises = Pais::all();
         $estados =Estado::all();
         $ciudades = Municipio::all();
-        return view('ofertas.ofertas', compact('inputtitulo','paises','estados','ciudades','ofertas', 'rTags'));
+        return view('ofertas.ofertas', compact('empleo','paises','estados','ciudades','ofertas', 'rTags'));
     }
     function BusquedaAvanzada(){
         $tags =Tag::all();
@@ -67,49 +68,56 @@ class OfertasController extends Controller
     }
     function Buscar(){
         $data = request()->all();
-        $inputtitulo=$data['inputtitulo'];
-        $ofertas = Oferta::where('titulo','like','%'.$data['inputtitulo'].'%')->paginate(10);
-        
-        $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
-        $paises = Pais::all();
-        $estados =Estado::all();
-        $ciudades = Municipio::all();
-        return view('ofertas.ofertas', compact('inputtitulo','paises','estados','ciudades','ofertas', 'rTags'));
-    }
-    function BuscarAvanzado($idtags){
-        $data = request()->all();
-        $ofertas=null; 
-        $inputtitulo=$data['inputtitulo'];
-        $oferts=Oferta::where('titulo','like','%'.$data['inputtitulo'].'%')->get(); 
-        /*SI se seleccionaron tags*/
-        if($idtags=="null"){
-            $ofertas=$oferts; 
+        if(isset($data['empleo'])){
+            $empleo=$data['empleo'];
+            $ofertas = Oferta::where('titulo','like','%'.$data['empleo'].'%')->paginate(10);
+            $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
+            $paises = Pais::all();
+            $estados =Estado::all();
+            $ciudades = Municipio::all();
+            return view('ofertas.ofertas', compact('empleo','paises','estados','ciudades','ofertas', 'rTags'));
         }else{
-            $idtags= preg_split("/[\s,]+/", $idtags);
-            foreach($oferts as $ofert){
-                foreach($idtags as $idtag){
-                    $result=(Oferta::join('relacion_tags','relacion_tags.id_oferta','ofertas.id')
-                    ->where('relacion_tags.id_tag', '=', $idtag)
-                    ->where('ofertas.id', '=', $ofert->id))
-                    ->get('ofertas.*');
-                    if($result != "[]"){
-                        if($ofertas==null){
-                            $ofertas=$result;
-                        }else{
-                            foreach($result as $oferta){
-                                $ofertas->add($oferta);
-                            }  
-                        }
+            return redirect('/ofertas');
+        }
+       
+    }
+    
+    function BuscarAvanzado(){
+        $data = request()->all();
+        $empleo=(string)$data['empleo'];
+        $etiquetas= json_decode($data['etiquetas']);
+        $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')->get();
+        if($etiquetas==null or $etiquetas=="" or $etiquetas==" "){
+            $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')->paginate(10); 
+        }else{
+            foreach($ofertas as $oferta){
+                foreach($etiquetas as $etiqueta){
+                    $relacion=Tag::where('nombre','=',$etiqueta)
+                    ->join('relacion_tags','tags.id','relacion_tags.id_tag')
+                    ->where('relacion_tags.id_oferta','=',$oferta->id)
+                    ->get();
+                    if($relacion!= "[]"){
+                        if(isset($relaciones)){$relaciones->add($relacion[0]);}
+                        else{$relaciones=$relacion;}
+                        break;
                     }
                 }
-               
             }
+            $ofertas=[];
+            foreach($relaciones as $relacion){
+                $oferta=Oferta::where('id','=',$relacion['id_oferta'])->get();
+                if($ofertas==[]){$ofertas=$oferta;}
+                else{$ofertas->add($oferta[0]);}
+            }
+            
         }
+        if(isset($data['page'])){ $page=$data['page'];}
+        else{ $page=1;}
+        $ofertas = new LengthAwarePaginator($ofertas->forPage($page,10), $ofertas->count(), 10, $page, ['path'=>url('/ofertas/busqueda-de'),'pageName' => 'page']);
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
         $paises = Pais::all();
         $estados =Estado::all();
         $ciudades = Municipio::all();
-        return view('ofertas.ofertas', compact('inputtitulo','paises','estados','ciudades','ofertas', 'rTags')); 
+        return view('ofertas.ofertas', compact('data','empleo','paises','estados','ciudades','ofertas', 'rTags')); 
     }
 }
-

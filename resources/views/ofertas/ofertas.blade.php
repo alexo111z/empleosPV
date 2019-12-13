@@ -3,11 +3,11 @@
 @section('body')
 
   <main role="main" class="col-md-12 py-0 px-0">
-  {!! Form::open(array('url'=>"/ofertas",'method'=>'POST', 'id'=>'buscador')) !!}
+  {!! Form::open(array('url'=>"/ofertas/buscar",'method'=>'POST', 'id'=>'buscador')) !!}
     <nav class="nav-buscador navbar  flex-md-nowrap mt-6">
     
     <div class="row div-search input-group search-group text-center pt-2 mx-auto w-50 mb-1">
-        <input value="{{$inputtitulo}}" id="inputtitulo" name="inputtitulo" class="form-control mx-auto form-control-dark " type="text" placeholder="Busca empleos ahora" aria-label="Search">
+        <input value="{{$empleo}}" id="empleo" name="empleo" class="form-control mx-auto form-control-dark " type="text" placeholder="Busca empleos ahora" aria-label="Search">
         <div class="input-group-prepend">
             <button id="btn-search"class="btn btn-search my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </div> 
@@ -78,8 +78,18 @@
         </div>
         @endforelse
         <div class="col-sm-12 text-right pr-0 mr-0">
+        
+        @if(isset($_GET["etiquetas"]))
+        {{$ofertas->appends(["empleo"=> $data["empleo"],"etiquetas"=>$data["etiquetas"]])->links() }}
+        @else
+          {{$ofertas->appends(["empleo"=> $empleo])->links() }}
+        @endif
           
         </div>    
     </div>
   </main>
+@endsection
+@section('scripts')
+
+ <script src="{{asset('js/result.js')}}"> </script>
 @endsection
