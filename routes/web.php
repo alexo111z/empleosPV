@@ -38,7 +38,7 @@ Route::put('/empresas/{empresa}/{id}', 'EmpresaController@update')->name('emp.up
 Route::get('/administrator',array('as' => 'admin.index', 'uses'=>'AdminController@index'));
 Route::get('/administrator/empresas',array('as' => 'admin.emp', 'uses'=>'AdminController@empresas'));
 Route::get('/administrator/ususarios',array('as' => 'admin.users', 'uses'=>'AdminController@usuarios'));
-Route::get('/administrator/empresas/ofertas', array('as' => 'admin.emp.ofr', 'uses'=>'AdminController@empOfertas'));
+Route::get('/administrator/empresas/ofertas/{empresa}', array('as' => 'admin.emp.ofr', 'uses'=>'AdminController@empOfertas'));
 Route::get('/administrator/administradores', array('as'=>'admin.admins', 'uses'=>'AdminController@administradores'));
 Route::get('/administrator/registro/administrador', array('as'=>'admin.reg.admin','uses'=>'AdminController@regAdministrador'));
 Route::get('/administrator/registro/usuario', array('as'=>'admin.reg.user','uses'=>'AdminController@regUser'));
@@ -64,7 +64,6 @@ Route::get('/ofertas/nueva/{empresa}', 'OfertaController@nueva')->name('oferta.n
 Route::post('/oferta/crear/{id}', 'OfertaController@create')->name('oferta.create');
 
 //GENERAL
-Route::get('/ofertas2', 'OfertaController@general')->name('gen.list');
 
 //Lupita
 /* Rutas de usuario */

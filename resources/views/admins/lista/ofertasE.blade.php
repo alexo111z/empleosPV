@@ -6,18 +6,20 @@
         
         <div class="conten col-md-10 ">
                 <div class="title">
-                        <h2>Ofertas de [Nombre empresa]</h2>
+                        <h2>Ofertas de {{ $ofertas[0]->empresa->nombre }}</h2>
                 </div>
+                {!! Form::open(array('route'=>array('admin.emp.ofr', $ofertas[0]->empresa->id),'method'=>'GET', 'id'=>'buscador')) !!}
                 <div class="buscador">
                     <div class="div-buscador  flex-md-nowrap mt-6">
                         <div class="row div-search input-group search-group text-center pt-2 w-50 mb-1">
-                            <input class="form-control form-control-dark " type="text" placeholder="Titulo oferta" aria-label="Search">
+                            <input class="form-control form-control-dark" id="search" name="search" type="text" placeholder="Titulo oferta" aria-label="Search">
                             <div class="input-group-prepend">
                                 <button class="btn btn-search my-sm-0" type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
+                {!! Form::close() !!}
                 <div class="componet">
                     <a href="{{ route('admin.reg.ofr') }}">
                         <button class="btn btn-primary add">
@@ -37,25 +39,42 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row">1</td>
-                            <td scope="row">Voluptates dolor sit non occaecati dolorem.</td>
-                            <td scope="row">Puerto Vallarta, Jalisco, México</td>
-                            <td scope="row" class="actions">
-                                <button class="btn btn-primary">
-                                    Detalles
-                                    <i class="fa fa-eye"></i> 
-                                </button>
-                            </td>
-                            <td scope="row" class="actions">
-                                <button class="btn btn-primary">
-                                    Otros
-                                    <i class="fa fa-archive"></i>    
-                                </button>
-                            </td>
-                        </tr>
+                        @if ($ofertas->isEmpty())
+                            <tr>
+                                <td class="text-center" colspan="5">No se encontraron ofertas</td>
+                            </tr>
+                        @endif
+                        @foreach ($ofertas as $ofer)
+                            <tr>
+                                <td scope="row">{{ $ofer->id }}</td>
+                                <td scope="row">{{ $ofer->titulo }}</td>
+                                <td scope="row">{{ $ofer->ciudad }}, {{$ofer->estado}}, {{$ofer->pais}}</td>
+                                <td scope="row" class="actions">
+                                    <button class="btn btn-primary">
+                                        Detalles
+                                        <i class="fa fa-eye"></i> 
+                                    </button>
+                                </td>
+                                <td scope="row" class="actions">
+                                    <button class="btn btn-primary">
+                                        Otros
+                                        <i class="fa fa-archive"></i>    
+                                    </button>
+                                </td>
+                            </tr>    
+                        @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="pagination">
+                @if (!$ofertas->isEmpty())
+                    <div class="message col-md-10 text-muted">
+                        Ofertas de la {{ $ofertas->firstItem() }} a la {{ $ofertas->lastItem() }} de un total de: {{ $ofertas->total() }}
+                    </div>
+                    <div class="element col-md-2 right">
+                        {{ $ofertas->links() }}
+                    </div>
+                @endif
             </div>
         </div>
 

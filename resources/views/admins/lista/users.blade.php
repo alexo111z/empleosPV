@@ -8,16 +8,18 @@
                 <div class="title">
                         <h2>Usuarios</h2>
                 </div>
+                {!! Form::open(array('route'=>'admin.users','method'=>'GET', 'id'=>'buscador')) !!}
                 <div class="buscador">
                     <div class="div-buscador  flex-md-nowrap mt-6">
                         <div class="row div-search input-group search-group text-center pt-2 w-50 mb-1">
-                            <input class="form-control form-control-dark " type="text" placeholder="Usuario..." aria-label="Search">
+                            <input class="form-control form-control-dark" id="search" name="search" type="text" placeholder="Usuario..." aria-label="Search">
                             <div class="input-group-prepend">
                                 <button class="btn btn-search my-sm-0" type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
+                {!! Form::close() !!}
                 <div class="componet">
                     <a href="{{ route('admin.reg.user') }}">
                         <button class="btn btn-primary add">
@@ -32,30 +34,47 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Alias</th>
+                            <th scope="col">Correo</th>
                             <th scope="col" colspan="2" class="actions text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row">1</td>
-                            <td scope="row">Luis Alejandro Ramirez Ortega</td>
-                            <td scope="row">alexo@alias</td>
-                            <td scope="row" class="actions">
-                                <button class="btn btn-primary">
-                                    Detalles
-                                    <i class="fa fa-user"></i> 
-                                </button>
-                            </td>
-                            <td scope="row" class="actions">
-                                <button class="btn btn-primary">
-                                    Otros
-                                    <i class="fa fa-archive"></i>    
-                                </button>
-                            </td>
-                        </tr>
+                        @if ($users->isEmpty())
+                            <tr>
+                                <td class="text-center" colspan="5">No se encontraron usuarios</td>
+                            </tr>
+                        @endif
+                        @foreach ($users as $usr)
+                            <tr>
+                                <td scope="row">{{ $usr->id }}</td>
+                                <td scope="row">{{ $usr->nombre }} {{ $usr->apellido }}</td>
+                                <td scope="row">{{ $usr->email }}</td>
+                                <td scope="row" class="actions">
+                                    <button class="btn btn-primary">
+                                        Detalles
+                                        <i class="fa fa-user"></i> 
+                                    </button>
+                                </td>
+                                <td scope="row" class="actions">
+                                    <button class="btn btn-primary">
+                                        Otros
+                                        <i class="fa fa-archive"></i>    
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="pagination">
+                @if (!$users->isEmpty())
+                    <div class="message col-md-10 text-muted">
+                        Usuarios del {{ $users->firstItem() }} al {{ $users->lastItem() }} de un total de: {{ $users->total() }}
+                    </div>
+                    <div class="element col-md-2 right">
+                        {{ $users->links() }}
+                    </div>
+                @endif
             </div>
         </div>
 

@@ -47,4 +47,11 @@
   .div-buscador{
     margin-left: 2%;
   }
+  .message{
+    text-align: right;
+    float: right;
+  }
+  .element{
+    float: right;
+  }
 
