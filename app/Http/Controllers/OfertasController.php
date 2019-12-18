@@ -82,12 +82,14 @@ class OfertasController extends Controller
        
     }
     
-    function BuscarAvanzado(){
-        $data = request()->all();
+    function BuscarAvanzado(){     
+        $data = request()->all();;
         $min=$data['min'];
         $max=$data['max'];
         $empleo=(string)$data['empleo'];
         $etiquetas= json_decode($data['etiquetas']);
+        if(isset($data['page'])){ $page=$data['page'];}
+        else{ $page=1;}
         if($min!="null" && $max!="null"){
             $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')
             ->whereBetween('salario', [$min, $max])
@@ -111,18 +113,23 @@ class OfertasController extends Controller
                         break;
                     }
                 }
+                
             }
             $ofertas=[];
-            foreach($relaciones as $relacion){
-                $oferta=Oferta::where('id','=',$relacion['id_oferta'])->get();
-                if($ofertas==[]){$ofertas=$oferta;}
-                else{$ofertas->add($oferta[0]);}
+            if(isset($relaciones)){
+                foreach($relaciones as $relacion){
+                    $oferta=Oferta::where('id','=',$relacion['id_oferta'])->get();
+                    if($ofertas==[]){$ofertas=$oferta;}
+                    else{$ofertas->add($oferta[0]);}
+                }
             }
-            
         }
-        if(isset($data['page'])){ $page=$data['page'];}
-        else{ $page=1;}
-        $ofertas = new LengthAwarePaginator($ofertas->forPage($page,1), $ofertas->count(), 1, $page, ['path'=>url('/ofertas/busqueda-de'),'pageName' => 'page']);
+        if($ofertas!="[]" && $ofertas!=[] &$ofertas!=null){
+            $ofertas = new LengthAwarePaginator($ofertas->forPage($page,1), $ofertas->count(), 1, $page, ['path'=>url('/ofertas/busqueda-de'),'pageName' => 'page']);
+        }else{
+            $ofertas = new LengthAwarePaginator($ofertas, 0, 1, $page, ['path'=>url('/ofertas/busqueda-de'),'pageName' => 'page']);  
+        }  
+        
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
         $paises = Pais::all();
         $estados =Estado::all();
