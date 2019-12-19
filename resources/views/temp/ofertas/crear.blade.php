@@ -4,16 +4,16 @@
     <form method="POST" action="{{ route('oferta.create', ['id' => $empresa->id]) }}">
         {{ csrf_field() }}
 
-        <lavel>Titulo</lavel>
+        <label>Titulo</label>
         <input type="text" class="form-control" id="titulo" name="titulo" value="{{ old('titulo') }}">
 
-        <laravel>Descripcion corta</laravel>
+        <label>Descripcion corta</label>
         <textarea class="form-control" name="dcorta" id="dcorta" rows="3">{{ old('dcorta') }}</textarea>
 
-        <lavel>Descripcion larga</lavel>
+        <label>Descripcion larga</label>
         <textarea class="form-control" name="dlarga" id="dlarga" rows="6">{{ old('dlarga') }}</textarea>
 
-        <lavel>Salario</lavel>
+        <label>Salario</label>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">$</span>
@@ -24,10 +24,10 @@
             </div>
         </div>
 
-        <lavel>Tiempo contrato</lavel>
+        <label>Tiempo contrato</label>
         <input type="text" class="form-control" id="tcontrato" name="tcontrato" value="{{ old('tcontrato') }}">
 
-        <lavel>Vigencia Oferta</lavel>
+        <label>Vigencia Oferta</label>
         <input type="text" class="form-control" id="vigencia" name="vigencia" value="{{ old('vigencia') }}">
 
         <label for="pais">Pais</label>

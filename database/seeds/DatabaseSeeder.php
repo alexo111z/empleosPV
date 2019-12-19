@@ -30,7 +30,10 @@ class DatabaseSeeder extends Seeder
             'users',
             'ofertas',
         ]);
-
+        
+        $this->call(PaisesSeeder::class);
+        $this->call(EstadosSeeder::class);
+        $this->call(MunicipiosSeeder::class);
         $this->call(GiroSeeder::class);
         $this->call(AreasSeeder::class);
         $this->call(RSocialesSeeder::class);
@@ -40,9 +43,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EmpresasSeeder::class);
         $this->call(CalificacionesSeeder::class);
         $this->call(ComentariosSeeder::class);
-        $this->call(PaisesSeeder::class);
-        $this->call(EstadosSeeder::class);
-        $this->call(MunicipiosSeeder::class);
         $this->call(OfertaSeeder::class);
         $this->call(RelacionTagSeeder::class);
     }

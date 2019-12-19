@@ -9,8 +9,8 @@
                     <h1 class="text-uppercase">Cuenta de Administrador</h1>
                     {{--<p class="lead">Tenemos ofertas de empleo esperandote</p>--}}
                 </div>
-    
-                <form method="POST" action="">
+                {!! Form::open(array('route'=>'admin.c.admin','method'=>'POST', 'id'=>'buscador')) !!}
+                <form class="needs-validation primary" novalidate>
                 {{ csrf_field() }}
     
                 <!-- start personal information -->
@@ -18,16 +18,16 @@
                     <h4 class="mb-1">Datos de la cuenta</h4>
                     <div class="mb-3">
                         <label for="email">Correo electrónico</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="{{ old('email') }}" required>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Contraseña</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="" value="" required>
+                            <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Confirmar contraseña</label>
-                            <input type="password" class="form-control" id="password2" name="password2" placeholder="" value="" required>
+                            <input type="password" class="form-control" id="password2" name="password2" required>
                         </div>
                     </div>
                </div>
@@ -39,11 +39,11 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="firstName">Nombre (s)</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="" required>
+                                <input type="text" class="form-control" id="firstName" name="firstName" value="{{ old('firstName') }}" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="lastName">Apellido</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="" required>
+                                <input type="text" class="form-control" id="lastName" name="lastName"  value="{{ old('lastName') }}" required>
                             </div>
                         </div>
                         
@@ -55,7 +55,7 @@
                     </div>
 
                 </form>
-    
+                {!! Form::close() !!}
             </div>
     </main>
 

@@ -8,6 +8,10 @@ class Admin extends Model
 {
     protected $table = 'administradores';
 
+    protected $fillable = [
+        'nombre', 'email', 'password',
+        'apellido',
+    ];
     /**
      * The attributes that should be hidden for arrays.
      *

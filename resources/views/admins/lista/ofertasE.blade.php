@@ -21,7 +21,7 @@
                 </div>
                 {!! Form::close() !!}
                 <div class="componet">
-                    <a href="{{ route('admin.reg.ofr') }}">
+                    <a href="{{ route('admin.reg.ofr', ['empresa' => $ofertas[0]->empresa->id, $ofertas[0]->empresa->nombre]) }}">
                         <button class="btn btn-primary add">
                             Crear oferta    
                             <i class="fa fa-plus"></i>
@@ -48,7 +48,7 @@
                             <tr>
                                 <td scope="row">{{ $ofer->id }}</td>
                                 <td scope="row">{{ $ofer->titulo }}</td>
-                                <td scope="row">{{ $ofer->ciudad }}, {{$ofer->estado}}, {{$ofer->pais}}</td>
+                                <td scope="row">{{ $ofer->idciudad->municipio }}, {{$ofer->idestado->estado}}, {{$ofer->idpais->pais}}</td>
                                 <td scope="row" class="actions">
                                     <button class="btn btn-primary">
                                         Detalles

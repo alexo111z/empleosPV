@@ -43,7 +43,11 @@ Route::get('/administrator/administradores', array('as'=>'admin.admins', 'uses'=
 Route::get('/administrator/registro/administrador', array('as'=>'admin.reg.admin','uses'=>'AdminController@regAdministrador'));
 Route::get('/administrator/registro/usuario', array('as'=>'admin.reg.user','uses'=>'AdminController@regUser'));
 Route::get('/administrator/registro/empresa', array('as'=>'admin.reg.emp','uses'=>'AdminController@regEmpresa'));
-Route::get('/administrator/registro/oferta', array('as'=>'admin.reg.ofr','uses'=>'AdminController@regOferta'));
+Route::get('/administrator/registro/oferta/{empresa}', array('as'=>'admin.reg.ofr','uses'=>'AdminController@regOferta'));
+Route::post('/administrator/create/empresa', array('as'=>'admin.c.emp','uses'=>'AdminController@createEmpresa'));
+Route::post('/administrator/create/usuario', array('as'=>'admin.c.user','uses'=>'AdminController@createUser'));
+Route::post('/administrator/create/administrador', array('as'=>'admin.c.admin','uses'=>'AdminController@createAdmin'));
+Route::post('/administrator/create/oferta', array('as'=>'admin.c.ofer', 'uses'=>'AdminController@createOferta'));
 
 //LUPITA TAGS
 Route::post('/perfil/createtags', 'TagsController@Insert')->name('tags.insert');

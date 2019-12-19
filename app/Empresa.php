@@ -29,6 +29,15 @@ class Empresa extends Model
     public function giro(){
         return $this->belongsTo(Giro::class, 'id_giro');
     }
+    public function idpais(){
+        return $this->belongsTo(Pais::class, 'id_pais');
+    }
+    public function idestado(){
+        return $this->belongsTo(Estado::class, 'id_estado');
+    }
+    public function idciudad(){
+        return $this->belongsTo(Municipio::class, 'id_ciudad');
+    }
 
     /**
      * The attributes that should be hidden for arrays.

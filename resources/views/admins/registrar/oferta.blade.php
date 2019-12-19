@@ -6,7 +6,7 @@
         
         <div class="container">
             <div class="py-5 text-center">
-                <h1 class="text-uppercase">Registrar oferta para [Empresa]</h1>
+                <h1 class="text-uppercase">Registrar oferta para {{$emp->nombre}}</h1>
                 {{--<p class="lead">Tenemos ofertas de empleo esperandote</p>--}}
             </div>
 

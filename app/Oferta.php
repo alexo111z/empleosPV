@@ -24,5 +24,14 @@ class Oferta extends Model
     public function empresa(){
         return $this->belongsTo(Empresa::class, 'id_emp');
     }
+    public function idpais(){
+        return $this->belongsTo(Pais::class, 'id_pais');
+    }
+    public function idestado(){
+        return $this->belongsTo(Estado::class, 'id_estado');
+    }
+    public function idciudad(){
+        return $this->belongsTo(Municipio::class, 'id_ciudad');
+    }
 
 }
