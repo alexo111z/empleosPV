@@ -13,7 +13,9 @@
         <div class="col-md-8 mx-auto ">
             <div class="col-sm-12 px-3 pt-3"><h3 class="mb-0">{{ $oferta->titulo }}</h3></div>
             <div class="col-sm-12 px-3 py-0 my-0 "><p class="mb-1">{{ $oferta->d_corta }}</p></div>
+            @if(isset($oferta->salario))
             <div class="col-sm-12 mt-0 pt-0 mt-0"><h6>${{ $oferta->salario }} al mes.</h6></div>
+            @endif
             <div class="col-sm-12 px-3 mt-0 pt-0">
                 <p class="text-muted"><i class='fas fa-map-marker-alt'></i> 
                 @foreach($ciudades as $ciudad)

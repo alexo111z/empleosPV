@@ -94,7 +94,7 @@ class OfertasController extends Controller
             $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')
             ->whereBetween('salario', [$min, $max])
             ->get();
-        }elseif($min!=null){
+        }elseif($min!="null"){
             $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')
             ->where('salario',">", $min)
             ->get();
@@ -125,9 +125,9 @@ class OfertasController extends Controller
             }
         }
         if($ofertas!="[]" && $ofertas!=[] &$ofertas!=null){
-            $ofertas = new LengthAwarePaginator($ofertas->forPage($page,1), $ofertas->count(), 1, $page, ['path'=>url('/ofertas/busqueda-de'),'pageName' => 'page']);
+            $ofertas = new LengthAwarePaginator($ofertas->forPage($page,10), $ofertas->count(), 10, $page, ['path'=>url('/ofertas/busqueda-de'),'pageName' => 'page']);
         }else{
-            $ofertas = new LengthAwarePaginator($ofertas, 0, 1, $page, ['path'=>url('/ofertas/busqueda-de'),'pageName' => 'page']);  
+            $ofertas = new LengthAwarePaginator($ofertas, 0, 10, $page, ['path'=>url('/ofertas/busqueda-de'),'pageName' => 'page']);  
         }  
         
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();

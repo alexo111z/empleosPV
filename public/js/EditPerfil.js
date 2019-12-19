@@ -303,5 +303,24 @@ jQuery(document).ready(function(){
                   ))
                   return false;
             });
+            $(document).on("click",'#privacidad',function(e){
+               var estado = $('#privacidad').prop('checked') ? 1 : 0;
+               event.preventDefault();
+                  $.ajaxSetup({
+                     headers: {
+                           'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                     }
+                  });
+                  jQuery.ajax({
+                     url: '/perfil/privacidad',
+                     method: 'post',
+                     data: {
+                        coment: estado
+                        
+                     },
+                     success: function(){
+                        $('#divprivacidad').load(' #divprivacidad');
+               }});
+            });
    });
 

@@ -12,6 +12,8 @@ use App\Tag;
 use App\Pais;
 use App\Estado;
 use App\Municipio;
+use App\Calificacion;
+use App\Comentario;
 class UserController extends Controller
 {
     function registrar(){
@@ -21,9 +23,6 @@ class UserController extends Controller
     }
     function perfil(){
         $paises = Pais::all();
-        /*$upais = Pais::findOrFail(auth()->user()->id_pais);
-        $uestado = Estado::findOrFail(auth()->user()->id_estado);
-        $umunicipio = Municipio::findOrFail(auth()->user()->id_ciudad);*/
         $estados = Estado::all();
         $municipios = municipio::all();
         $rtags = RelacionTag::where('id_usuario', '=', auth()->user()->id)->get();
@@ -32,7 +31,13 @@ class UserController extends Controller
         $areas = Area::all();
         $userest=NEstudio::findOrFail(auth()->user()->id_estudios);
         $userarea=Area::findOrFail(auth()->user()->id_area);
-        return view('usuarios.perfil',compact('paises','estados','municipios','userest','userarea','rtags','tags','estudios', 'areas'));
+        $cal=Calificacion::where('id_usuario', '=', auth()->user()->id)->avg('califi');
+        $comentarios= Comentario::join('empresas','empresas.id','=','comentarios.id_emp')
+        ->join('calificaciones','calificaciones.id_emp','=','empresas.id')
+        ->where('comentarios.id_usuario', '=', auth()->user()->id)
+        ->where('calificaciones.id_usuario', '=', auth()->user()->id)
+        ->get();
+        return view('usuarios.perfil',compact('cal','comentarios','cal','paises','estados','municipios','userest','userarea','rtags','tags','estudios', 'areas'));
     }
 
     //Luis - Sin formato -Eliminar
@@ -105,12 +110,6 @@ class UserController extends Controller
             $user->id_estado= $data['estado'];
             $user->id_ciudad= $data['ciudad'];
         }
-        
-        /*$user->nacimiento = $data['nacimiento'];
-        $user->genero = $data['genero'];
-        $user->email = $data['email'];
-        $user->id_estudios = $data['estudios'];
-        $user->id_area = $data['area'];}*/
         $user->save();
         return back()
         ->withErrors(['error' => 'Por favor introduce tu información correctamente.'])
@@ -134,6 +133,12 @@ class UserController extends Controller
        $data = request()->all();
         $user = User::findOrFail(auth()->user()->id);
         $user->telefono=$data['telefono'];
+        $user->save();
+    }
+    public function privacidad(){
+        $data=request()->all();
+        $user = User::findOrFail(auth()->user()->id);
+        $user->coment=$data['coment'];
         $user->save();
     }
 }

@@ -3,9 +3,7 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="{{asset('css/perfil.css')}}" rel="stylesheet">
-        <script src="{{asset('js/perfil.js')}}"type="text/javascript">
 
-        </script>
         <main role="main">
             <div class="container px-auto">
                 <div class="row px-auto">
@@ -26,13 +24,19 @@
                                     </h3>
                                 </div>
                                 <div class="mt-2 text-center">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
+                                @for ($i = 1; $i<=5; $i++)
+                                        @if($i<=$cal)
+                                            <span class="fa fa-star checked"></span>
+                                        @elseif($cal>($i-1))
+                                            <span class="fa fa-star-half-full checked"></span>
+                                        @else
+                                            <span class="fa fa-star"></span>
+                                        @endif
+                                    @endfor
+                                @if(!(isset($cal) && $cal>0))
+                                    <p class="text-muted"><i class="fa fa-info-circle"></i>Aun no tiene calificaciones.</p>
+                                @endif
                                 </div>
-                                <div class="text-center"><a href="">Ver comentarios>></a></div>
                                 <hr class="ml-4 mr-4">
                                 <h6 class="my-0 ml-4">PRESENTACIÓN </h6>
                                 <div class="col-md-12 ml-4 pr-5">
@@ -273,6 +277,43 @@
                     </div>
                 </div>
                 <!-- -->
+                <div class="col-md-12 order-md-1 mx-auto px-0 mt-4 mb-0">
+                    <div class="no-gutters mx-0 px-4 border rounded overflow-hidden flex-md-row mb-4 pt-4 shadow-sm h-md-250 position-relative">
+                    <div class="row px-3">
+                        <h4 class=" my-0 py-0 mr-5 ">Opinión de las empresas</h4>
+                        @if(isset($comentarios) && $comentarios!="[]")
+                            <div id="divprivacidad" class="d-flex align-items-end pl-0 custom-control custom-switch">
+                            @if(auth()->user()->coment==0)
+                                <input type="checkbox" class="custom-control-input" id="privacidad">
+                                <label class="custom-control-label" for="privacidad">No se mostrarán los comentarios</label>
+                            @else
+                                <input type="checkbox" class="custom-control-input" id="privacidad" checked>
+                                <label class="custom-control-label" for="privacidad">Se mostrarán los comentarios a las empresas</label>
+                            @endif
+                            </div>
+                        @else
+                            <p class="text-muted col-sm-12 mt-3"><i class="fa fa-info-circle"></i>Aun no tiene comentarios.</p>
+                        @endif
+                    </div>
+                    @foreach($comentarios as $comentario)
+                        <div  class="col-md-12 mt-3 mb-0 pt-0">
+                            <h6 class="text-uppercase mx-0 mb-0 pb-0"><img class="icon-profile" src="https://via.placeholder.com/30x30.png">{{ $comentario->nombre  }}</h6>
+                                @for ($i = 1; $i<=5; $i++)
+                                        @if($i<=$comentario->califi)
+                                            <span class="fa fa-star checked"></span>
+                                        @elseif($comentario->califi>($i-1))
+                                            <span class="fa fa-star-half-full checked"></span>
+                                        @else
+                                            <span class="fa fa-star"></span>
+                                        @endif
+                                    @endfor
+                            <br><small class="text-muted">{{ Date::createFromFormat('Y-m-d H:i:s', $comentario->fecha)->format('d \d\e F \d\e Y') }}</small>
+                            <blockquote class="mx-0 mt-0 pt-0" id="BlockConocimientos">{{$comentario->coment}} </blockquote>
+                        </div>
+                        <hr class="ml-3 mr-3">
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </main>
 @endsection
