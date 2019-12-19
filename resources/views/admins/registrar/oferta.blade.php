@@ -10,7 +10,8 @@
                 {{--<p class="lead">Tenemos ofertas de empleo esperandote</p>--}}
             </div>
 
-            <form method="POST" action="{{ url('/usuarios/crear') }}">
+            {!! Form::open(array('route'=>array('admin.c.ofer', $emp->id),'method'=>'POST', 'id'=>'buscador')) !!}
+            <form  class="needs-validation primary" novalidate>
             {{ csrf_field() }}
 
             <!-- start personal information -->
@@ -18,12 +19,13 @@
                 <h4 class="mb-1">Datos de la oferta</h4>
                 <div class="mb-3">
                     <label for="titulo">Titulo</label>
-                    <input type="titulo" class="form-control" id="titulo" name="titulo" placeholder="Deseñador para pvwork.com">
+                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Deseñador para pvwork.com" value="{{ old('titulo') }}" required>
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="desc_corta">Descripcion corta de la oferta</label>
-                        <textarea class="form-control mb-3 text-desc" id="desc_corta" name="desc_corta" rows="3" style="display: inline-block;">
+                        <textarea class="form-control mb-3 text-desc" id="desc_corta" name="desc_corta" rows="3" style="display: inline-block;" required>
+                            {{ old('desc_corta') }}
                         </textarea>
                     </div>
 
@@ -46,10 +48,17 @@
                     <div class="col-md-12 mb-3">   
                         <h4 class="mb-1">Ubicaion de la oferta</h4>
                         <div class="div-ubicacion col-md-6">
-                            <span class="text-muted">País</span>
+                            <span>País</span>
                             {{--{{$selectpais=""}}--}}  
-                            <select id="CmbPais"  {{--onchange='funcpais(this.value,<! ?php echo json_encode($estados); ?>)'--}}  class="form-control">
-                                <option selected disabled hidden>Seleccionar....</option>
+                            <select id="CmbPais"  name="pais" {{--onchange='funcpais(this.value,<! ?php echo json_encode($estados); ?>)'--}}  class="form-control">
+                                @if ( old('pais') == '' )
+                                    <option selected disabled hidden>Seleccionar....</option>
+                                @else
+                                    <option selected value="{{ old('pais') }}" hidden>{{ $paises[old('pais')-1]->pais }}</option>
+                                @endif
+                                @foreach($paises as $pais)
+                                    <option value="{{ $pais->id }}">{{ $pais->pais }}</option>
+                                @endforeach
                                 {{--@foreach($paises as $pais)
                                     @if($pais->id == auth()->user()->id_pais)
                                         <option value="{{ $pais->id }}" selected>{{ $pais->pais }}</option>
@@ -60,9 +69,16 @@
                             </select>
                         </div>
                         <div class="div-ubicacion col-md-6">
-                            <span class="text-muted">Estado</span>
-                            <select id="CmbEstado" class="form-control" {{--onchange='funcestado(this.value,<! ?php echo json_encode($municipios); ?>)'--}}>
-                                <option selected disabled hidden>Seleccionar....</option>
+                            <span>Estado</span>
+                            <select id="CmbEstado" name="estado" class="form-control" {{--onchange='funcestado(this.value,<! ?php echo json_encode($municipios); ?>)'--}}>
+                                @if ( old('estado') == '' )
+                                    <option selected disabled hidden>Seleccionar....</option>
+                                @else
+                                    <option selected value="{{ old('estado') }}" hidden>{{ $estados[old('estado')-1]->estado }}</option>
+                                @endif
+                                @foreach($estados as $estado)
+                                    <option value="{{ $estado->id }}">{{ $estado->estado }}</option>
+                                @endforeach
                                 {{--@foreach($estados as $estado)
                                     @if($estado->id == auth()->user()->id_estado)
                                         <option value="{{ $estado->id }}" selected>{{ $estado->estado }}</option>
@@ -73,9 +89,16 @@
                             </select>
                         </div>
                         <div class="div-ubicacion col-md-6">
-                            <span class="text-muted">Ciudad</span>
-                            <select id="CmbCiudad"  class="form-control"  >
-                            <option selected disabled hidden>Seleccionar....</option>
+                            <span>Ciudad</span>
+                            <select id="CmbCiudad" name="ciudad" class="form-control"  >
+                                @if ( old('ciudad') == '' )
+                                    <option selected disabled hidden>Seleccionar....</option>
+                                @else
+                                    <option selected value="{{ old('ciudad') }}" hidden>{{ $municipios[old('ciudad')-1]->municipio }}</option>
+                                @endif
+                                @foreach($municipios as $municipio)
+                                    <option value="{{ $municipio->id }}">{{ $municipio->municipio }}</option>
+                                @endforeach
                                 {{--@foreach($municipios as $municipio)
                                 @if($municipio->id == auth()->user()->id_ciudad)
                                     <option value="{{ $municipio->id }}" selected>{{ $municipio->municipio }}</option>
@@ -95,24 +118,25 @@
                 <h4 class="mb-1">Detalles de la oferta</h4>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                            <label for="desc_corta">Fecha de vigencia</label>
+                            <label for="vigencia">Fecha de vigencia</label>
                             <small  class="text-muted"> (Fecha limite para la oferta) </small><br>
-                            <input id="CmbFecha" type="date" class="form-control" value="1983-01-16" min="1960-01-01" max="2002-12-31">
+                            <input id="CmbFecha" name="vigencia" type="date" class="form-control" value="{{ old('vigencia')==''?'1960-01-01': old('vigencia') }}" min="1960-01-01" max="2002-12-31">
                     </div>
                     <div class="col-md-12 mb-3">
-                            <label for="desc_corta">Descripcion detallada</label>
-                            <textarea class="form-control" id="desc_corta" name="desc_corta" rows="3" style="display: inline-block;">
+                            <label for="desc_det">Descripcion detallada</label>
+                            <textarea class="form-control" id="desc_det" name="desc_det" rows="5" style="display: inline-block;">
+                                {{ old('desc_det') }}
                             </textarea>
                     </div>
                     <div class="div-det col-md-6 mb-3">
-                        <label for="titulo">Salario</label>
+                        <label for="salario">Salario</label>
                         <small  class="text-muted"> (Opcional) </small><br>
-                        <input type="titulo" class="form-control" id="titulo" name="titulo" placeholder="00000.00">     
+                        <input type="text" class="form-control" id="salario" name="salario" value="{{ old('salario') }}" placeholder="00000.00">     
                     </div>
                     <div class="div-det col-md-6 mb-3">
                             <label for="tContrato">Tiempo de Contrato</label>
                             <small  class="text-muted"> (Opcional) </small><br>
-                            <input type="text" class="form-control" id="tContrato" name="tContrato" placeholder="Indefinido, 1 semana">     
+                            <input type="text" class="form-control" id="tContrato" name="tContrato" value="{{ old('tContrato') }}" placeholder="Indefinido, 1 semana">     
                     </div>
                     
                 </div>
@@ -121,6 +145,7 @@
                 </div>
             </div>
             </form>
+            {!! Form::close() !!}
         </div>
     </main>
 

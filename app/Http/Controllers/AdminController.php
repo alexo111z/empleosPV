@@ -173,12 +173,35 @@ class AdminController extends Controller
     function regOferta($empresa){
         $emp = Empresa::findOrFail($empresa);
         $estados = Estado::all();
-        $paices = Pais::all();
+        $paises = Pais::all();
         $municipios = Municipio::all();
-        return view('admins.registrar.oferta', compact('emp', 'estados', 'paices', 'municipios'));
+        return view('admins.registrar.oferta', compact('emp', 'estados', 'paises', 'municipios'));
     }
-    function createOferta(Request $request){
-        $data = $request;
-        dd( $request->all());
+    function createOferta($empresa, Request $request){
+        $data = $request->validate([
+            'titulo' => ['required'],
+            'desc_corta' => ['required'],
+            'inputtag' => ['nullable'],
+            'pais' => ['required','numeric'],
+            'estado' => ['required','numeric'],
+            'ciudad' => ['required','numeric'],
+            'vigencia' => ['required'],
+            'desc_det' => ['required'],
+            'salario' => ['required'],
+            'tContrato' => ['required'],
+        ]);
+
+        Oferta::create([
+            'id_emp' => $empresa,
+            'titulo' => 'titulo',
+            'd_corta' => 'desc_corta',
+            'id_pais' => 'pais',
+            'id_estado' => 'estado',
+            'id_ciudad' => 'ciudad',
+            'vigencia' => 'vigencia',
+            'd_larga' => 'desc_det',
+            'salario' => 'salario',
+            't_contrato' => 'tContrato',
+        ]);
     }
 }
