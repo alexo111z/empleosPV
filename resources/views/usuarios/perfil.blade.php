@@ -11,7 +11,11 @@
                         <div class="no-gutters border rounded overflow-hidden flex-md-row mb-4 pt-4 shadow-sm h-md-250 position-relative">
                             <div id="infopersonal">
                                 <div class="text-center mx-auto" >
+                                    @if(isset(auth()->user()->foto))
                                         <img class="foto-perfil" src="https://via.placeholder.com/200x200.png">
+                                    @else
+                                        <img class="foto-perfil" src="storage/fotos/user.png">
+                                    @endif
                                         <div class="col-md-9 mb-0 text-right mx-auto div-camera">
                                             <a href="#" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
                                             <a href="#" class="btn-upload mx-1 px-1"><span class="fa fa-upload"></span></a>
@@ -263,7 +267,7 @@
                                     <div class="row mr-4 ml-4">
                                 @if(isset(auth()->user()->curriculum))
                                     <form method="GET" action="{{route('borrarCV')}}" accept-charset="UTF-8" enctype="multipart/form-data"><div class="col-md-12 mb-3 pl-0">
-                                            <span><img src="{{asset('images/icon/file.png')}}"><a href="storage{{auth()->user()->curriculum}}" target="_blank">CurriculumVitae.pdf</a>
+                                            <span><img src="{{asset('images/icon/file.png')}}"><a href="descargar{{auth()->user()->curriculum}}">CurriculumVitae.pdf</a>
             
                                                 <button type="submit" class="btn btn-remove pt-0 ml-0 btn-outline-light"><img class="mt-0"src="{{asset('images/icon/remove.png')}}"></button>
                                             </span>
