@@ -25,7 +25,7 @@
     margin-top: 0;
     padding-bottom: 5px;
 }
-button.icon{
+button.icon, #archivo{
     font-size: 14px;
     height: 25px;
     color:#000;
@@ -45,9 +45,8 @@ button.icon>img{
     width:12px;
     margin-right: 5px;
 }
-button.icon:hover{
-
-    opacity: 1;
+button.icon:hover, #subircv{
+    opacity: 1 !important;
 }
 #inputtag{
     min-width: 300px !important;

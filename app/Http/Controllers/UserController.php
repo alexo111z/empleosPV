@@ -141,4 +141,25 @@ class UserController extends Controller
         $user->coment=$data['coment'];
         $user->save();
     }
+    public function subirCV(Request $request){   
+        //obtenemos el campo file definido en el formulario
+       $file =  $request->file('archivo');
+       $user = User::findOrFail(auth()->user()->id);
+       //obtenemos el nombre del archivo
+       $nombre = "CurriculumVitae_".auth()->user()->id.".pdf";
+       $url="\curriculums/".$nombre;
+       \Storage::disk('public')->delete($user->curriculum);
+       //indicamos que queremos guardar un nuevo archivo en el disco local
+        \Storage::disk('public')->put($url,\File::get($file));
+        $user->curriculum= $url;
+        $user->save();
+        return redirect('/perfil');
+    }
+    public function borrarCV(){   
+       $user = User::findOrFail(auth()->user()->id);
+       \Storage::disk('public')->delete($user->curriculum);
+        $user->curriculum=null;
+        $user->save();
+        return redirect('/perfil');
+    }
 }

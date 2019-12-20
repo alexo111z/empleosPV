@@ -66,6 +66,8 @@ Route::post('/perfil/nivelyarea','UserController@addNivelyArea')->name('user.niv
 Route::post('/perfil/actualizar','UserController@update')->name('user.actualizar');
 Route::post('/perfil/contacto','UserController@addContacto')->name('user.contacto');
 Route::post('/perfil/privacidad','UserController@privacidad')->name('user.privacidad');
+Route::post('/subirCV','UserController@subirCV')->name('subirCV');
+Route::get('/borrarCV','UserController@borrarCV')->name('borrarCV');
 //añadir tags al perfil de usuario
 Route::post('/perfil/createtags', 'TagsController@Insert')->name('tags.insert');
 Route::post('/perfil/deletetags','TagsController@destroy')->name('tags.destroy');
@@ -87,7 +89,6 @@ Route::get('/ofertas/busqueda-de','OfertasController@BuscarAvanzado');
 Route::post('/ofertas/buscar','OfertasController@Buscar')->name('ofertas.buscar');
 Route::get('/ofertas/buscar','OfertasController@Buscar')->name('ofertas.buscar');
 /* ---------FIN RUTAS DE OFERTAS------- */
-
 
 
 

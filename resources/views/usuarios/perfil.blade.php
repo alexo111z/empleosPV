@@ -259,18 +259,25 @@
 
 
                                 <div class="col-md-12 mb-3">
-                                    <h6>Curriculum</h6>
+                                    <h6>Curriculum <small class="text-muted">(subir curriculum en formato pdf)</small></h6>
                                     <div class="row mr-4 ml-4">
-
-                                        <div class="col-md-12 mb-3 pl-0">
-                                            <span><img src="{{asset('images/icon/file.png')}}"><a href="#">mi-curriculum.pdf</a>
-                                                <button type="button" class="btn btn-remove pt-0 ml-0 btn-outline-light"><img class="mt-0"src="{{asset('images/icon/remove.png')}}"></button>
+                                @if(isset(auth()->user()->curriculum))
+                                    <form method="GET" action="{{route('borrarCV')}}" accept-charset="UTF-8" enctype="multipart/form-data"><div class="col-md-12 mb-3 pl-0">
+                                            <span><img src="{{asset('images/icon/file.png')}}"><a href="storage{{auth()->user()->curriculum}}" target="_blank">CurriculumVitae.pdf</a>
+            
+                                                <button type="submit" class="btn btn-remove pt-0 ml-0 btn-outline-light"><img class="mt-0"src="{{asset('images/icon/remove.png')}}"></button>
                                             </span>
-                                        </div>
-                                        <div class="col-md-12 ml-0 pl-0 mb-3">
-                                            <button type="file " class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/upload.png')}}">Subir</button>
-                                        </div>
-                                  </div>
+                                        </div></form>
+                                @else
+                                <div class="col-md-12 my-0 ml-0 pl-0"><p class="text-muted col-sm-12 ml-0 pl-0 mt-3"><i class="fa fa-info-circle"></i>Sube tu curriculum para completar tu perfil.</p></div>
+                                @endif
+                                        <form method="POST" action="{{route('subirCV')}}" accept-charset="UTF-8" enctype="multipart/form-data">
+                                            {{ csrf_field() }}
+                                            <input type="file" accept="application/pdf" id="archivo" name="archivo" required>
+                                            <button type="submit" id="subircv" class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/upload.png')}}">Subir</button>
+                                        </form>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
