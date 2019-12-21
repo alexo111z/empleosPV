@@ -142,34 +142,51 @@ class UserController extends Controller
         $user->save();
     }
     public function subirFoto(Request $request){   
-       
+        $validator = Validator::make($request->all(),[
+            "foto" => " required|mimes:jpg,jpeg,png"
+        ]);
+        if ($validator->fails()) {
+            return back()
+            ->withErrors(['errorfoto' => 'La foto de perfil debe ser imagen jpg,jpeg o png.'])
+            ->withInput(request(['errorfoto']));
+        }else{
+            //obtenemos el campo file definido en el formulario
+            $file =  $request->file('foto');
+            $user = User::findOrFail(auth()->user()->id);
+            //obtenemos el nombre del archivo
+            $nombre = "FotoPerfil_".auth()->user()->id.".jpg";
+            $url="fotos/".$nombre;
+            \Storage::disk('public')->delete($user->foto);
+            //indicamos que queremos guardar un nuevo archivo en el disco local
+            \Storage::disk('public')->put($url,\File::get($file));
+            $user->foto= $url;
+            $user->save();
+            return redirect('/perfil');
+        }
     }
     public function subirCV(Request $request){   
-        
-    $validator = Validator::make($request->all(),[
-        "archivo" => "required|mimetypes:application/pdf|max:10000"
-    ]);
-    if ($validator->fails()) {
-        return back()
-        ->withErrors(['errorpdf' => 'El curriculum debe ser un archivo PDF.'])
-        ->withInput(request(['errorpdf']));
-    }else{
-        
-         //obtenemos el campo file definido en el formulario
-         $file =  $request->file('archivo');
-         $user = User::findOrFail(auth()->user()->id);
-         //obtenemos el nombre del archivo
-         $nombre = "CurriculumVitae_".auth()->user()->id.".pdf";
-         $url="\curriculums/".$nombre;
-         \Storage::disk('public')->delete($user->curriculum);
-         //indicamos que queremos guardar un nuevo archivo en el disco local
-         \Storage::disk('public')->put($url,\File::get($file));
-         $user->curriculum= $url;
-         $user->save();
-         return redirect('/perfil');
-    }
-  
-     
+        $validator = Validator::make($request->all(),[
+            "archivo" => "required|mimetypes:application/pdf"
+        ]);
+        if ($validator->fails()) {
+            return back()
+            ->withErrors(['errorpdf' => 'El curriculum debe ser un archivo PDF.'])
+            ->withInput(request(['errorpdf']));
+        }else{
+            
+            //obtenemos el campo file definido en el formulario
+            $file =  $request->file('archivo');
+            $user = User::findOrFail(auth()->user()->id);
+            //obtenemos el nombre del archivo
+            $nombre = "CurriculumVitae_".auth()->user()->id.".pdf";
+            $url="\curriculums/".$nombre;
+            \Storage::disk('public')->delete($user->curriculum);
+            //indicamos que queremos guardar un nuevo archivo en el disco local
+            \Storage::disk('public')->put($url,\File::get($file));
+            $user->curriculum= $url;
+            $user->save();
+            return redirect('/perfil');
+        }
     }
     public function borrarCV(){   
        $user = User::findOrFail(auth()->user()->id);

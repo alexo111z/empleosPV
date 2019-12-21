@@ -71,9 +71,9 @@ Route::get('/borrarCV','UserController@borrarCV')->name('borrarCV');
 Route::get('/descargar/curriculums/{file}', function($file){
     return \Storage::disk('public')->download("/curriculums/$file");
 });
-Route::post('media', function () {
-    request()->validate(['file' => 'image']);
-    return request()->file->storeAs('uploads', request()->file->getClientOriginalName());
+Route::post('/subirFoto','UserController@subirFoto')->name('subirFoto');
+Route::get('/perfil/fotos/{file}', function($file){
+    return \Storage::disk('public')->response("/fotos/$file");
 });
 //añadir tags al perfil de usuario
 Route::post('/perfil/createtags', 'TagsController@Insert')->name('tags.insert');

@@ -34,7 +34,11 @@
 
                             <li class="nav-item dropdown show">
                                 <a class="btn btn-login dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img class="icon-profile" src="https://via.placeholder.com/30x30.png">{{ auth()->user()->nombre }}<!--María Guadalupe-->
+                                @if(isset(auth()->user()->foto))
+                                    <img class="icon-profile" src="perfil/{{auth()->user()->foto}}">{{ auth()->user()->nombre }}<!--María Guadalupe-->
+                                @else
+                                <img class="icon-profile" src="perfil/fotos/user.png">{{ auth()->user()->nombre }}<!--María Guadalupe-->
+                                @endif
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item" href="{{route('usuarios.perfil')}}">Mi perfil</a>

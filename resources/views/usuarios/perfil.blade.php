@@ -12,19 +12,22 @@
                             <div id="infopersonal">
                                 <div class="text-center mx-auto" >
                                     @if(isset(auth()->user()->foto))
-                                        <img class="foto-perfil" src="https://via.placeholder.com/200x200.png">
+                                        <img class="foto-perfil" src="perfil/{{auth()->user()->foto}}">
                                     @else
-                                        <img class="foto-perfil" src="storage/fotos/user.png">
+                                        <img class="foto-perfil" src="perfil/fotos/user.png">
                                     @endif
                                         <div class="col-md-9 mb-0 text-right mx-auto div-camera">
                                             <!--<a href="#" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
                                             <a href="#" class="btn-upload mx-1 px-1"><span class="fa fa-upload"></span></a>
                                             -->
-                                            <form action="/media" enctype="multipart/form-data" method="post">
+                                            <form action="{{route('subirFoto')}}" enctype="multipart/form-data" method="post">
                                                 {{ csrf_field() }}
-                                                <input type="file" name="file">
-                                                <button type="submit">Upload</button>
+                                                <input required type="file" name="foto" accept="image/png,image/jpeg,image/jpg">
+                                                <button type="submit" >Subir</button>
                                             </form>
+                                            <div class="input-group text-center ">
+                                                <span class="help-block text-danger mx-auto">{{ $errors->first('errorfoto', ':message') }}</span>
+                                            </div>
                                         </div>
                                 </div>
                                 <div class="text-center mx-3 mt-0 pt-2">
