@@ -17,8 +17,14 @@
                                         <img class="foto-perfil" src="storage/fotos/user.png">
                                     @endif
                                         <div class="col-md-9 mb-0 text-right mx-auto div-camera">
-                                            <a href="#" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
+                                            <!--<a href="#" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
                                             <a href="#" class="btn-upload mx-1 px-1"><span class="fa fa-upload"></span></a>
+                                            -->
+                                            <form action="/media" enctype="multipart/form-data" method="post">
+                                                {{ csrf_field() }}
+                                                <input type="file" name="file">
+                                                <button type="submit">Upload</button>
+                                            </form>
                                         </div>
                                 </div>
                                 <div class="text-center mx-3 mt-0 pt-2">
@@ -280,6 +286,9 @@
                                             <input type="file" accept="application/pdf" id="archivo" name="archivo" required>
                                             <button type="submit" id="subircv" class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/upload.png')}}">Subir</button>
                                         </form>
+                                        <div class="input-group text-center ">
+                                            <span class="help-block text-danger mx-auto">{{ $errors->first('errorpdf', ':message') }}</span>
+                                        </div>
                                     </div>
                                     
                                 </div>

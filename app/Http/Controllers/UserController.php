@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use \Validator;
 use App\Area;
 use App\NEstudio;
 use App\User;
@@ -141,19 +141,35 @@ class UserController extends Controller
         $user->coment=$data['coment'];
         $user->save();
     }
+    public function subirFoto(Request $request){   
+       
+    }
     public function subirCV(Request $request){   
-        //obtenemos el campo file definido en el formulario
-       $file =  $request->file('archivo');
-       $user = User::findOrFail(auth()->user()->id);
-       //obtenemos el nombre del archivo
-       $nombre = "CurriculumVitae_".auth()->user()->id.".pdf";
-       $url="\curriculums/".$nombre;
-       \Storage::disk('public')->delete($user->curriculum);
-       //indicamos que queremos guardar un nuevo archivo en el disco local
-        \Storage::disk('public')->put($url,\File::get($file));
-        $user->curriculum= $url;
-        $user->save();
-        return redirect('/perfil');
+        
+    $validator = Validator::make($request->all(),[
+        "archivo" => "required|mimetypes:application/pdf|max:10000"
+    ]);
+    if ($validator->fails()) {
+        return back()
+        ->withErrors(['errorpdf' => 'El curriculum debe ser un archivo PDF.'])
+        ->withInput(request(['errorpdf']));
+    }else{
+        
+         //obtenemos el campo file definido en el formulario
+         $file =  $request->file('archivo');
+         $user = User::findOrFail(auth()->user()->id);
+         //obtenemos el nombre del archivo
+         $nombre = "CurriculumVitae_".auth()->user()->id.".pdf";
+         $url="\curriculums/".$nombre;
+         \Storage::disk('public')->delete($user->curriculum);
+         //indicamos que queremos guardar un nuevo archivo en el disco local
+         \Storage::disk('public')->put($url,\File::get($file));
+         $user->curriculum= $url;
+         $user->save();
+         return redirect('/perfil');
+    }
+  
+     
     }
     public function borrarCV(){   
        $user = User::findOrFail(auth()->user()->id);
