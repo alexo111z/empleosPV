@@ -23,7 +23,7 @@ class User extends Authenticatable
         'id_estudios',
         'id_area',
         'edad',
-        'pais', 'estado', 'ciudad',
+        'id_pais', 'id_estado', 'id_ciudad',
         'coment', 'telefono', 'conocimientos', 'alias',
     ];
     public function getFullnameAttribute(){

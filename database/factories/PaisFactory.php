@@ -7,6 +7,6 @@ use App\Pais;
 
 $factory->define(Pais::class, function (Faker $faker) {
     return [
-        'pais' => $faker->sentence,
+        'pais' => $faker->sentence(3, true),
     ];
 });

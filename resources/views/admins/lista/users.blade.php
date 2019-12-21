@@ -50,10 +50,12 @@
                                 <td scope="row">{{ $usr->nombre }} {{ $usr->apellido }}</td>
                                 <td scope="row">{{ $usr->email }}</td>
                                 <td scope="row" class="actions">
-                                    <button class="btn btn-primary">
+                                    {!! Form::open(array('route'=>array('admin.det.user', $usr->id),'method'=>'GET', 'id'=>'buscador')) !!}
+                                    <button class="btn btn-primary" type="submit">
                                         Detalles
                                         <i class="fa fa-user"></i> 
                                     </button>
+                                    {!! Form::close() !!}
                                 </td>
                                 <td scope="row" class="actions">
                                     <button class="btn btn-primary">

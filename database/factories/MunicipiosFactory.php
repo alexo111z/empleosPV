@@ -8,6 +8,6 @@ use App\Municipio;
 $factory->define(Municipio::class, function (Faker $faker) {
     return [
         'id_estado' => $faker->numberBetween(1, 5),
-        'municipio' => $faker->sentence,
+        'municipio' => $faker->sentence(3, true),
     ];
 });

@@ -16,9 +16,9 @@ class Oferta extends Model
         'salario',
         't_contrato',
         'vigencia',
-        'pais',
-        'estado',
-        'ciudad',
+        'id_pais',
+        'id_estado',
+        'id_ciudad',
     ];
 
     public function empresa(){

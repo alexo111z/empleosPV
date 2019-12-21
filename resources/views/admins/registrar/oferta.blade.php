@@ -120,7 +120,7 @@
                     <div class="col-md-6 mb-3">
                             <label for="vigencia">Fecha de vigencia</label>
                             <small  class="text-muted"> (Fecha limite para la oferta) </small><br>
-                            <input id="CmbFecha" name="vigencia" type="date" class="form-control" value="{{ old('vigencia')==''?'1960-01-01': old('vigencia') }}" min="1960-01-01" max="2002-12-31">
+                            <input id="CmbFecha" name="vigencia" type="date" class="form-control" value="{{ old('vigencia')==''?'': old('vigencia') }}" min="2020-01-01">
                     </div>
                     <div class="col-md-12 mb-3">
                             <label for="desc_det">Descripcion detallada</label>
