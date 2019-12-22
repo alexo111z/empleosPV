@@ -322,5 +322,19 @@ jQuery(document).ready(function(){
                         $('#divprivacidad').load(' #divprivacidad');
                }});
             });
+            $(document).on('change','input[id="foto"]',function(){
+               var fileName = this.files[0].name;
+               var ext = fileName.split('.');
+               ext = ext[ext.length-1];
+               if(ext=="png" || ext=="jpg" || ext=="jpeg"){
+                  $('#msjimg').html('');
+                  $("#btnFoto").prop('disabled', false);
+                  $("#modal-foto").prop('src', URL.createObjectURL(event.target.files[0]));
+                  $("#modal-foto").load(' #modal-foto');
+               }else{
+                  $('#msjimg').html('La foto de perfil debe ser imagen jpg,jpeg o png.');
+                  $("#btnFoto").prop('disabled', true);
+               }
+            });
    });
 

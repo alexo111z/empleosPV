@@ -16,18 +16,50 @@
                                     @else
                                         <img class="foto-perfil" src="perfil/fotos/user.png">
                                     @endif
+                                    
                                         <div class="col-md-9 mb-0 text-right mx-auto div-camera">
-                                            <!--<a href="#" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
+                                            <a href="#" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
+                                            <a data-toggle="modal" data-target="#exampleModal"  class="btn-upload mx-1 px-1"><span class="fa fa-upload"></span></a>
+                                            
+                                            <!--<a  data-toggle="modal" data-target="#exampleModal" type="button "id="opcFoto" class=" form-inline icon btn btn-light"><img src="{{asset('images/icon/edit.png')}}">Editar foto</a> 
+                                                <a href="#" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
                                             <a href="#" class="btn-upload mx-1 px-1"><span class="fa fa-upload"></span></a>
                                             -->
-                                            <form action="{{route('subirFoto')}}" enctype="multipart/form-data" method="post">
-                                                {{ csrf_field() }}
-                                                <input required type="file" name="foto" accept="image/png,image/jpeg,image/jpg">
-                                                <button type="submit" >Subir</button>
-                                            </form>
                                             <div class="input-group text-center ">
                                                 <span class="help-block text-danger mx-auto">{{ $errors->first('errorfoto', ':message') }}</span>
                                             </div>
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Foto de perfil</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form id="subirFoto" action="{{route('subirFoto')}}" enctype="multipart/form-data" method="post">
+                                                    {{ csrf_field() }}
+                                            <div class="modal-body">
+                                                    @if(isset(auth()->user()->foto))
+                                                        <img id="modal-foto" class="foto-perfil" src="perfil/{{auth()->user()->foto}}">
+                                                    @else
+                                                        <img id="modal-foto" class="foto-perfil" src="perfil/fotos/user.png">
+                                                    @endif
+                                                    <input class="pt-2" required type="file" id="foto" name="foto" accept="image/png,image/jpeg,image/jpg">
+                                                <div class="input-group text-center ">
+                                                    <span id="msjimg" class="help-block text-danger mx-auto"></span>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button id="btnFoto" class="btn" type="submit" >Subir</button>
+                                                
+                                            </div>
+                                            </div>
+                                            </form>
+                                        </div>
                                         </div>
                                 </div>
                                 <div class="text-center mx-3 mt-0 pt-2">
