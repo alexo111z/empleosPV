@@ -446,6 +446,7 @@ class ComposerStaticInit25cdbf7af55c3f99a54de72bd3e07042
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Municipio' => __DIR__ . '/../..' . '/app/Municipio.php',
         'App\\NEstudio' => __DIR__ . '/../..' . '/app/NEstudio.php',
+        'App\\Notifications\\AdminResetPasswordNotification' => __DIR__ . '/../..' . '/app/Notifications/AdminResetPasswordNotification.php',
         'App\\Oferta' => __DIR__ . '/../..' . '/app/Oferta.php',
         'App\\Pais' => __DIR__ . '/../..' . '/app/Pais.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

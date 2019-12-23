@@ -42,6 +42,7 @@ return array(
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Municipio' => $baseDir . '/app/Municipio.php',
     'App\\NEstudio' => $baseDir . '/app/NEstudio.php',
+    'App\\Notifications\\AdminResetPasswordNotification' => $baseDir . '/app/Notifications/AdminResetPasswordNotification.php',
     'App\\Oferta' => $baseDir . '/app/Oferta.php',
     'App\\Pais' => $baseDir . '/app/Pais.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

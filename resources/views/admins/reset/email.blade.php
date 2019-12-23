@@ -20,7 +20,7 @@
                                     {{ session('status') }}
                                 </div>
                             @endif
-                            <form method="POST" action="{{ route('admin.login') }}">
+                            <form method="POST" action="{{ route('admin.r.email') }}">
                                 {{ csrf_field() }}
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="email" class="col-md-4 control-label">Correo electrónico</label>

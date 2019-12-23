@@ -39,8 +39,8 @@ Route::get('/administrator/login/admins',array('as'=>'admin.v.login', 'uses'=>'A
 Route::post('/administrator/login/admins',array('as'=>'admin.login', 'uses'=>'AdminLoginController@autenticar'));
 Route::post('/administrator/logout/admin',array('as'=>'admin.logout', 'uses'=>'AdminLoginController@logout'));
 /*Recuperar contraseña admins*/
-Route::get('/administrator/contrasena/recuperar',array('as'=>'admin.view.preset','uses'=>'AdminForgotPasswordController@showFormRequest'));
-Route::post('/administrator/contrasena/email',array('as'=>'admin.r.email','uses'=>'AdminForgotPasswordController@sendResetEmail'));
+Route::get('/administrator/contrasena/recuperar',array('as'=>'admin.view.preset','uses'=>'AdminForgotPasswordController@showLinkRequestForm'));
+Route::post('/administrator/contrasena/email',array('as'=>'admin.r.email','uses'=>'AdminForgotPasswordController@sendResetLinkEmail'));
 Route::get('/administrator/contrasena/recuperar/{token}',array('as'=>'admin.r.token','uses'=>'AdminResetPasswordController@showResetForm'));
 Route::post('/administrator/contrasena/recuperar',array('as'=>'admin.r.resset','uses'=>'AdminResetPasswordController@reset'));
 

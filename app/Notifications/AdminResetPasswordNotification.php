@@ -18,7 +18,7 @@ class AdminResetPasswordNotification extends Notification
      */
     public function __construct($token)
     {
-        $this->$token = $token;
+        $this->token = $token;
     }
 
     /**
@@ -42,7 +42,7 @@ class AdminResetPasswordNotification extends Notification
     {
         return (new MailMessage)
                     ->line('Reciviste este correo porque se realizo una solicitud de cambio de contraseña para tu cuenta.')
-                    ->action('Cambiar contraseña', route('admin.r.token', $this->$token))
+                    ->action('Cambiar contraseña', route('admin.r.token', $this->token))
                     ->line('Si tu no solicitaste un cambio de contraseña, puedes ignorar este correo.');
     }
 

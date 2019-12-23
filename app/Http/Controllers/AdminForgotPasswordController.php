@@ -33,7 +33,7 @@ class AdminForgotPasswordController extends Controller
     {
       return Password::broker('admins');
     }
-    public function showFormRequest()
+    public function showLinkRequestForm()
     {
         return view('admins.reset.email');
     }
