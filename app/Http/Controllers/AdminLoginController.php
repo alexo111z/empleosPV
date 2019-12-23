@@ -7,9 +7,11 @@ use Auth;
 
 class AdminLoginController extends Controller
 {
+
     function __contruct() {
-        $this->middleware('guest:admin');
+        $this->middleware('guest:admin', ['except' => ['logout']]);
     }
+
     function login(){
         return view('admins.login');
     }
@@ -31,7 +33,7 @@ class AdminLoginController extends Controller
             ->withInput(request(['error']));
     }
     function logout(){
-        Auth::logout();
+        Auth::guard('admin')->logout();
         return redirect()->route('admin.v.login');
     }
 }

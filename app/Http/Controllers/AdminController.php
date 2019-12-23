@@ -22,7 +22,11 @@ use App\Tag;
 
 class AdminController extends Controller
 {
-    //
+    
+    public function __construct() {
+        $this->middleware('auth:admin');  //comentar para ver admin sin logear
+    }
+
     function index(){
         return view('admins.index');
     }
