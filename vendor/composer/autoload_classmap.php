@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AdminsSeeder' => $baseDir . '/database/seeds/AdminsSeeder.php',
     'App\\Admin' => $baseDir . '/app/Admin.php',
     'App\\Area' => $baseDir . '/app/Area.php',
     'App\\Calificacion' => $baseDir . '/app/Calificacion.php',

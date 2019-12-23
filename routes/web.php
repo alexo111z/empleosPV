@@ -35,6 +35,10 @@ Route::get('/empresas/{empresa}/edit', 'EmpresaController@editar')->name('emp.ed
 Route::put('/empresas/{empresa}/{id}', 'EmpresaController@update')->name('emp.update');
 
 //Admin
+Route::get('/administrator/login/admins',array('as'=>'admin.v.login', 'uses'=>'AdminLoginController@login'));
+Route::post('/administrator/login/admins',array('as'=>'admin.login', 'uses'=>'AdminLoginController@autenticar'));
+Route::post('/administrator/logout/admin',array('as'=>'admin.logout', 'uses'=>'AdminLoginController@logout'));
+
 Route::get('/administrator',array('as' => 'admin.index', 'uses'=>'AdminController@index'));
 Route::get('/administrator/empresas',array('as' => 'admin.emp', 'uses'=>'AdminController@empresas'));
 Route::get('/administrator/ususarios',array('as' => 'admin.users', 'uses'=>'AdminController@usuarios'));

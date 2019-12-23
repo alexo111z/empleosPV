@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             'municipios',
             'users',
             'ofertas',
+            'administradores',
         ]);
         
         $this->call(PaisesSeeder::class);
@@ -40,6 +41,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TagsSeeder::class);
         $this->call(NEstudiosSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(AdminsSeeder::class);
         $this->call(EmpresasSeeder::class);
         $this->call(CalificacionesSeeder::class);
         $this->call(ComentariosSeeder::class);
