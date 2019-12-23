@@ -21,7 +21,7 @@ class AdminLoginController extends Controller
             'remember' => 'nullable',
         ]);
         $remember = $request->has('remember') ? true : false;
-
+            //para empresas: guard('empresa')
         if (Auth::guard('admin')->attempt(['email'=>$data['email'], 'password'=>$data['password']], $remember)) {
             return redirect()->route('admin.index');
         }

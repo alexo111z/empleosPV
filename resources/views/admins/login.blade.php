@@ -16,7 +16,9 @@
                         <div class="card-body">
                             <form method="POST" action="{{ route('admin.login') }}">
                                 {{ csrf_field() }}
-        
+                                <div class="input-group text-center ">
+                                    <span class="help-block text-danger mx-auto">{{ $errors->first('error', ':message') }}</span>
+                                </div>
                                 <div class="form-group row">
                                     <label for="email" class="col-sm-4 col-form-label text-md-right">Correo electrónico</label>
         
