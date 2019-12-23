@@ -46,6 +46,16 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        /* guards para la autentificacion de administradores y empresas */
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'empresa' => [
+            'driver' => 'session',
+            'provider' => 'empresas',
+        ],
     ],
 
     /*
@@ -69,6 +79,15 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        /* Nuevos providers - para administradores y empresas */
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+        'empresas' => [
+            'driver' => 'eloquent',
+            'model' => App\Empresa::class,
         ],
 
         // 'users' => [
@@ -95,6 +114,17 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        /* Usar la misma tabla de password_resets para recuperacion de contraseñas de admins y empresas */
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'empresas' => [
+            'provider' => 'empresas',
             'table' => 'password_resets',
             'expire' => 60,
         ],
