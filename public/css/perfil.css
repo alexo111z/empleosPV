@@ -42,6 +42,7 @@ button.icon, #archivo{
     height:190px;
     padding: 5px;
     border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: #ffffff ;
 }
 button.icon>img{
     width:12px;
@@ -91,6 +92,7 @@ button.icon:hover, #subircv{
 }
 .btn-remove>span:hover,.btn-upload>span:hover{
     color:#009688 !important;
+    cursor: pointer;
 }
 .div-camera{
     max-width: 230px;

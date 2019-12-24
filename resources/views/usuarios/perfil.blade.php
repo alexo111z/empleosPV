@@ -13,18 +13,13 @@
                                 <div class="text-center mx-auto" >
                                     @if(isset(auth()->user()->foto))
                                         <img class="foto-perfil" src="perfil/{{auth()->user()->foto}}">
+                                        <div class="col-md-9 mb-0 text-right mx-auto div-camera">
+                                        <a data-toggle="modal" data-target="#deletemodal" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
                                     @else
                                         <img class="foto-perfil" src="perfil/fotos/user.png">
-                                    @endif
-                                    
                                         <div class="col-md-9 mb-0 text-right mx-auto div-camera">
-                                            <a href="#" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
+                                    @endif
                                             <a data-toggle="modal" data-target="#exampleModal"  class="btn-upload mx-1 px-1"><span class="fa fa-upload"></span></a>
-                                            
-                                            <!--<a  data-toggle="modal" data-target="#exampleModal" type="button "id="opcFoto" class=" form-inline icon btn btn-light"><img src="{{asset('images/icon/edit.png')}}">Editar foto</a> 
-                                                <a href="#" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
-                                            <a href="#" class="btn-upload mx-1 px-1"><span class="fa fa-upload"></span></a>
-                                            -->
                                             <div class="input-group text-center ">
                                                 <span class="help-block text-danger mx-auto">{{ $errors->first('errorfoto', ':message') }}</span>
                                             </div>
@@ -54,7 +49,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button id="btnFoto" class="btn" type="submit" >Subir</button>
+                                                <button id="btnFoto" class="btn btn-info" type="submit" ><i class="fas fa-upload"></i> Subir</button>
                                                 
                                             </div>
                                             </div>
@@ -371,6 +366,25 @@
                 </div>
             </div>
         </main>
+        <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> ¿Desea eliminar la foto de perfil?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="subirFoto" action="{{route('borrarFoto')}}" enctype="multipart/form-data" method="post">
+                        {{ csrf_field() }}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button id="btnFoto" class="btn btn-info" type="submit" ><i class="fa fa-trash" aria-hidden="true"></i> Eliminar foto</button>  
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 @endsection
 @section('scripts')
 

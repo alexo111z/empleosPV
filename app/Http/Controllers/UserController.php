@@ -195,4 +195,11 @@ class UserController extends Controller
         $user->save();
         return redirect('/perfil');
     }
+    public function borrarFoto(){
+        $user = User::findOrFail(auth()->user()->id);
+        \Storage::disk('public')->delete($user->foto);
+         $user->foto=null;
+         $user->save();
+         return redirect('/perfil');
+    }
 }
