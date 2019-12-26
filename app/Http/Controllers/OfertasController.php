@@ -90,6 +90,8 @@ class OfertasController extends Controller
         $max=$data['max'];
         $empleo=(string)$data['empleo'];
         $etiquetas= json_decode($data['etiquetas']);
+        if($empleo=="null" || $empleo==null){$empleo="";}
+        
         if($min=="null" && $max=="null" && $empleo==null && $etiquetas==null){
             return redirect('/ofertas');
         }

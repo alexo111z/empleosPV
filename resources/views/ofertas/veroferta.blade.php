@@ -4,7 +4,7 @@
 <main role="main">
     <nav class="nav-buscador navbar  flex-md-nowrap mt-6">
         <div class="row div-search input-group search-group text-leftpt-2 w-50 mb-1">
-            <a class="regresar" href="{{route('ofertas.lista')}}"><i class="	fas fa-arrow-left"></i> volver</a>
+            <a class="regresar" href="{{ url()->previous() }}"><i class="	fas fa-arrow-left"></i> volver</a>
         </div>
     </nav>
 
