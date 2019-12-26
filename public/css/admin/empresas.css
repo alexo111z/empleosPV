@@ -1,0 +1,57 @@
+
+  /*Navegador*/
+  header{
+    position: absolute;
+  }
+  .div-search>input.form-control{
+    border: solid 1px #707070;
+    float: left;
+  }
+  .btn-search{
+    background-color: #707070!important;
+    color:#fff !important;
+  }
+  .btn-search:hover{
+    background-color: #0288D1!important;
+  }
+
+
+  /*Empresas*/
+  .conten{
+    margin: auto;
+  }
+  .title{
+    margin-top: 6%;
+  }
+  .data-table{
+    margin-top: 6%;
+  }
+  th.actions{
+    width: 25%;
+  }
+  td.actions{
+    width: 12%;
+  }
+  .componet{
+    margin-top: .8%;
+    width: 20%;
+    float: right;
+  }
+  .buscador{
+    width: 80%;
+    float: left;
+  }
+  button.add{
+    float: right;
+  }
+  .div-buscador{
+    margin-left: 2%;
+  }
+  .message{
+    text-align: right;
+    float: right;
+  }
+  .element{
+    float: right;
+  }
+

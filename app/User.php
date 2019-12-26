@@ -23,6 +23,8 @@ class User extends Authenticatable
         'id_estudios',
         'id_area',
         'edad',
+        'id_pais', 'id_estado', 'id_ciudad',
+        'coment', 'telefono', 'conocimientos', 'alias',
     ];
     public function getFullnameAttribute(){
         return $this->nombre .' '. $this->apellido;

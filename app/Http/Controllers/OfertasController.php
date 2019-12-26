@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 use App\Oferta;
 use App\RelacionTag;
 use App\Solicitud;

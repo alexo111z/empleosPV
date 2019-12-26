@@ -2,12 +2,13 @@
        <header>
         @section('header-user')
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark " >
-                <a class="navbar-brand" href="{{route('ofertas.lista')}}"> <img src="{{asset('images/images/logo-white.png')}}" width="125" height="35" alt=""></a>
+                
+                    @guest
+                <a class="navbar-brand" href="{{route('home')}}"> <img src="{{asset('images/images/logo-white.png')}}" width="125" height="35" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor03">
-                    @guest
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('ofertas.lista')}}">Buscar Empleos</a>
@@ -23,6 +24,11 @@
                          <ul>
                     </div>
                     @else
+                <a class="navbar-brand" href="{{route('ofertas.lista')}}"> <img src="{{asset('images/images/logo-white.png')}}" width="125" height="35" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor03">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('ofertas.lista')}}">Buscar Empleos</a>

@@ -18,7 +18,9 @@ class UserSeeder extends Seeder
             'email' => 'prueba@correo.com',
             'password' => bcrypt('laravel'),
             'id_area' => 1,
+            'alias' => 'prueba',
         ]);
+//        'alias' => substr($mail, 0, strpos($mail, "@")),   obtener alias
 
         factory(User::class)->times(10)->create();
     }

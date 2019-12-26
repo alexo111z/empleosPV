@@ -20,9 +20,16 @@ class CreateEmpresasTable extends Migration
             $table->string('rfc', 13)->unique();
 
             $table->string('d_fiscal');
-            $table->string('pais', 100);
+            
+            $table->bigInteger('id_pais')->nullable()->unsigned();
+            $table->foreign('id_pais')->references('id')->on('paises');
+            $table->bigInteger('id_estado')->nullable()->unsigned();
+            $table->foreign('id_estado')->references('id')->on('estado');
+            $table->bigInteger('id_ciudad')->nullable()->unsigned();
+            $table->foreign('id_ciudad')->references('id')->on('municipios');
+            /*$table->string('pais', 100);
             $table->string('estado', 100);
-            $table->string('ciudad', 100);
+            $table->string('ciudad', 100);*/
 
             $table->string('email', 320)->unique();
             $table->string('telefono', 10);

@@ -2,12 +2,21 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\AdminResetPasswordNotification;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
+    use Notifiable;
+    protected $guard = 'admin';
     protected $table = 'administradores';
 
+    protected $fillable = [
+        'nombre', 'email', 'password',
+        'apellido',
+    ];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -25,4 +34,8 @@ class Admin extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new AdminResetPasswordNotification($token)); //php artisan make:notification AdminResetPasswordNotification
+    }
 }

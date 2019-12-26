@@ -22,7 +22,7 @@ class CreateOfertasTable extends Migration
             $table->string('titulo', 70);
             $table->string('d_corta', 142);
             $table->string('d_larga', 900);
-            $table->string('salario', 5);
+            $table->decimal('salario', 7, 2)->nullable();
             $table->string('t_contrato', 30)->nullable();
             $table->dateTime('vigencia');
 

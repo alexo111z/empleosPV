@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 use \Validator;
 use App\Area;
 use App\NEstudio;
+use App\RelacionTag;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\RelacionTag;
 use App\Tag;
 use App\Pais;
 use App\Estado;
@@ -22,6 +22,7 @@ class UserController extends Controller
         return view('usuarios.registrar', compact('estudios', 'areas'));
     }
     function perfil(){
+
         $paises = Pais::all();
         $estados = Estado::all();
         $municipios = municipio::all();
@@ -65,6 +66,7 @@ class UserController extends Controller
         $date1 = Carbon::createFromDate($data['trip-start']);
         $ahora = Carbon::now();
         $edad = $date1->diffInYears($ahora);
+        $alias = substr($data['email'], 0, strpos($data['email'], "@"));
 
         User::create([
             'email' => $data['email'],
@@ -76,6 +78,7 @@ class UserController extends Controller
             'id_estudios' => $data['estudios'],
             'id_area' => $data['area'],
             'edad' => $edad,
+            'alias' => $alias,
         ]);
 
         return redirect()->route('home');
@@ -201,5 +204,43 @@ class UserController extends Controller
          $user->foto=null;
          $user->save();
          return redirect('/perfil');
+        }
+    function editarPersonal(Request $request){
+        $data = $request->all();
+        $user = User::findOrFail(auth()->user()->id);
+
+        $date1 = Carbon::createFromDate($data['nacimiento']);
+        $ahora = Carbon::now();
+        $edad = $date1->diffInYears($ahora);
+        $user->nacimiento = $data['nacimiento'];
+        $user->edad = $edad;
+        $user->genero = $data['genero'];
+        $user->estado = $data['estado'];
+        $user->ciudad = $data['ciudad'];
+        $user->pais = $data['pais'];
+        $user->save();
+
+        return redirect()->back();
     }
+    function editarContacto(Request $request){
+        $data = $request->all();
+        User::findOrFail(auth()->user()->id)->update($data);
+        return redirect()->back();
+    }
+    function editarAcademica(Request $request){
+        $data = $request->all();
+        User::findOrFail(auth()->user()->id)->update([
+            'id_estudios' => $data['estudios'],
+            'id_area' => $data['area'],
+        ]);
+        return redirect()->back();
+    }
+    function editarLaboral(Request $request){
+        $data = $request->all();
+        User::findOrFail(auth()->user()->id)->update([
+            'conocimientos' => $data['conocimientos'],
+        ]);
+        return redirect()->back();
+    }
+
 }

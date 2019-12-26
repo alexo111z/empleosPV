@@ -2,19 +2,23 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Empresa extends Model
+class Empresa extends Authenticatable
 {
+    use Notifiable;
+    protected $guard = 'empresa';
     protected $table = 'empresas';
 
     protected $fillable = [
         'nombre',
         'rfc',
         'd_fiscal',
-        'pais',
-        'estado',
-        'ciudad',
+        'id_pais',
+        'id_estado',
+        'id_ciudad',
         'telefono',
         'contacto',
         'id_social',
@@ -28,6 +32,15 @@ class Empresa extends Model
     }
     public function giro(){
         return $this->belongsTo(Giro::class, 'id_giro');
+    }
+    public function idpais(){
+        return $this->belongsTo(Pais::class, 'id_pais');
+    }
+    public function idestado(){
+        return $this->belongsTo(Estado::class, 'id_estado');
+    }
+    public function idciudad(){
+        return $this->belongsTo(Municipio::class, 'id_ciudad');
     }
 
     /**

@@ -1,0 +1,23 @@
+.container {
+    max-width: 960px;
+  }
+  .lh-condensed { line-height: 1.25; }
+  .col-md-8{
+    margin: auto !important;
+  }
+  h4,h1,.lead{
+    font-family: k2d;
+  }
+  .btn.btn-register{
+    background-color:#009688;
+    color: #ffffff !important;
+  }
+  .btn.btn-register:hover{
+    background-color:#03A9F4 !important;
+  }
+  .div-ubicacion{
+        float: left;
+  }
+  .div-det{
+        float: left; 
+  }

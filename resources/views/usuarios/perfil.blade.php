@@ -170,7 +170,7 @@
                                         @endif
                                         @endforeach
                                     </select>
-                            </div>
+                                </div>
                                 <div class="text-right ">
                                     <button type="button "id="BtnGuardarPersonal" data-href="{{url('/perfil/actualizar')}}" class="form-inline icon btn btn-primary text-primary">Guardar</button>
                                 </div>

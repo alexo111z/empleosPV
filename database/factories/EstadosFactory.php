@@ -8,6 +8,6 @@ use App\Estado;
 $factory->define(Estado::class, function (Faker $faker) {
     return [
         'id_pais' => $faker->numberBetween(1, 5),
-        'estado' => $faker->sentence,
+        'estado' => $faker->sentence(3, true),
     ];
 });

@@ -29,20 +29,22 @@ class DatabaseSeeder extends Seeder
             'municipios',
             'users',
             'ofertas',
+            'administradores',
         ]);
-
+        
+        $this->call(PaisesSeeder::class);
+        $this->call(EstadosSeeder::class);
+        $this->call(MunicipiosSeeder::class);
         $this->call(GiroSeeder::class);
         $this->call(AreasSeeder::class);
         $this->call(RSocialesSeeder::class);
         $this->call(TagsSeeder::class);
         $this->call(NEstudiosSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(AdminsSeeder::class);
         $this->call(EmpresasSeeder::class);
         $this->call(CalificacionesSeeder::class);
         $this->call(ComentariosSeeder::class);
-        $this->call(PaisesSeeder::class);
-        $this->call(EstadosSeeder::class);
-        $this->call(MunicipiosSeeder::class);
         $this->call(OfertaSeeder::class);
         $this->call(RelacionTagSeeder::class);
     }
