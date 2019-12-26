@@ -11,7 +11,33 @@
         <div class="input-group-prepend">
             <button id="btn-search"class="btn btn-search my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </div> 
-        <div class="col-sm-12 text-right mb-0 pb-0 pr-0 "><small><a href="{{route('ofertas.lista')}}">Limpiar búsqueda</a></small></div>
+        @if(isset($data))
+        <div class="row w-100 justify-content-end text-right mx-0">
+        <div class="col-sm-7 text-right mr-0 pr-0">
+            <small class="text-muted">
+            @if($data['min']!="null" && $data['max']!="null")
+              Empleos con sueldo entre ${{$data['min']}} y ${{$data['max']}} pesos.
+            @elseif($data['min']=="null" && $data['max']!="null")
+              Empleos con sueldos de hasta ${{$data['max']}} pesos.
+            @elseif($data['min']!="null" && $data['max']=="null")
+              Empleos con sueldos mayores de ${{$data['min']}} pesos.
+            @else
+              Empleos con cualquier cantidad de sueldo.
+            @endif
+            </small><bR>
+            <small class="text-muted">
+              @if($data["etiquetas"]!="null" && $data["etiquetas"]!="[]")
+              <i class='fas fa-tags'></i> {{ str_replace('"', "",trim($data["etiquetas"], '[]'))}}
+              @endif
+            </small>
+        </div>
+          <div class="col-sm-3 text-right mr-0 pr-0"> <small ><a href="{{route('ofertas.lista')}}">Limpiar búsqueda</a></small></div>  
+        </div>
+        @else
+        <div class="col-sm-12 text-right mb-0 pb-0 pr-0 ">
+          <small><a href="{{route('ofertas.lista')}}">Limpiar búsqueda</a></small>
+        </div>
+        @endif
     </div>
     <div class="div-busqueda-avanzada text-right"><i class="fas fa-cog"></i> <a class="link-busqueda" href="{{route('ofertas.busqueda')}}">Búsqueda avanzada>></a></div>
     </nav>
