@@ -48,7 +48,7 @@ class UserController extends Controller
 
     function crear(Request $request){
         //validate() -> utiliza el 'name' del campo
-        $data = $request->validate([
+       /* $data = $request->validate([
             "email" => ['required', 'email', 'unique:users,email'], //unique:tabla,columna
             "password" => ['required', 'between:1,8', 'same:password2'],
             "password2" => ['required', 'between:1,8'],
@@ -60,28 +60,36 @@ class UserController extends Controller
             "area" => 'required',
             //Calcular edad para insercion
         ],[
-            'name.required' => 'El campo esta vacio'
+            'email.unique' => 'Ya existe una cuenta registrada con este correo.'
+        ]);*/
+        $validator = Validator::make($request->all(),[
+            "email" => 'unique:users,email'
         ]);
+        if ($validator->fails()) {
+            return back()
+            ->withErrors(['erroremail' => 'Ya existe una cuenta registrada con este correo.'])
+            ->withInput(request(['erroremail']));
+        }else{
+            $data= $request->all();
+            $date1 = Carbon::createFromDate($data['trip-start']);
+            $ahora = Carbon::now();
+            $edad = $date1->diffInYears($ahora);
+            $alias = substr($data['email'], 0, strpos($data['email'], "@"));
 
-        $date1 = Carbon::createFromDate($data['trip-start']);
-        $ahora = Carbon::now();
-        $edad = $date1->diffInYears($ahora);
-        $alias = substr($data['email'], 0, strpos($data['email'], "@"));
-
-        User::create([
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'nombre' => $data['firstName'],
-            'apellido' => $data['lastName'],
-            'nacimiento' => $data['trip-start'],
-            'genero' => $data['sexo'],
-            'id_estudios' => $data['estudios'],
-            'id_area' => $data['area'],
-            'edad' => $edad,
-            'alias' => $alias,
-        ]);
-
-        return redirect()->route('home');
+            User::create([
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'nombre' => $data['firstName'],
+                'apellido' => $data['lastName'],
+                'nacimiento' => $data['trip-start'],
+                'genero' => $data['sexo'],
+                'id_estudios' => $data['estudios'],
+                'id_area' => $data['area'],
+                'edad' => $edad,
+                'alias' => $alias,
+            ]);
+                return redirect()->route('home');
+        }
     }
 
     function editar($user){

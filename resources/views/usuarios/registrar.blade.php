@@ -8,26 +8,26 @@
                 <p class="lead">Tenemos ofertas de empleo esperandote</p>
             </div>
 
-            <form method="POST" action="{{ url('/usuarios/crear') }}">
+            <form id="form-registro" name="form-registro" method="POST" action="{{ url('/usuarios/crear') }}">
             {{ csrf_field() }}
 
             <!-- start personal information -->
            <div class="col-md-8 order-md-1">
-                <div class="row d-flex align-items-center"><h4 class="mb-1">Datos de la cuenta&nbsp;</h4><small class="text-muted"> (<i class="fa fa-info-circle" aria-hidden="true"></i> Todos los campos son obligatorios)</small></div>
+                <div class="row d-flex align-items-center"><h4 class="mb-1">Datos de la cuenta&nbsp;</h4><small class="text-info"> (<i class="fa fa-info-circle" aria-hidden="true"></i> Todos los campos son obligatorios)</small></div>
                 <div class="mb-3">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com"required>
+                    <input type="email" class="form-control text-lowercase" id="email" name="email" placeholder="you@example.com"required>
+                    <span class="help-block text-danger mx-auto">{{ $errors->first('erroremail', ':message') }}</span>
                 </div>
                 <div class="row">
                     <div class="col-md-6 ">
-                        <label for="firstName">Contraseña</label>
+                        <label for="firstName">Contraseña</label> <small class='text-muted'>(entre 6 y 8 carácteres)</small>
                         <input  class="form-control" id="password" name="password" placeholder="" value="" required>
                     </div>
                     <div class="col-md-6 ">
                         <label for="lastName">Confirmar contraseña</label>
                         <input  class="form-control" id="password2" name="password2" placeholder="" value="" required>
                     </div>
-                    <div id="error-pass" class="col-sm-12 text-center px-auto my-0 py-0"><small class='text-info'><i class='fa fa-info-circle'></i>La contraeña debe contener entre 6 y 8 caracteres(numeros, mayúsculas, minúsculas,puntos y guiones).</small></div>
                 </div>
            </div>
             <hr class="mb-1">
@@ -44,8 +44,6 @@
                             <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="" required>
                         </div>
                     </div>
-
-
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="Date">Fecha de nacimiento</label>
@@ -96,7 +94,7 @@
                         </div>
                     </div>
                     <div class="col-md-8 order-md-1">
-                        <button class="btn btn-register btn-lg btn-block" type="submit">Registrar cuenta</button>
+                        <button id="btn-registrar"class="btn btn-register btn-lg btn-block" type="submit">Registrar cuenta</button>
                     </div>
 
                 </form>
@@ -108,4 +106,5 @@
 @endsection
 @section('scripts')
     <script src="{{asset('js/registrar-usuarios.js')}}"> </script>
+
 @endsection
