@@ -47,21 +47,6 @@ class UserController extends Controller
     }
 
     function crear(Request $request){
-        //validate() -> utiliza el 'name' del campo
-       /* $data = $request->validate([
-            "email" => ['required', 'email', 'unique:users,email'], //unique:tabla,columna
-            "password" => ['required', 'between:1,8', 'same:password2'],
-            "password2" => ['required', 'between:1,8'],
-            "firstName" => 'required',
-            "lastName" => 'required',
-            "trip-start" => ['required', 'date_format:Y-m-d'],   //'Y-m-d'  born date
-            "sexo" => 'required', //genero
-            "estudios" => 'required',
-            "area" => 'required',
-            //Calcular edad para insercion
-        ],[
-            'email.unique' => 'Ya existe una cuenta registrada con este correo.'
-        ]);*/
         $validator = Validator::make($request->all(),[
             "email" => 'unique:users,email'
         ]);
