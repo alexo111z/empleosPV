@@ -44,6 +44,7 @@ button.icon, #archivo{
     border: 2px solid rgba(0, 0, 0, 0.2);
     background-color: #ffffff ;
 }
+
 button.icon>img{
     width:12px;
     margin-right: 5px;

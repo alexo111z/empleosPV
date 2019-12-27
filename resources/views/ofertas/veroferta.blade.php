@@ -61,7 +61,11 @@
                     <small class="text-muted text-uppercase">Empresa que realizó la oferta:</small>
                 </div>
                 <div class="text-center mx-auto" >
-                    <img src="https://via.placeholder.com/200x200.png">
+                    @if(isset($oferta->empresa->logo))
+                        <img class="imagen" src="{{ route('empresas.logo',['file'=>$oferta->empresa->logo]) }}">
+                    @else
+                        <img class="imagen"src="{{ route('empresas.logo',['file'=>'empresa.png']) }}">
+                    @endif
                     <h5 class="my-1 mx-3">{{ $oferta->empresa->nombre }}</h5>
                 </div>
             @guest
@@ -72,14 +76,14 @@
             <div id="div-post" style=" max-width:312px!important;" >
                 @if($solicitud=="[]")
                     <form  id="postulacion" method="post" action="{{ route('oferta.solicitud', [$oferta->id]) }}">
-                        <div class="col-sm-12 my-3 px-3 text-center">
+                        <div class="col-sm-12 my-3 mx-4 text-center">
                             {{ csrf_field() }}
                             <button id="btn-postulacion" type="submit" class="btn btn-postular btn-block "><h5>Postularme</h5></button>
                         </div>
                     </form>
                 @else
                     <form id="postulacion" method="post" action="{{ route('oferta.solicitud.cancelar', [$oferta->id]) }}">
-                        <div class="col-sm-12 my-3 px-3 text-center">
+                        <div class="col-sm-12 my-3 mx-4 text-center">
                             {{ csrf_field() }}
                             <button id="btn-postulacion" type="submit" class="btn btn-danger  btn-block "><h5>Cancelar postulación</h5></button>
                         </div>

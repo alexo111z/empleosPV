@@ -43,3 +43,8 @@
 .d-larga{
   white-space: pre-line;
 }
+.imagen{
+  background-color: #fff !important;
+  width:200px!important; 
+  height:200px!important;
+}

@@ -16,7 +16,7 @@
                                         <div class="col-md-9 mb-0 text-right mx-auto div-camera">
                                         <a data-toggle="modal" data-target="#deletemodal" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
                                     @else
-                                        <img class="foto-perfil" src="perfil/fotos/user.png">
+                                        <img class="foto-perfil" src="{{ route('usuarios.foto',['file'=>'user.png']) }}">
                                         <div class="col-md-9 mb-0 text-right mx-auto div-camera">
                                     @endif
                                             <a data-toggle="modal" data-target="#exampleModal"  class="btn-upload mx-1 px-1"><span class="fa fa-upload"></span></a>
@@ -38,9 +38,9 @@
                                                     {{ csrf_field() }}
                                             <div class="modal-body">
                                                     @if(isset(auth()->user()->foto))
-                                                        <img id="modal-foto" class="foto-perfil" src="perfil/{{auth()->user()->foto}}">
+                                                        <img id="modal-foto" class="foto-perfil" src="{{ route('usuarios.foto',['file'=>auth()->user()->foto]) }}">
                                                     @else
-                                                        <img id="modal-foto" class="foto-perfil" src="perfil/fotos/user.png">
+                                                        <img id="modal-foto" class="foto-perfil" src="{{ route('usuarios.foto',['file'=>'user.png']) }}">
                                                     @endif
                                                     <input class="pt-2" required type="file" id="foto" name="foto" accept="image/png,image/jpeg,image/jpg">
                                                 <div class="input-group text-center ">
@@ -347,7 +347,14 @@
                     </div>
                     @foreach($comentarios as $comentario)
                         <div  class="col-md-12 mt-3 mb-0 pt-0">
-                            <h6 class="text-uppercase mx-0 mb-0 pb-0"><img class="icon-profile" src="https://via.placeholder.com/30x30.png">{{ $comentario->nombre  }}</h6>
+                            <h6 class="text-uppercase mx-0 mb-0 pb-0">
+                                @if(isset($comentario->logo))
+                                    <img class="icon-profile" src="{{ route('empresas.logo',['file'=>$comentario->logo]) }}">
+                                @else
+                                    <img class="icon-profile" src="{{ route('empresas.logo',['file'=>'empresa.png']) }}">
+                                @endif
+                                {{ $comentario->nombre  }}
+                            </h6>
                                 @for ($i = 1; $i<=5; $i++)
                                         @if($i<=$comentario->califi)
                                             <span class="fa fa-star checked"></span>

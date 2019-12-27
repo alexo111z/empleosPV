@@ -43,12 +43,12 @@
                                 @if(isset(auth()->user()->foto))
                                     <img class="icon-profile" src="{{ route('usuarios.foto',['file'=>auth()->user()->foto]) }}">{{ auth()->user()->nombre }}<!--María Guadalupe-->
                                 @else
-                                <img class="icon-profile" src="perfil/fotos/user.png">{{ auth()->user()->nombre }}<!--María Guadalupe-->
+                                <img class="icon-profile" src="{{ route('usuarios.foto',['file'=>'user.png']) }}">{{ auth()->user()->nombre }}<!--María Guadalupe-->
                                 @endif
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item" href="{{route('usuarios.perfil')}}">Mi perfil</a>
-                                    <a class="dropdown-item" href="#">Cambiar contraseña</a>
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#modal-password" href="">Cambiar contraseña</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -64,3 +64,4 @@
             </nav>
             @endsection
         </header>
+     

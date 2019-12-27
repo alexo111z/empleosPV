@@ -56,6 +56,10 @@ Route::post('/administrator/create/empresa', array('as'=>'admin.c.emp','uses'=>'
 Route::post('/administrator/create/usuario', array('as'=>'admin.c.user','uses'=>'AdminController@createUser'));
 Route::post('/administrator/create/administrador', array('as'=>'admin.c.admin','uses'=>'AdminController@createAdmin'));
 Route::post('/administrator/create/oferta/{empresa}', array('as'=>'admin.c.ofer', 'uses'=>'AdminController@createOferta'));
+Route::get('/logos/{file}', function($file){
+    return \Storage::disk('public')->response("/logos/$file");
+})->name('empresas.logo');
+
 /*--------- FINRUTAS DE ADMINISTRADOR--------*/
 
 
