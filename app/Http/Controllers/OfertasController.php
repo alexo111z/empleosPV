@@ -51,22 +51,25 @@ class OfertasController extends Controller
             'id_oferta' => $id,
             'id_usuario' =>  auth()->user()->id,
         ]);
-        return \App::make('redirect')->back();
+        return redirect()->back();
     }
 
-    function Postulaciones(){
-        $correo = 'puerba@correo.com';  //Obtener id o correo mediante la Autentificacion
-        $user = User::where('email', $correo)->firstOrFail();
-
-        $ofertas = Solicitud::where('id_usuario', $user->id)->where('estado', 1)->get();
+    function Postulaciones(){    
+        //$ofertas = Oferta::where('id','=',0)->paginate(10);
+        $ofertas = Oferta::join('solicitudes','ofertas.id','solicitudes.id_oferta')
+        ->where('solicitudes.id_usuario','=',auth()->user()->id)
+        ->select('ofertas.*')
+        ->paginate(10);
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
-
-        return view('ofertas.postulaciones', compact('ofertas', 'rTags'));
+        $paises = Pais::all();
+        $estados =Estado::all();
+        $ciudades = Municipio::all();
+        return view('ofertas.postulaciones', compact('paises','estados','ciudades','ofertas', 'rTags'));
     }
     function cancelarPostulacion($id){
         $solicitud = Solicitud::where('id_oferta', $id)->where('id_usuario', auth()->user()->id)->firstOrFail();
         $solicitud->delete();
-        return \App::make('redirect')->back();
+        return redirect()->back();
     }
     function Buscar(){
         $data = request()->all();
@@ -105,6 +108,10 @@ class OfertasController extends Controller
             }elseif($min!="null"){
                 $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')
                 ->where('salario',">", $min)
+                ->get();
+            }elseif($max!="null"){
+                $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')
+                ->where('salario',"<", $max)
                 ->get();
             }
             else{$ofertas=Oferta::where('titulo','like','%'.$empleo.'%')->get();}

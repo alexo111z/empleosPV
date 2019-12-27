@@ -60,7 +60,6 @@ class UserController extends Controller
             $ahora = Carbon::now();
             $edad = $date1->diffInYears($ahora);
             $alias = substr($data['email'], 0, strpos($data['email'], "@"));
-
             User::create([
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
@@ -73,7 +72,7 @@ class UserController extends Controller
                 'edad' => $edad,
                 'alias' => $alias,
             ]);
-                return redirect()->route('home');
+                return redirect()->route('usuarios.login');
         }
     }
 
@@ -155,7 +154,7 @@ class UserController extends Controller
             \Storage::disk('public')->delete($user->foto);
             //indicamos que queremos guardar un nuevo archivo en el disco local
             \Storage::disk('public')->put($url,\File::get($file));
-            $user->foto= $url;
+            $user->foto= $nombre;
             $user->save();
             return redirect('/perfil');
         }
@@ -235,5 +234,6 @@ class UserController extends Controller
         ]);
         return redirect()->back();
     }
+ 
 
 }

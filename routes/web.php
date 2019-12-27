@@ -81,7 +81,7 @@ Route::get('/descargar/curriculums/{file}', function($file){
 Route::post('/subirFoto','UserController@subirFoto')->name('subirFoto');
 Route::get('/perfil/fotos/{file}', function($file){
     return \Storage::disk('public')->response("/fotos/$file");
-});
+})->name('usuarios.foto');
 Route::post('/borrarfoto','UserController@borrarFoto')->name('borrarFoto');
 //añadir tags al perfil de usuario
 Route::post('/perfil/createtags', 'TagsController@Insert')->name('tags.insert');

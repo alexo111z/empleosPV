@@ -12,7 +12,7 @@
                             <div id="infopersonal">
                                 <div class="text-center mx-auto" >
                                     @if(isset(auth()->user()->foto))
-                                        <img class="foto-perfil" src="perfil/{{auth()->user()->foto}}">
+                                        <img class="foto-perfil" src="{{ route('usuarios.foto',['file'=>auth()->user()->foto]) }}">
                                         <div class="col-md-9 mb-0 text-right mx-auto div-camera">
                                         <a data-toggle="modal" data-target="#deletemodal" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
                                     @else

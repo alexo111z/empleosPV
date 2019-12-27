@@ -59,7 +59,8 @@
                             $existe=true;
                             //Poner tags
                             foreach($tags as $tag){
-                                if(strpos($tag->nombre, strtolower ($letra))==" "){
+                                //if(strpos($tag->nombre, strtolower ($letra))==" "){
+                                    if(strpos($tag->nombre, strtolower ($letra))==" " or strpos($tag->nombre, ($letra))==" "){
                                     echo" <span class='tag px-2  text-lowercase  border rounded' id='$tag->id'>$tag->nombre</span>";
                                     $existe=false;
                                 }

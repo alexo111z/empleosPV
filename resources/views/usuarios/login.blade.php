@@ -18,13 +18,13 @@
                                 <span class="help-block text-danger mx-auto">{{ $errors->first('error', ':message') }}</span>
                             </div>
                             <div class="input-group  {{ $errors->has('email') ? 'has-error' : '' }}">
-                                <input type="text" name="email" class="form-control" value="{{ old('email' ) }}" placeholder="Correo electrónico">
+                                <input type="text" id="email" name="email" class="form-control" value="{{ old('email' ) }}" placeholder="Correo electrónico">
                             </div>
                             <div class="input-group text-center mb-3 ">
                                 <span class="help-block text-danger mx-auto">{{ $errors->first('email', ':message') }}</span>
                             </div>
                             <div class="input-group mb-2 {{ $errors->has('password') ? 'has-error' : '' }}">
-                                <input type="password" name="password" class="form-control" value="" placeholder="Contraseña">
+                                <input type="password" id="password" name="password" class="form-control" value="" placeholder="Contraseña">
                             </div>
                             <div class="input-group text-center mb-2 ">
                                 <span class="help-block text-danger mx-auto">{{ $errors->first('password', ':message') }}</span>
@@ -47,7 +47,7 @@
                             <a href="#">¿Olvidaste tu contraseña?</a>
                         </div>
                         <div class="d-flex justify-content-center links">
-                            <p>Si no tienes cuenta </p> <a href="#" class="ml-2">Registrate Aquí</a>
+                            <p>Si no tienes cuenta </p> <a href="{{route('usuarios.registrar')}}" class="ml-2">Registrate Aquí</a>
                         </div>
 
                     </div>
@@ -56,4 +56,7 @@
             </div>
         </div>
     </main>
+@endsection
+@section('scripts')
+    <script src="{{asset('js/login.js')}}"> </script>
 @endsection

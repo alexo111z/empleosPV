@@ -22,11 +22,11 @@
                 <div class="row">
                     <div class="col-md-6 ">
                         <label for="firstName">Contraseña</label> <small class='text-muted'>(entre 6 y 8 carácteres)</small>
-                        <input  class="form-control" id="password" name="password" placeholder="" value="" required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="" value="" required>
                     </div>
                     <div class="col-md-6 ">
                         <label for="lastName">Confirmar contraseña</label>
-                        <input  class="form-control" id="password2" name="password2" placeholder="" value="" required>
+                        <input  type="password" class="form-control" id="password2" name="password2" placeholder="" value="" required>
                     </div>
                 </div>
            </div>
@@ -106,5 +106,4 @@
 @endsection
 @section('scripts')
     <script src="{{asset('js/registrar-usuarios.js')}}"> </script>
-
 @endsection

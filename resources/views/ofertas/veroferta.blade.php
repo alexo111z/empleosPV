@@ -55,7 +55,7 @@
         </div>
 
 
-        <div class="col-md-3 my-3 mx-3">
+        <div class="col-md-3 my-3 px-auto mx-auto" style="min-width: 250px;">
             <div class=" border rounded overflow-hidden text-center mx-auto py-3">
                 <div class="text-center mb-4" >
                     <small class="text-muted text-uppercase">Empresa que realizó la oferta:</small>
@@ -69,25 +69,30 @@
                     <p><a href="{{route('usuarios.registrar')}}">!Registrate aquí!</a> para poder postularte en este empleo.</p>  
                 </div>
             @else
-            @if($solicitud=="[]")
-                <form method="post" action="{{ route('oferta.solicitud', [$oferta->id]) }}">
-                    <div class="col-sm-12 my-3 px-3 text-center">
-                        {{ csrf_field() }}
-                        <button type="submit" class="btn btn-postular btn-block "><h5>Postularme</h5></button>
-                    </div>
-                </form>
-            @else
-                <form method="post" action="{{ route('oferta.solicitud.cancelar', [$oferta->id]) }}">
-                    <div class="col-sm-12 my-3 px-3 text-center">
-                        {{ csrf_field() }}
-                        <button type="submit" class="btn btn-danger btn-block "><h5>Cancelar postulación</h5></button>
-                    </div>
-                </form>
-            @endif
+            <div id="div-post" style=" max-width:312px!important;" >
+                @if($solicitud=="[]")
+                    <form  id="postulacion" method="post" action="{{ route('oferta.solicitud', [$oferta->id]) }}">
+                        <div class="col-sm-12 my-3 px-3 text-center">
+                            {{ csrf_field() }}
+                            <button id="btn-postulacion" type="submit" class="btn btn-postular btn-block "><h5>Postularme</h5></button>
+                        </div>
+                    </form>
+                @else
+                    <form id="postulacion" method="post" action="{{ route('oferta.solicitud.cancelar', [$oferta->id]) }}">
+                        <div class="col-sm-12 my-3 px-3 text-center">
+                            {{ csrf_field() }}
+                            <button id="btn-postulacion" type="submit" class="btn btn-danger  btn-block "><h5>Cancelar postulación</h5></button>
+                        </div>
+                    </form>
+                @endif
+            </div>
             @endguest
             </div>
         </div>
     </div>
 
 </main>
+@endsection
+@section('scripts')
+<script src="{{asset('js/veroferta.js')}}"> </script>
 @endsection
