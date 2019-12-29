@@ -37,11 +37,7 @@
                                             <form id="subirFoto" action="{{route('subirFoto')}}" enctype="multipart/form-data" method="post">
                                                     {{ csrf_field() }}
                                             <div class="modal-body">
-                                                    @if(isset(auth()->user()->foto))
-                                                        <img id="modal-foto" class="foto-perfil" src="{{ route('usuarios.foto',['file'=>auth()->user()->foto]) }}">
-                                                    @else
-                                                        <img id="modal-foto" class="foto-perfil" src="{{ route('usuarios.foto',['file'=>'user.png']) }}">
-                                                    @endif
+                                                    <img id="modal-foto" class="foto-perfil" src="{{ route('usuarios.foto',['file'=>'user.png']) }}">
                                                     <input class="pt-2" required type="file" id="foto" name="foto" accept="image/png,image/jpeg,image/jpg">
                                                 <div class="input-group text-center ">
                                                     <span id="msjimg" class="help-block text-danger mx-auto"></span>

@@ -14,7 +14,10 @@ use App\Estado;
 use App\Municipio;
 use App\Calificacion;
 use App\Comentario;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
+
 {
     function registrar(){
         $estudios = NEstudio::all();
@@ -233,6 +236,17 @@ class UserController extends Controller
             'conocimientos' => $data['conocimientos'],
         ]);
         return redirect()->back();
+    }
+    function editarpassword(Request $request){
+        $user = User::findOrFail(auth()->user()->id);
+        $data = $request->all();
+        if(Hash::check($data['pass'],Auth::user()->password)){
+            $user->password = bcrypt($data['newpassword']);
+            $user->save();
+            return 1;
+        }else{
+            return 0;
+        }
     }
  
 

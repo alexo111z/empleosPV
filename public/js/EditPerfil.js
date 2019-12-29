@@ -336,5 +336,11 @@ jQuery(document).ready(function(){
                   $("#btnFoto").prop('disabled', true);
                }
             });
+            $("#exampleModal").on('hidden.bs.modal', function () {
+               $("#foto").val("");
+               $("#msjimg").html("");
+               $("#modal-foto").prop('src', '/perfil/fotos/user.png');
+               $("#modal-foto").load(' #modal-foto');
+           });
    });
 

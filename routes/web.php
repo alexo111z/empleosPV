@@ -92,6 +92,7 @@ Route::post('/perfil/createtags', 'TagsController@Insert')->name('tags.insert');
 Route::post('/perfil/deletetags','TagsController@destroy')->name('tags.destroy');
 //Logout
 Route::post('/user/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));  //is in header.blade
+Route::post('/user/pass','UserController@editarpassword')->name('editarpassword');
 /*--------- FIN RUTAS DE USUARIO--------*/
 
 

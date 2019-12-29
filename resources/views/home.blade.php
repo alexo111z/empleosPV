@@ -1,8 +1,8 @@
 @extends('master')
-
+<link href="{{asset('css/home.css')}}" rel="stylesheet">
     @section('body')
-        <link href="{{asset('css/home.css')}}" rel="stylesheet">
-        <main role="main">
+        
+        <main role="main" >
             <!-- Main jumbotron for a primary marketing message or call to action -->
             <div class="jumbotron" style="background-image:url({{asset('images/images/office.jpg')}});">
                 <div class="container text-center">
@@ -38,7 +38,7 @@
                     <p>Publica tus ofertas de empleo fácil y rápido. Ademas podrás ver los perfiles laborales y su calificación como trabajadores.</p>
                     <p>Si tu empresa no tiene cuenta <a class="link-register" href="#" >Registrala Aquí</a></p>
                 </div><!-- /.col-lg-4 -->
-                </div><!-- /.row -->
+            </div><!-- /.row -->
             </div>
         </main>
     @endsection

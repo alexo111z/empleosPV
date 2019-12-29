@@ -34,26 +34,31 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            <div class="col-md-6 ml-0">
-            <label for="firstName">Contraseña actual</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="" value="" required>
+        <form id="form-password" name="form-password" method="POST" action="{{route('editarpassword')}}">
+            {{ csrf_field() }}
+        <div id="body-password" class="modal-body">
+            <div class="col-md-6 ml-0 pl-0">
+            <label>Contraseña actual</label>
+                <input type="password" class="form-control" id="pass" name="pass" placeholder="" value="" required>
+                <span id="error-password" class="help-block text-danger mx-auto"></span>
             </div>
+            <hr >
             <div class="row">
                 <div class="col-md-6 ">
-                    <label for="firstName">Nueva Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="" value="" required>
+                    <label >Nueva Contraseña</label>
+                    <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="" value="" required>
                 </div>
                 <div class="col-md-6 ">
-                    <label for="lastName">Confirmar nueva contraseña</label>
-                    <input  type="password" class="form-control" id="password2" name="password2" placeholder="" value="" required>
+                    <label >Confirmar nueva contraseña</label>
+                    <input  type="password" class="form-control" id="newpassword2" name="newpassword2" placeholder="" value="" required>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
+        <div id="footer-password" class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-info">Guardar Contraseña</button>
+            <button type="submit" class="btn btn-info">Guardar Contraseña</button>
         </div>
+        </form>
         </div>
     </div>
     </div>

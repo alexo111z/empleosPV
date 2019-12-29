@@ -1,10 +1,9 @@
 @extends('master')
-@section('body')
-
-    <link href="{{asset('css/login.css')}}" rel="stylesheet">
-    <main role="main">
-        <div class="container mb-2">
-            <div class="d-flex justify-content-center h-100">
+<link href="{{asset('css/login.css')}}" rel="stylesheet">
+@section('body') 
+    <main role="main" class="col-md-12 py-0 px-0">
+        <div class="container">
+            <div class="d-flex justify-content-center">
                 <div class="user_card">
                     <div class="form-title text-center align-middle">
                         <h1 class="text-uppercase">Inicio de sesión</h1>
@@ -41,7 +40,6 @@
                             </div>
                         </form>
                     </div>
-
                     <div class="mt-4">
                         <div class="link-password">
                             <a href="#">¿Olvidaste tu contraseña?</a>
@@ -52,7 +50,6 @@
 
                     </div>
                 </div>
-
             </div>
         </div>
     </main>

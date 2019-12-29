@@ -13,8 +13,10 @@ class LoginController extends Controller
     }
     function index() {
         return view("usuarios.login");
+        
     }
     function loginUsuario(){
+        
         $data = $this->validate(request(), [
             'email' => ['required', 'email', 'string'],
             'password' => ['required', 'string']
