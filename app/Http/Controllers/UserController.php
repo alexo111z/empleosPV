@@ -241,9 +241,13 @@ class UserController extends Controller
         $user = User::findOrFail(auth()->user()->id);
         $data = $request->all();
         if(Hash::check($data['pass'],Auth::user()->password)){
-            $user->password = bcrypt($data['newpassword']);
-            $user->save();
-            return 1;
+            if($data['pass']==$data['newpassword']){
+                return 2;
+            }else{
+                $user->password = bcrypt($data['newpassword']);
+                $user->save();
+                return 1;
+            }
         }else{
             return 0;
         }

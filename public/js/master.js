@@ -70,8 +70,10 @@ jQuery(document).ready(function(){
                if($result==1){
                 $("#body-password").html('<h3 class="text-success"><i class="fa fa-check" aria-hidden="true"></i>La contraseña se modificó con éxito.</h3>')
                 $("#footer-password").html("<button type='button' class='btn btn-info' data-dismiss='modal'>Aceptar</button>");
+               }else if($result==2){
+                   $("#error-password").html('La nueva contraseña debe ser diferente a la actual.')
                }else{
-                   $("#error-password").html('Contraseña erronea.')
+                $("#error-password").html('Contraseña erronea.')
                }
         }});
         }
@@ -81,5 +83,6 @@ jQuery(document).ready(function(){
         $("#newpassword").val("");
         $("#newpassword2").val("");
         $(".error").html("");
+        $("#error-password").html('')
     });
 });

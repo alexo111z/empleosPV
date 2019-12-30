@@ -120,7 +120,3 @@
     </div>
   </main>
 @endsection
-@section('scripts')
-
- <script src="{{asset('js/result.js')}}"> </script>
-@endsection
