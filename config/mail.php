@@ -1,6 +1,16 @@
 <?php
 
 return [
+    "driver" => "smtp",
+    "host" => "smtp.mailtrap.io",
+    "port" => 2525,
+    "from" => array(
+        "address" => "administracion@pvwork.com.mx",
+        "name" => "PV-Work"
+    ),
+    "username" => "5cc3049c86ad84",
+    "password" => "91cfa5b41c4690",
+    "sendmail" => "/usr/sbin/sendmail -bs",
 
     /*
     |--------------------------------------------------------------------------
@@ -16,7 +26,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'log'),
+   /* 'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +39,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    //'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +52,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    //'port' => env('MAIL_PORT', 587),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +65,7 @@ return [
     |
     */
 
-    'from' => [
+ /*   'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
@@ -71,7 +81,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+   // 'encryption' => env('MAIL_ENCRYPTION', 'tls'),
 
     /*
     |--------------------------------------------------------------------------
@@ -84,7 +94,7 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+  /*  'username' => env('MAIL_USERNAME'),
 
     'password' => env('MAIL_PASSWORD'),
 
@@ -99,7 +109,7 @@ return [
     |
     */
 
-    'sendmail' => '/usr/sbin/sendmail -bs',
+   // 'sendmail' => '/usr/sbin/sendmail -bs',*/
 
     /*
     |--------------------------------------------------------------------------

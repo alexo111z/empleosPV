@@ -44,11 +44,7 @@ class UserResetPasswordNotification extends Notification
         ->subject('Notificación para reestablecer contraseña.')
             ->line(' Tu haz recibido este correo porque se realizó una solicitud de cambio de contraseña para tu cuenta.')
             ->action('Cambiar contraseña ', url(route('user.password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)))
-            //->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]))
             ->line('Si tu no solicitaste un cambio de contraseña, puedes ignorar este correo.');
-        /*->line('Reciviste este correo porque se realizo una solicitud de cambio de contraseña para tu cuenta.')
-        ->action('Cambiar contraseña', route('user.password.reset', $this->token))
-        ->line('Si tu no solicitaste un cambio de contraseña, puedes ignorar este correo.');*/
     }
 
     /**
