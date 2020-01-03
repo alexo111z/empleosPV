@@ -46,6 +46,7 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
         /* guards para la autentificacion de administradores y empresas */
         'admin' => [
             'driver' => 'session',

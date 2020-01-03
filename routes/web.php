@@ -142,3 +142,10 @@ Route::get('/empresas/registro', 'EmpresaController@registro')->name('emp.regist
 Route::post('/empresas/crear', 'EmpresaController@crear')->name('emp.create');
 Route::get('/empresas/{empresa}/edit', 'EmpresaController@editar')->name('emp.edit');
 Route::put('/empresas/{empresa}/{id}', 'EmpresaController@update')->name('emp.update');
+
+
+//PRUEBAS USER
+Route::post('/password/email', 'UserForgotPasswordController@sendResetLinkEmail')->name('user.password.email');
+Route::get('/password/reset', 'UserForgotPasswordController@showLinkRequestForm')->name('user.password.request');
+Route::post('/password/reset', 'UserResetPasswordController@reset');
+Route::get('/password/reset/{token}', 'UserResetPasswordController@showResetForm')->name('user.password.reset');

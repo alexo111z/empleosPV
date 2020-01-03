@@ -16,14 +16,14 @@ div.jumbotron{
     font-weight: 600;
 }
 .btn-search{
-    background-color: #009688;
+    background-color: #009688!important;
     margin-top: 0 !important;
     padding-top: 0 !important;
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
 .btn-search:hover{
-    background-color: #03A9F4 ;
+    background-color: #03A9F4 !important ;
 }
 .input-group.search-group{
     width: 50%;

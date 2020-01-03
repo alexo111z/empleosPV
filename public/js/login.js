@@ -17,6 +17,15 @@ jQuery(document).ready(function(){
         && (key.charCode != 45) //-
         ))return false;
     });
+    $("#password-confirm").keypress(function (key) {
+        if (($(this).val().length>=8)||((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+        && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+        && (key.charCode <48 || key.charCode>57)
+        && (key.charCode != 46) //.
+        && (key.charCode != 95) //_
+        && (key.charCode != 45) //-
+        ))return false;
+    });
         $.extend( $.validator.messages, {
             required: "<span class='text-danger'>Este campo es obligatorio.</span>",
             email: "<span class='text-danger'>Por favor, escribe una dirección de correo válida.</span>",

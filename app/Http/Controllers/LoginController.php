@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class LoginController extends Controller
 {
     //
@@ -15,7 +16,7 @@ class LoginController extends Controller
         return view("usuarios.login");
         
     }
-    function loginUsuario(){
+    function loginUsuario(Request $request){
         
         $data = $this->validate(request(), [
             'email' => ['required', 'email', 'string'],
@@ -25,8 +26,10 @@ class LoginController extends Controller
             'email.email' => 'Ingresar un email válido ej. email@example.com',
             'password.required' => 'Campo vacío, introduce tu contraseña',
         ]);
+        $remember = $request->has('remember') ? true : false;
 
-        if (Auth::attempt($data)){
+       // if (Auth::attempt($data)){
+           if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']],$remember)) {
 //            return auth()->user()->fullname;
             return redirect()->route('usuarios.perfil');
         }

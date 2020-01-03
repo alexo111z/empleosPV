@@ -17,7 +17,7 @@
                                 <span class="help-block text-danger mx-auto">{{ $errors->first('error', ':message') }}</span>
                             </div>
                             <div class="input-group  {{ $errors->has('email') ? 'has-error' : '' }}">
-                                <input type="text" id="email" name="email" class="form-control" value="{{ old('email' ) }}" placeholder="Correo electrónico">
+                                <input type="text" id="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="Correo electrónico">
                             </div>
                             <div class="input-group text-center mb-3 ">
                                 <span class="help-block text-danger mx-auto">{{ $errors->first('email', ':message') }}</span>
@@ -31,8 +31,8 @@
 
                             <div class="form-group text-center">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck" >
-                                    <label class="custom-control-label" for="customCheck">Mantener sesión iniciada</label>
+                                    <input type="checkbox" class="custom-control-input" id="remember" name="remember" >
+                                    <label class="custom-control-label" for="remember">Recordar mi cuenta</label>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center mt-3 login_container">
@@ -42,7 +42,7 @@
                     </div>
                     <div class="mt-4">
                         <div class="link-password">
-                            <a href="#">¿Olvidaste tu contraseña?</a>
+                            <a href="{{ route('user.password.request') }}">¿Olvidaste tu contraseña?</a>
                         </div>
                         <div class="d-flex justify-content-center links">
                             <p>Si no tienes cuenta </p> <a href="{{route('usuarios.registrar')}}" class="ml-2">Registrate Aquí</a>
