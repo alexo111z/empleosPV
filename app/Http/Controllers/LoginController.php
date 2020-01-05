@@ -10,7 +10,8 @@ class LoginController extends Controller
 {
     //
     function __construct(){
-        $this->middleware('guest', ['only' => 'index']);
+        //$this->middleware('guest', ['only' => 'index']);
+        $this->middleware('guest', ['except' => ['logout']]);
     }
     function index() {
         return view("usuarios.login");
@@ -31,7 +32,7 @@ class LoginController extends Controller
        // if (Auth::attempt($data)){
            if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']],$remember)) {
 //            return auth()->user()->fullname;
-            return redirect()->route('usuarios.perfil');
+            return redirect()->route('ofertas.lista');
         }
 
         return back()

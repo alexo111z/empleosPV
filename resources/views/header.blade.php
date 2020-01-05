@@ -14,7 +14,7 @@
                             <a class="nav-link" href="{{route('ofertas.lista')}}">Buscar Empleos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Soy Empresa</a>
+                            <a class="nav-link" href="{{route('empresas.index')}}">Soy Empresa</a>
                         </li>
                     </ul>
                     <div class="form-inline ">

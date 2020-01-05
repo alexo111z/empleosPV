@@ -16,6 +16,8 @@
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
         <!-- Custom styles for this template -->
         <link href="{{asset('css/main.css')}}" rel="stylesheet">
+        <!--icono que sale en la pestaña-->
+        <link rel="shortcut icon" href="{{asset('images/icon/icono.ico')}}">
     </head>
     <body class="mt-6">
 

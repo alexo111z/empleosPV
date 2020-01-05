@@ -93,6 +93,11 @@ Route::post('/perfil/deletetags','TagsController@destroy')->name('tags.destroy')
 //Logout
 Route::post('/user/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));  //is in header.blade
 Route::post('/user/pass','UserController@editarpassword')->name('editarpassword');
+//reset password
+Route::post('/password/email', 'UserForgotPasswordController@sendResetLinkEmail')->name('user.password.email');
+Route::get('/password/reset', 'UserForgotPasswordController@showLinkRequestForm')->name('user.password.request');
+Route::post('/password/reset', 'UserResetPasswordController@reset');
+Route::get('/password/reset/{token}', 'UserResetPasswordController@showResetForm')->name('user.password.reset');
 /*--------- FIN RUTAS DE USUARIO--------*/
 
 
@@ -113,6 +118,14 @@ Route::get('/ofertas/busqueda-de','OfertasController@BuscarAvanzado');
 Route::post('/ofertas/buscar','OfertasController@Buscar')->name('ofertas.buscar');
 Route::get('/ofertas/buscar','OfertasController@Buscar')->name('ofertas.buscar');
 /* ---------FIN RUTAS DE OFERTAS------- */
+
+/* ---------[RUTAS DE EMPRESAS]------- */
+
+Route::get('/empresas/home','EmpresaController@Index')->name('empresas.index');
+Route::get('/empresas/registrar','EmpresaController@Registrar')->name('empresas.registrar');
+Route::post('/empresas/crear-empresa', 'EmpresaController@createEmpresa')->name('empresas.crear'); 
+Route::get('/empresas/login','EmpresaController@login')->name('empresas.login');
+/* ---------FIN RUTAS DE Empresas------- */
 
 //Logout
 Route::post('/user/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));  //logout en header.blade
@@ -144,8 +157,9 @@ Route::get('/empresas/{empresa}/edit', 'EmpresaController@editar')->name('emp.ed
 Route::put('/empresas/{empresa}/{id}', 'EmpresaController@update')->name('emp.update');
 
 
-//PRUEBAS USER
+/*
 Route::post('/password/email', 'UserForgotPasswordController@sendResetLinkEmail')->name('user.password.email');
 Route::get('/password/reset', 'UserForgotPasswordController@showLinkRequestForm')->name('user.password.request');
 Route::post('/password/reset', 'UserResetPasswordController@reset');
 Route::get('/password/reset/{token}', 'UserResetPasswordController@showResetForm')->name('user.password.reset');
+*/

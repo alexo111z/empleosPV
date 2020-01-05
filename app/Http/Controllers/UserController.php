@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 
 {
+    public function __construct() {
+        $this->middleware('auth',['except' => ['registrar','crear']]);  //comentar para ver admin sin logear
+    }
+
     function registrar(){
         $estudios = NEstudio::all();
         $areas = Area::all();

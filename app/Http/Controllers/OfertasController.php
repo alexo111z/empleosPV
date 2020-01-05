@@ -55,6 +55,7 @@ class OfertasController extends Controller
     }
 
     function Postulaciones(){    
+       if(auth()->user()!=null){
         //$ofertas = Oferta::where('id','=',0)->paginate(10);
         $ofertas = Oferta::join('solicitudes','ofertas.id','solicitudes.id_oferta')
         ->where('solicitudes.id_usuario','=',auth()->user()->id)
@@ -65,6 +66,9 @@ class OfertasController extends Controller
         $estados =Estado::all();
         $ciudades = Municipio::all();
         return view('ofertas.postulaciones', compact('paises','estados','ciudades','ofertas', 'rTags'));
+       }else{
+        return redirect()->route('home');
+       }
     }
     function cancelarPostulacion($id){
         $solicitud = Solicitud::where('id_oferta', $id)->where('id_usuario', auth()->user()->id)->firstOrFail();

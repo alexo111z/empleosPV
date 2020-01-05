@@ -4,6 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Empresa;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Oferta;
+use App\Estado;
+use App\Pais;
+use App\Municipio;
+use App\Area;
+use App\NEstudio;
+use App\Giro;
+use App\RSocial;
+use App\RelacionTag;
+use App\Tag;
 
 class EmpresaController extends Controller
 {
@@ -49,7 +60,6 @@ class EmpresaController extends Controller
     function update($id){
         $data = request()->all();
         $empresa = Empresa::findOrFail($id);
-
        $empresa->nombre = $data['nombre'];
        $empresa->rfc = $data['rfc'];
        $empresa->d_fiscal = $data['d_fiscal'];
@@ -63,6 +73,56 @@ class EmpresaController extends Controller
 
        $empresa->save();
        return redirect()->route('emp.show');
+    }
+    //USUARIO EMPRESA
+    function Index(){
+        return view('empresas.home');
+    }
+    function Registrar(){
+        $giros = Giro::all();
+        $razones = RSocial::all();
+        $estados = Estado::all();
+        $paices = Pais::all();
+        $municipios = Municipio::all();
+        return view('empresas.registrar', compact('estados', 'paices', 'municipios', 'giros', 'razones'));
+    }
+    function createEmpresa(Request $request){
+        
+        $data = $request->validate([
+            'email' => ['required', 'email', 'unique:empresas,email'],
+            'password' => ['required', 'same:password2'],
+            'password2' => 'required',
+            'nombre' => ['required', 'string'],
+            'RFC' => ['required'],
+            'dfiscal' => 'required',
+            'pais' => ['required', 'numeric'],
+            'estado' => ['required', 'numeric'],
+            'ciudad' => ['required', 'numeric'],
+            'telefono' => 'required',
+            'giro' => ['required', 'numeric'],
+            'razon' => ['required', 'numeric'],
+        ],[
+            'email.unique' => 'Ya existe una cuenta registrada con este correo, verifiquelo.'
+        ]);
+        
+        Empresa::create([
+            'email' => $data['email'],
+            'password' =>  bcrypt($data['password']),
+            'nombre' => $data['nombre'],
+            'rfc' => $data['RFC'],
+            'd_fiscal' => $data['dfiscal'],
+            'id_pais' => $data['pais'],
+            'id_estado' => $data['estado'],
+            'id_ciudad' => $data['ciudad'],
+            'telefono' => $data['telefono'],
+            'contacto' => $data['otro'],
+            'id_social' => $data['razon'],
+            'id_giro' => $data['giro'],
+        ]);
+        return redirect()->route('empresas.login');
+    }
+    function login(){
+        return view('empresas.login');
     }
 
 }
