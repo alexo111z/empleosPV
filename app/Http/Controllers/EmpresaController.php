@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Empresa;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -18,6 +18,10 @@ use App\Tag;
 
 class EmpresaController extends Controller
 {
+    public function __construct() {
+        $this->middleware('guest:empresa',['except' => ['registrar','createEmpresa','Index']]);  //comentar para ver admin sin logear
+    }
+
     function list(){
         $empresas = Empresa::all();
         $title = 'Listado empresas';
@@ -76,6 +80,7 @@ class EmpresaController extends Controller
     }
     //USUARIO EMPRESA
     function Index(){
+       //dd(Auth::guard('empresa')->user()->nombre);
         return view('empresas.home');
     }
     function Registrar(){

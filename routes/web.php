@@ -125,6 +125,7 @@ Route::get('/empresas/home','EmpresaController@Index')->name('empresas.index');
 Route::get('/empresas/registrar','EmpresaController@Registrar')->name('empresas.registrar');
 Route::post('/empresas/crear-empresa', 'EmpresaController@createEmpresa')->name('empresas.crear'); 
 Route::get('/empresas/login','EmpresaController@login')->name('empresas.login');
+Route::post('/empresas/login',array('as'=>'empresas.post-login', 'uses'=>'EmpresaLoginController@autenticar'));
 /* ---------FIN RUTAS DE Empresas------- */
 
 //Logout

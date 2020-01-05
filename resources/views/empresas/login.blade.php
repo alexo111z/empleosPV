@@ -11,7 +11,7 @@
                     </div>
                     <div class="d-flex justify-content-center form_container">
 
-                        <form class="form-signin" method="post" action="{{ route('usuarios.sesion') }}">
+                        <form class="form-signin" method="post" action="{{ route('empresas.post-login') }}">
                             {{ csrf_field() }}
                             <div class="input-group text-center ">
                                 <span class="help-block text-danger mx-auto">{{ $errors->first('error', ':message') }}</span>
