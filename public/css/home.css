@@ -1,7 +1,12 @@
 /* ***** Buscador ***** */
 div.jumbotron{
-    max-height: 300px;
+    min-height: 350px;
     border-radius: 0;
+    background: center center no-repeat ;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 .little-title{
     font-family: k2d;

@@ -5,7 +5,7 @@
         <main role="main" >
             <!-- Main jumbotron for a primary marketing message or call to action -->
             <div class="jumbotron" style="background-image:url({{asset('images/images/office.jpg')}});">
-                <div class="container text-center">
+                <div class="container px-5   text-center">
                     <h6 class="little-title text-uppercase">Encuentra empleos sin salir de tu casa</h6>
                     <h1 class="title display-3 text-uppercase">Busca Empleo Ahora</h1>
                     {!! Form::open(array('url'=>"/ofertas/buscar",'method'=>'POST', 'id'=>'buscador')) !!}
