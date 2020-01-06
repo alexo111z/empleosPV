@@ -126,6 +126,8 @@ Route::get('/empresas/registrar','EmpresaController@Registrar')->name('empresas.
 Route::post('/empresas/crear-empresa', 'EmpresaController@createEmpresa')->name('empresas.crear'); 
 Route::get('/empresas/login','EmpresaController@login')->name('empresas.login');
 Route::post('/empresas/login',array('as'=>'empresas.post-login', 'uses'=>'EmpresaLoginController@autenticar'));
+Route::get('/empresas/perfil','EmpresaController@perfil')->name('empresas.perfil');
+Route::post('empresas/Datos','EmpresaController@ActualizarDatos')->name('empresas.datos');
 /* ---------FIN RUTAS DE Empresas------- */
 
 //Logout

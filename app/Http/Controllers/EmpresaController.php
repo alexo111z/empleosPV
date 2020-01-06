@@ -19,7 +19,7 @@ use App\Tag;
 class EmpresaController extends Controller
 {
     public function __construct() {
-        $this->middleware('guest:empresa',['except' => ['registrar','createEmpresa','Index']]);  //comentar para ver admin sin logear
+        $this->middleware('auth:empresa',['except' => ['registrar','createEmpresa','Index','login']]);  //comentar para ver admin sin logear
     }
 
     function list(){
@@ -128,6 +128,28 @@ class EmpresaController extends Controller
     }
     function login(){
         return view('empresas.login');
+    }
+    function Perfil(){
+        $giros = Giro::all();
+        $razones = RSocial::all();
+        $estados = Estado::all();
+        $paices = Pais::all();
+        $municipios = Municipio::all();
+        return view('empresas.perfil', compact('estados', 'paices', 'municipios', 'giros', 'razones'));
+    }
+    function ActualizarDatos(){
+        $data = request()->all();
+        $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
+        $empresa->nombre = $data['nombre'];
+        $empresa->rfc = $data['rfc'];
+        $empresa->d_fiscal = $data['d_fiscal'];
+        $empresa->id_pais = $data['pais'];
+        $empresa->id_estado = $data['estado'];
+        $empresa->id_ciudad = $data['ciudad'];
+        $empresa->id_social = $data['rsocial'];
+        $empresa->id_giro = $data['giro'];
+        $empresa->save();
+        return redirect()->route('empresas.perfil');
     }
 
 }

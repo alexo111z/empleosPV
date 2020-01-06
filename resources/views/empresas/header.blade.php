@@ -34,13 +34,13 @@
                                 <a class="btn btn-login dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{--auth()->guard('empresa')->user()->nombre--}}
                                     @if(isset(auth()->guard('empresa')->user()->logo))
-                                    <img class="icon-profile" src="{{ route('usuarios.foto',['file'=>auth()->guard('empresa')->user()->logo]) }}">{{ auth()->guard('empresa')->user()->nombre }}<!--María Guadalupe-->
+                                    <img class="icon-profile" src="{{ route('empresas.logo',['file'=>auth()->guard('empresa')->user()->logo]) }}">{{ auth()->guard('empresa')->user()->nombre }}<!--María Guadalupe-->
                                     @else
-                                    <img class="icon-profile" src="{{ route('usuarios.foto',['file'=>'user.png']) }}">{{ auth()->guard('empresa')->user()->nombre }}<!--María Guadalupe-->
+                                    <img class="icon-profile" src="{{ route('empresas.logo',['file'=>'empresa.png']) }}">{{ auth()->guard('empresa')->user()->nombre }}<!--María Guadalupe-->
                                     @endif
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="{{route('usuarios.perfil')}}">Mi perfil</a>
+                                    <a class="dropdown-item" href="{{route('empresas.perfil')}}">Mi perfil</a>
                                      <a class="dropdown-item" data-toggle="modal" data-target="#modal-password" href="">Cambiar contraseña</a>
 
                                 </div>
