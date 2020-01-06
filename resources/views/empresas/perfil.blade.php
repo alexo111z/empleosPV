@@ -14,14 +14,14 @@
                                 <div class="text-center mx-auto" >
                                
                                 @if(isset(auth()->guard('empresa')->user()->logo))
-                                    <img class="foto-perfil" src="{{ route('empresas.logo',['file'=>auth()->guard('empresa')->user()->foto]) }}">
+                                    <img class="foto-perfil" src="{{ route('empresas.logo',['file'=>auth()->guard('empresa')->user()->logo]) }}">
                                     <div class="col-md-6 mb-0 text-right mx-auto div-camera">
-                                        <a data-toggle="modal" data-target="#deletemodal" class="btn-remove mx-1 px-1"><span class="fa fa-trash-o"></span></a>
+                                        <a data-toggle="modal" data-target="#deletemodal" class="btn-remove mx-1 px-1"><span class="fa fa-trash"></span></a>
                                  @else
                                         <img class="foto-perfil" src="{{ route('empresas.logo',['file'=>'empresa.png']) }}">
                                         <div class="col-md-6 mb-0 text-right mx-auto div-camera">
                                 @endif
-                                        <a data-toggle="modal" data-target="#exampleModal"  class="btn-upload mx-1 px-1"><span class="fa fa-upload"></span></a>
+                                        <a data-toggle="modal" data-target="#modal-logo"  class="btn-upload mx-1 px-1"><span class="fa fa-upload"></span></a>
                                         <div class="input-group text-center ">
                                             <span class="help-block text-danger mx-auto">{{ $errors->first('errorfoto', ':message') }}</span>
                                         </div>
@@ -173,8 +173,46 @@
                         <div class="no-gutters mt-4 border rounded overflow-hidden flex-md-row shadow-sm h-md-250" novalidate>
                             <h4 class=" ml-4  mt-3 mb-4 ">Opciones de cuenta</h4>
                             <div class="row mr-4 ml-4 mb-4">
-                                <button type="button" class="btn btn-outline-info"><i class="fa fa-key" aria-hidden="true"></i> Cambiar contraseña</button>
-                                <span class="text-info col-sm-12 pl-0"><i class="fa fa-info-circle" aria-hidden="true"></i> Esta opción le permite cambiar su contraseña actual por una nueva.</span>
+                                <div id="new-password">
+                                    <button id="newpassword"type="button" class="btn btn-outline-info"><i class="fa fa-key" aria-hidden="true"></i> Cambiar contraseña</button><br>
+                                    <span class="text-info col-sm-12 pl-0"><i class="fa fa-info-circle" aria-hidden="true"></i> Esta opción le permite cambiar su contraseña actual por una nueva.</span>
+                                </div>
+                                <div id="new-password2">
+                                    <h5>Cambiar Contraseña</h5>
+                                    <form id="emp-password" name="emp-password" method="POST" action="{{route('newpassword')}}">
+                                            {{ csrf_field() }}
+                                        <div id="body-password" class="mb-3" >
+                                            <div class="row"><div class="col-md-6">
+                                                <label>Contraseña actual</label>
+                                                <input type="password" class="form-control" id="pass" name="pass" placeholder="" value="" required>
+                                                <span id="error-password" class="help-block text-danger mx-auto"></span>
+                                            </div>
+                                            <div class="col-md-6 ml-0 pl-0">
+                                                <ul>
+                                                    <li>Entre 6 y 8 caracteres.</li>
+                                                    <li>Puede contener números y letras</li>
+                                                    <li> Puede contener guiones (-),guiones bajos (_) y puntos (.).</li>
+                                                </ul>
+                                            </div>
+                                            </div>
+                                            <hr >
+                                            <div class="row">
+                                                <div class="col-md-6 ">
+                                                    <label >Nueva Contraseña</label>
+                                                    <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="" value="" required>
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <label >Confirmar nueva contraseña</label>
+                                                    <input  type="password" class="form-control" id="newpassword2" name="newpassword2" placeholder="" value="" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="footer-password" class="text-right" >
+                                            <button id="cancelar-password" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-info">Guardar Contraseña</button>
+                                        </div>
+                                    </form>    
+                                </div>
                             </div>
                             <hr class="ml-4 mr-4">
                             <div class="row mr-4 ml-4 mb-5">
@@ -185,6 +223,53 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal -->
+            <div class="modal fade text-center" id="modal-logo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-uppercase" id="exampleModalLabel">Subir Logo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="subirFoto" action="{{route('subirLogo')}}" enctype="multipart/form-data" method="post">
+                            {{ csrf_field() }}
+                    <div class="modal-body">
+                            <img id="modal-foto" class="foto-perfil" src="{{ route('empresas.logo',['file'=>'empresa.png']) }}">
+                            <input class="pt-2" required type="file" id="foto" name="foto" accept="image/png,image/jpeg,image/jpg">
+                        <div class="input-group text-center ">
+                            <span id="msjimg" class="help-block text-danger mx-auto"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button id="btnFoto" class="btn btn-info" type="submit" ><i class="fas fa-upload"></i> Subir</button>
+                        
+                    </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> ¿Desea eliminar la foto de perfil?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="subirFoto" action="{{route('borrarlogo')}}" enctype="multipart/form-data" method="post">
+                        {{ csrf_field() }}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button id="btnFoto" class="btn btn-info" type="submit" ><i class="fa fa-trash" aria-hidden="true"></i> Eliminar foto</button>  
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         </main>
         
 @endsection

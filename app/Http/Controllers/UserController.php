@@ -158,7 +158,7 @@ class UserController extends Controller
             //obtenemos el nombre del archivo
             $nombre = "FotoPerfil_".auth()->user()->id.".jpg";
             $url="fotos/".$nombre;
-            \Storage::disk('public')->delete($user->foto);
+            \Storage::disk('public')->delete("fotos/".$user->foto);
             //indicamos que queremos guardar un nuevo archivo en el disco local
             \Storage::disk('public')->put($url,\File::get($file));
             $user->foto= $nombre;
@@ -199,7 +199,7 @@ class UserController extends Controller
     }
     public function borrarFoto(){
         $user = User::findOrFail(auth()->user()->id);
-        \Storage::disk('public')->delete($user->foto);
+        \Storage::disk('public')->delete("fotos/".$user->foto);
          $user->foto=null;
          $user->save();
          return redirect('/perfil');

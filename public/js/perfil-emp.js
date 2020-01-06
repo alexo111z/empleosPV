@@ -23,6 +23,10 @@ function funcpais(a,b) {
     }  
  }
 jQuery(document).ready(function(){
+   $(document).on("click",'#newpassword',function(e){
+      $('#new-password').hide();
+      $('#new-password2').show();
+   });
     $(document).on("click",'#BtnEditarDatos',function(e){
         $('#Datos').hide();
         $('#Datos2').show();
@@ -35,6 +39,9 @@ jQuery(document).ready(function(){
       location.reload(true);
      });
      $(document).on("click",'#BtnCancelarContacto',function(e){
+      location.reload(true);
+   });
+   $(document).on("click",'#cancelar-password',function(e){
       location.reload(true);
    });
    $(document).on("keypress",'#email',function(key){  
@@ -162,4 +169,24 @@ jQuery(document).ready(function(){
                 return false; 
             }
         });
+        $(document).on('change','input[id="foto"]',function(){
+         var fileName = this.files[0].name;
+         var ext = fileName.split('.');
+         ext = ext[ext.length-1];
+         if(ext=="png" || ext=="jpg" || ext=="jpeg"){
+            $('#msjimg').html('');
+            $("#btnFoto").prop('disabled', false);
+            $("#modal-foto").prop('src', URL.createObjectURL(event.target.files[0]));
+            $("#modal-foto").load(' #modal-foto');
+         }else{
+            $('#msjimg').html('La foto de perfil debe ser imagen jpg,jpeg o png.');
+            $("#btnFoto").prop('disabled', true);
+         }
+      });
+      $("#modal-logo").on('hidden.bs.modal', function () {
+         $("#foto").val("");
+         $("#msjimg").html("");
+         $("#modal-foto").prop('src', '/logos/empresa.png');
+         $("#modal-foto").load(' #modal-foto');
+     });
 });

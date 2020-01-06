@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use \Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Empresa;
 use Illuminate\Http\Request;
@@ -158,6 +159,54 @@ class EmpresaController extends Controller
         $empresa->telefono = $data['telefono'];
         $empresa->save();
         return redirect()->route('empresas.perfil');
+    }
+    public function subirLogo(Request $request){   
+        $validator = Validator::make($request->all(),[
+            "foto" => " required|mimes:jpg,jpeg,png"
+        ]);
+        if ($validator->fails()) {
+            return back()
+            ->withErrors(['errorfoto' => 'El logo debe ser imagen jpg,jpeg o png.'])
+            ->withInput(request(['errorfoto']));
+        }else{
+            //obtenemos el campo file definido en el formulario
+            $file =  $request->file('foto');
+            $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
+            //obtenemos el nombre del archivo
+            $nombre = "Logo_".auth()->guard('empresa')->user()->id.".jpg";
+            $url="logos/".$nombre;
+            \Storage::disk('public')->delete("logos/".$empresa->logo);
+            //indicamos que queremos guardar un nuevo archivo en el disco local
+            \Storage::disk('public')->put($url,\File::get($file));
+            $empresa->logo= $nombre;
+            $empresa->save();
+            return redirect()->route('empresas.perfil');
+        }
+    }
+    public function borrarlogo(){
+        $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
+        \Storage::disk('public')->delete("logos/".$empresa->logo);
+         $empresa->logo=null;
+         $empresa->save();
+        return redirect()->route('empresas.perfil');
+    }
+    function editarpassword(Request $request){
+        $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
+        $data = $request->all();
+        $empresa->password = bcrypt($data['newpassword']);
+        $empresa->save();
+        return redirect()->route('empresas.perfil');
+        /*if(Hash::check($data['pass'],Auth::user()->password)){
+            if($data['pass']==$data['newpassword']){
+                return 2;
+            }else{
+                $user->password = bcrypt($data['newpassword']);
+                $user->save();
+                return 1;
+            }
+        }else{
+            return 0;
+        }*/
     }
 
 }
