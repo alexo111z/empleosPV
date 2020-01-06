@@ -127,7 +127,7 @@
                                     </select>
                                 </div>
                                 <div class="text-right ">
-                                <button type="button" id="BtnCancelarDatos"  class="form-inline icon btn btn-secondary text-secondary">Cancelar</button>
+                                    <button type="button" id="BtnCancelarDatos"  class="form-inline icon btn btn-secondary text-secondary">Cancelar</button>
                                     <button type="submit" id="BtnGuardarDatos"  class="form-inline icon btn btn-primary text-primary">Guardar</button>
                                 </div>
                             </form>
@@ -141,7 +141,7 @@
                             <div class="row mr-4 ml-4">
                                 <div class="col-sm-12" id="DivContacto">
                                     <span id="LblEmail" class="text-muted"><strong>Nombre de contacto:</strong> {{ auth()->guard('empresa')->user()->contacto }}</span><bR>
-                                    <span id="LblEmail" class="text-muted"><i class="fa fa-envelope"></i> {{ auth()->guard('empresa')->user()->email }}</span><bR>
+                                    <span id="LblEmail" class="text-muted text-lowercase"><i class="fa fa-envelope"></i> {{ auth()->guard('empresa')->user()->email }}</span><bR>
                                     <span id="LblTel"class="text-muted"> <i class="fa fa-phone"></i>
                                     @if(auth()->user()->telefono == null)
                                         Agrega tu número telefónico
@@ -152,6 +152,21 @@
                                     <div class="text-right mt-2">
                                         <button id="BtnEditarContacto" type="button " class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
                                     </div>
+                                </div>
+                                <div id="DivContacto2" class="col-sm-12 ml-3">
+                                <form id="form-Contacto"  method="post" action="{{ route('empresas.contacto') }}">
+                                {{ csrf_field() }}
+                                    <span class="text-muted mt-2">Nombre de Contacto</span>
+                                    <input type="text" class="form-control col-sm-6 mt-2" id="contacto" name="contacto" placeholder="" value="{{ auth()->user()->contacto }}" required>
+                                    <br><span class="text-muted mt-2">Correo electrónico (no se puede cambiar)</span>
+                                    <input type="text" class="form-control col-sm-6 mt-2 text-lowercase" id="email" name="email" placeholder="" value="{{ auth()->user()->email }}" disabled required>
+                                    <span class="text-muted mt-2">Número telefónico</span>
+                                    <input type="text" class="form-control col-sm-3 mt-2" id="telefono" name="telefono" placeholder="Ej. 3221234567" value="{{ auth()->user()->telefono }}" required>
+                                    <div class="text-right mt-2">
+                                        <button type="button" id="BtnCancelarContacto"  class="form-inline icon btn btn-secondary text-secondary">Cancelar</button>
+                                        <button id="BtnGuardarContacto" type="submit"   class=" form-inline icon btn btn-primary text-primary ">Guardar</button>
+                                    </div>
+                                </form>
                                 </div>
                             </div>
                         </div>

@@ -27,11 +27,52 @@ jQuery(document).ready(function(){
         $('#Datos').hide();
         $('#Datos2').show();
      });
+     $(document).on("click",'#BtnEditarContacto',function(e){
+      $('#DivContacto').hide();
+      $('#DivContacto2').show();
+   });
      $(document).on("click",'#BtnCancelarDatos',function(e){
-        $('#Datos').show();
-        $('#Datos2').hide();
-        $( "#Datos2" ).load(' #form-Datos');
+      location.reload(true);
      });
+     $(document).on("click",'#BtnCancelarContacto',function(e){
+      location.reload(true);
+   });
+   $(document).on("keypress",'#email',function(key){  
+      if (((key.charCode < 97 || key.charCode > 122)//letras mayusculas   
+      && (key.charCode <48 || key.charCode>57)
+      && (key.charCode != 46) //.
+      && (key.charCode != 95) //_
+      && (key.charCode != 45) //-
+      && (key.charCode != 64) //@
+      ))return false;
+  });
+  $(document).on("keypress",'#telefono',function(key){ 
+   window.console.log(key.charCode)
+   if (($(this).val().length>=10)||((key.charCode < 48 || key.charCode > 57)))
+         return false;
+});
+   $(document).on("keypress",'#contacto',function(key){  
+      window.console.log(key.charCode)
+            if (($(this).val().length>=50)||((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+            && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+            && (key.charCode != 45) //retroceso
+            && (key.charCode != 241) //ñ
+             && (key.charCode != 209) //Ñ
+             && (key.charCode != 32) //espacio
+             && (key.charCode != 225) //á
+             && (key.charCode != 233) //é
+             && (key.charCode != 237) //í
+             && (key.charCode != 243) //ó
+             && (key.charCode != 250) //ú
+             && (key.charCode != 193) //Á
+             && (key.charCode != 201) //É
+             && (key.charCode != 205) //Í
+             && (key.charCode != 211) //Ó
+             && (key.charCode != 218) //Ú
+             || (key.charCode == 45) //-
+                  ))
+                  return false;
+  });
       $(document).on("keypress",'#rfc',function(key){        
          if (($(this).val().length>=13)||((key.charCode < 97 || key.charCode > 122)//letras mayusculas
          && (key.charCode < 65 || key.charCode > 90) //letras minusculas
@@ -97,7 +138,25 @@ jQuery(document).ready(function(){
                 }
                 
         }});
-        $contactform.on('submit', function(e){
+        $(document).on("submit",$contactform,function(e){
+            if (!$contactform.validate()) { 
+                e.preventDefault(); 
+                return false; 
+            }
+        });
+        var $contactform2 = $("#form-Contacto");
+        $contactform2.validate({
+            rules:{
+                RFC:{
+                    maxlength: 13,
+                    minlength: 12
+                },
+                d_fiscal:{
+                  maxlength: 255
+                }
+                
+        }});
+        $(document).on("submit",$contactform2,function(e){
             if (!$contactform.validate()) { 
                 e.preventDefault(); 
                 return false; 

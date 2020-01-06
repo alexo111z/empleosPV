@@ -151,6 +151,14 @@ class EmpresaController extends Controller
         $empresa->save();
         return redirect()->route('empresas.perfil');
     }
+    function ActualizarContacto(){
+        $data = request()->all();
+        $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
+        $empresa->contacto = $data['contacto'];
+        $empresa->telefono = $data['telefono'];
+        $empresa->save();
+        return redirect()->route('empresas.perfil');
+    }
 
 }
 /*

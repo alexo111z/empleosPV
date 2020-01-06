@@ -122,12 +122,15 @@ Route::get('/ofertas/buscar','OfertasController@Buscar')->name('ofertas.buscar')
 /* ---------[RUTAS DE EMPRESAS]------- */
 
 Route::get('/empresas/home','EmpresaController@Index')->name('empresas.index');
+Route::post('empresas/Contacto','EmpresaController@ActualizarContacto')->name('empresas.contacto');
 Route::get('/empresas/registrar','EmpresaController@Registrar')->name('empresas.registrar');
 Route::post('/empresas/crear-empresa', 'EmpresaController@createEmpresa')->name('empresas.crear'); 
 Route::get('/empresas/login','EmpresaController@login')->name('empresas.login');
 Route::post('/empresas/login',array('as'=>'empresas.post-login', 'uses'=>'EmpresaLoginController@autenticar'));
 Route::get('/empresas/perfil','EmpresaController@perfil')->name('empresas.perfil');
 Route::post('empresas/Datos','EmpresaController@ActualizarDatos')->name('empresas.datos');
+
+
 /* ---------FIN RUTAS DE Empresas------- */
 
 //Logout
