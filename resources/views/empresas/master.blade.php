@@ -26,8 +26,5 @@
 @yield('header-emp')
 
 @yield('body')
-@auth
-    @include('usuarios.modal-pass')
-    @yield('modal-pass')
-@endauth
+
 @include('footer')

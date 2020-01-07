@@ -139,14 +139,15 @@
                             <hr class="mb-1">
                             <h4 class="mb-1">Información de contacto</h4>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                            <div class="col-md-8 mb-3">
+                                    <label for="otro">Nombre del contacto</label>
+                                    <input type="text" class="form-control" id="otro" name="otro" value="{{ old('otro') }}" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
                                     <label for="telefono">Telefono</label>
                                     <input type="text" class="form-control" id="telefono" name="telefono" value="{{ old('telefono') }}" required>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="otro">Otro contacto</label>
-                                    <input type="text" class="form-control" id="otro" name="otro" value="{{ old('otro') }}">
-                                </div>
+                                
                             </div>
                         <div class="col-md-8 order-md-1">
                             <button class="btn btn-register btn-lg btn-block" type="submit">Registrar cuenta</button>

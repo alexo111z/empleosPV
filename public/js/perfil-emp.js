@@ -53,6 +53,16 @@ jQuery(document).ready(function(){
       && (key.charCode != 64) //@
       ))return false;
   });
+  $(document).on('keypress','input[type="password"]',function(key){
+   if (($(this).val().length>=8)||((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+        && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+        && (key.charCode <48 || key.charCode>57)
+        && (key.charCode != 46) //.
+        && (key.charCode != 95) //_
+        && (key.charCode != 45) //-
+        ))return false;
+
+  });
   $(document).on("keypress",'#telefono',function(key){ 
    window.console.log(key.charCode)
    if (($(this).val().length>=10)||((key.charCode < 48 || key.charCode > 57)))
@@ -189,4 +199,92 @@ jQuery(document).ready(function(){
          $("#modal-foto").prop('src', '/logos/empresa.png');
          $("#modal-foto").load(' #modal-foto');
      });
+
+     var $passwordform = $("#emp-password");
+     $passwordform.validate({
+         rules:{
+            pass:{
+               maxlength: 8,
+               minlength: 6
+            },
+             newpass: {
+                 maxlength: 8,
+                 minlength: 6
+             },
+             newpassword2: {
+                 equalTo: "#newpass"
+             },
+     }});
+     $passwordform.on('submit', function(e){
+      e.preventDefault(); 
+         if (!$passwordform.validate()) { 
+             return false; 
+         }else{
+            $.ajaxSetup({
+                headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+                });
+                jQuery.ajax({
+                url: $(this).attr('action'),
+                method: 'post',
+                data: $(this).serialize(),
+                success: function($result){
+                   if($result==1){
+                     $('#aviso-pass').modal('show');
+                     }else if($result==2){
+                           $("#error-password").html('La nueva contraseña debe ser diferente a la actual.')
+                     }else{
+                     $("#error-password").html('Contraseña erronea.')
+                     }
+            }});
+            }
+     });
+     $(document).on("click",'#btn-aviso',function(e){
+      $('#aviso-pass').modal('hide');
+   });
+   $("#aviso-pass").on('hidden.bs.modal', function () {
+      location.reload(true);
+  });
+  $(document).on("click",'#btnBaja',function(e){
+      $('#divBaja').hide();
+      $('#divBaja2').show();
+   });
+   $(document).on("click",'#cancelar-Baja',function(e){
+      location.reload(true);
+   });
+   var $verpass = $("#verificarpassword");
+   $verpass.validate({
+       rules:{
+          confirmpass:{
+             maxlength: 8,
+             minlength: 6
+          }
+   }});
+   $verpass .on('submit', function(e){
+    e.preventDefault(); 
+       if (!$verpass .validate()) { 
+           return false; 
+       }else{
+          $.ajaxSetup({
+              headers: {
+                      'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+              }
+              });
+              jQuery.ajax({
+              url: $(this).attr('action'),
+              method: 'post',
+              data: $(this).serialize(),
+              success: function($result){
+                 if($result==1){
+                   $('#confirmbaja').modal('show');
+                   }else{
+                   $("#error-confirm").html('Contraseña erronea.')
+                   }
+          }});
+          }
+   });
+   $("#confirmbaja").on('hidden.bs.modal', function () {
+      location.reload(true);
+  });
 });

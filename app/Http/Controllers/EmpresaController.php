@@ -16,11 +16,12 @@ use App\Giro;
 use App\RSocial;
 use App\RelacionTag;
 use App\Tag;
+use Illuminate\Support\Facades\Hash;
 
 class EmpresaController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:empresa',['except' => ['registrar','createEmpresa','Index','login']]);  //comentar para ver admin sin logear
+       $this->middleware('auth:empresa',['except' => ['Registrar','createEmpresa','Index','login']]);  //comentar para ver admin sin logear
     }
 
     function list(){
@@ -64,6 +65,7 @@ class EmpresaController extends Controller
     }
     function update($id){
         $data = request()->all();
+        dd($data);
         $empresa = Empresa::findOrFail($id);
        $empresa->nombre = $data['nombre'];
        $empresa->rfc = $data['rfc'];
@@ -100,6 +102,7 @@ class EmpresaController extends Controller
             'password2' => 'required',
             'nombre' => ['required', 'string'],
             'RFC' => ['required'],
+            'otro' => 'required',
             'dfiscal' => 'required',
             'pais' => ['required', 'numeric'],
             'estado' => ['required', 'numeric'],
@@ -193,20 +196,34 @@ class EmpresaController extends Controller
     function editarpassword(Request $request){
         $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
         $data = $request->all();
-        $empresa->password = bcrypt($data['newpassword']);
-        $empresa->save();
-        return redirect()->route('empresas.perfil');
-        /*if(Hash::check($data['pass'],Auth::user()->password)){
-            if($data['pass']==$data['newpassword']){
+
+        if(Hash::check($data['pass'],auth()->guard('empresa')->user()->password)){
+            if($data['pass']==$data['newpass']){
                 return 2;
             }else{
-                $user->password = bcrypt($data['newpassword']);
-                $user->save();
+                $empresa->password = bcrypt($data['newpass']);
+                $empresa->save();
                 return 1;
             }
         }else{
             return 0;
-        }*/
+        }
+    }
+    function verificarpass(){
+        $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
+        $data = request()->all();
+        if(Hash::check($data['confirmpass'],auth()->guard('empresa')->user()->password)){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+    function deleteemp(){
+        $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
+        $ofertas= Oferta::where('id_emp','=',auth()->guard('empresa')->user()->id);
+        $ofertas->delete();
+        $empresa->delete();
+         return redirect()->route('empresas.logout');
     }
 
 }

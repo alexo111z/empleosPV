@@ -62,7 +62,7 @@
                                     <label for="giro">Razón  Social</label>
                                     <select class="form-control w-100" name="rsocial" id="rsocial" required>
                                         @foreach($razones as $razon)
-                                            @if(auth()->guard('empresa')->user()->id_razon==$razon->id)
+                                            @if(auth()->guard('empresa')->user()->id_social==$razon->id)
                                                 <option value="{{ $razon->id }}" selected>{{ $razon->nombre }}</option>
                                             @else
                                                 <option value="{{ $razon->id }}">{{ $razon->nombre }}</option>
@@ -143,7 +143,7 @@
                                     <span id="LblEmail" class="text-muted"><strong>Nombre de contacto:</strong> {{ auth()->guard('empresa')->user()->contacto }}</span><bR>
                                     <span id="LblEmail" class="text-muted text-lowercase"><i class="fa fa-envelope"></i> {{ auth()->guard('empresa')->user()->email }}</span><bR>
                                     <span id="LblTel"class="text-muted"> <i class="fa fa-phone"></i>
-                                    @if(auth()->user()->telefono == null)
+                                    @if(auth()->guard('empresa')->user()->telefono == null)
                                         Agrega tu número telefónico
                                     @else
                                         {{auth()->guard('empresa')->user()->telefono}}
@@ -157,11 +157,11 @@
                                 <form id="form-Contacto"  method="post" action="{{ route('empresas.contacto') }}">
                                 {{ csrf_field() }}
                                     <span class="text-muted mt-2">Nombre de Contacto</span>
-                                    <input type="text" class="form-control col-sm-6 mt-2" id="contacto" name="contacto" placeholder="" value="{{ auth()->user()->contacto }}" required>
+                                    <input type="text" class="form-control col-sm-6 mt-2" id="contacto" name="contacto" placeholder="" value="{{ auth()->guard('empresa')->user()->contacto }}" required>
                                     <br><span class="text-muted mt-2">Correo electrónico (no se puede cambiar)</span>
-                                    <input type="text" class="form-control col-sm-6 mt-2 text-lowercase" id="email" name="email" placeholder="" value="{{ auth()->user()->email }}" disabled required>
+                                    <input type="text" class="form-control col-sm-6 mt-2 text-lowercase" id="email" name="email" placeholder="" value="{{ auth()->guard('empresa')->user()->email }}" disabled required>
                                     <span class="text-muted mt-2">Número telefónico</span>
-                                    <input type="text" class="form-control col-sm-3 mt-2" id="telefono" name="telefono" placeholder="Ej. 3221234567" value="{{ auth()->user()->telefono }}" required>
+                                    <input type="text" class="form-control col-sm-3 mt-2" id="telefono" name="telefono" placeholder="Ej. 3221234567" value="{{ auth()->guard('empresa')->user()->telefono }}" required>
                                     <div class="text-right mt-2">
                                         <button type="button" id="BtnCancelarContacto"  class="form-inline icon btn btn-secondary text-secondary">Cancelar</button>
                                         <button id="BtnGuardarContacto" type="submit"   class=" form-inline icon btn btn-primary text-primary ">Guardar</button>
@@ -199,11 +199,11 @@
                                             <div class="row">
                                                 <div class="col-md-6 ">
                                                     <label >Nueva Contraseña</label>
-                                                    <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="" value="" required>
+                                                    <input type="password" class="form-control" id="newpass" name="newpass" placeholder="" required>
                                                 </div>
                                                 <div class="col-md-6 ">
                                                     <label >Confirmar nueva contraseña</label>
-                                                    <input  type="password" class="form-control" id="newpassword2" name="newpassword2" placeholder="" value="" required>
+                                                    <input  type="password" class="form-control" id="newpassword2" name="newpassword2" placeholder=""  required>
                                                 </div>
                                             </div>
                                         </div>
@@ -215,9 +215,26 @@
                                 </div>
                             </div>
                             <hr class="ml-4 mr-4">
-                            <div class="row mr-4 ml-4 mb-5">
-                                <button type="button" class="btn btn-outline-danger"><i class="fa fa-trash" aria-hidden="true"></i> Dar de baja mi cuenta</button><br>
-                                <span class="text-danger col-sm-12 pl-0"><i class="fa fa-info-circle" aria-hidden="true"></i> Esta opción le permite dar de baja su cuenta, sin embargo una vez dada de baja ya no podrá ingresar a esta cuenta.</span>
+                            <div class="mr-4 ml-4 mb-5">
+                                <div id="divBaja">
+                                    <button id="btnBaja" type="button" class="btn btn-outline-danger"><i class="fa fa-trash" aria-hidden="true"></i> Dar de baja mi cuenta</button><br>
+                                    <span class="text-danger col-sm-12 pl-0"><i class="fa fa-info-circle" aria-hidden="true"></i> Esta opción le permite dar de baja su cuenta, sin embargo una vez dada de baja ya no podrá ingresar a esta cuenta.</span>
+                                </div>
+                                <div id="divBaja2" class="col-sm-12 pl-0 ml-0">
+                                <h5>Dar de baja mi cuenta</h5>
+                                <form  id="verificarpassword" name="verificarpassword" method="POST" action="{{route('verificarpassword')}}">
+                                    {{ csrf_field() }}
+                                    <div class="col-md-7 ml-0 pl-0">
+                                        <label>Introducir contraseña para dar de baja su cuenta</label>
+                                        <input type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="" value="" required>
+                                        <span id="error-confirm" class="help-block text-danger mx-auto"></span>
+                                    </div>
+                                    <div  class="text-right col-sm-12 mt-3" >
+                                        <button id="cancelar-Baja" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        <button id="btn-confirmbaja" type="submit" class="btn btn-danger ">Dar de baja mi cuenta</button>
+                                    </div>
+                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -265,6 +282,43 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             <button id="btnFoto" class="btn btn-info" type="submit" ><i class="fa fa-trash" aria-hidden="true"></i> Eliminar foto</button>  
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="aviso-pass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title text-success text-center py-3" id="exampleModalLabel"><i class="fa fa-check" aria-hidden="true"></i> Su contraseña fue cambiada con éxito.</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-aviso" class="btn btn-info" type="submit" >Aceptar</button>  
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="confirmbaja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> ¿Esta seguro que desea dar de baja su cuenta?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <span class="text-danger"><i class="fas fa-info-circle"></i>Una vez que se da de baja la cuenta ya no podrá ingresar a está.</span>
+                    </div>
+                    <form id="deleteemp" action="{{route('deleteemp')}}" enctype="multipart/form-data" method="post">
+                        {{ csrf_field() }}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button  class="btn btn-danger" type="submit" ><i class="fa fa-trash" aria-hidden="true"></i> Dar de baja mi cuenta</button>  
                         </div>
                     </form>
                 </div>

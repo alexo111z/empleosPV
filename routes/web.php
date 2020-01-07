@@ -132,7 +132,9 @@ Route::post('empresas/Datos','EmpresaController@ActualizarDatos')->name('empresa
 Route::post('/subirLogo','EmpresaController@subirLogo')->name('subirLogo');
 Route::post('/borrarlogo','EmpresaController@borrarlogo')->name('borrarlogo');
 Route::post('/empresa/pass','EmpresaController@editarpassword')->name('newpassword');
-
+Route::post('/empresa/confirmpass','EmpresaController@verificarpass')->name('verificarpassword');
+Route::post('empresas/baja','EmpresaController@deleteemp')->name('deleteemp');
+Route::get('/empresas/logout',array('as'=>'empresas.logout', 'uses'=>'EmpresaLoginController@logout'));
 /* ---------FIN RUTAS DE Empresas------- */
 
 //Logout
