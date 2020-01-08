@@ -1,10 +1,10 @@
-@extends('master')
+@extends('empresas.master')
 <link href="{{asset('css/veroferta.css')}}" rel="stylesheet">
 @section('body')
 <main role="main">
     <nav class="nav-buscador navbar  flex-md-nowrap mt-6">
         <div class="row div-search input-group search-group text-leftpt-2 w-50 mb-1">
-            <a class="regresar" href="{{ url()->previous() }}"><i class="	fas fa-arrow-left"></i> volver</a>
+            <a class="regresar" href="{{ route('misofertas') }}"><i class="	fas fa-arrow-left"></i> volver</a>
         </div>
     </nav>
 
@@ -68,29 +68,7 @@
                     @endif
                     <h5 class="my-1 mx-3">{{ $oferta->empresa->nombre }}</h5>
                 </div>
-            @guest
-                <div class="col-sm-12 my-3 px-3 text-center">
-                    <p><a href="{{route('usuarios.registrar')}}">!Registrate aquí!</a> para poder postularte en este empleo.</p>  
-                </div>
-            @else
-            <div id="div-post" style=" max-width:312px!important;" >
-                @if($solicitud=="[]")
-                    <form  id="postulacion" method="post" action="{{ route('oferta.solicitud', [$oferta->id]) }}">
-                        <div class="col-sm-12 my-3 mx-5 text-center">
-                            {{ csrf_field() }}
-                            <button id="btn-postulacion" type="submit" class="btn btn-postular btn-block "><h5>Postularme</h5></button>
-                        </div>
-                    </form>
-                @else
-                    <form id="postulacion" method="post" action="{{ route('oferta.solicitud.cancelar', [$oferta->id]) }}">
-                        <div class="col-sm-12 my-3 mx-5 text-center">
-                            {{ csrf_field() }}
-                            <button id="btn-postulacion" type="submit" class="btn btn-danger  btn-block "><h5>Cancelar postulación</h5></button>
-                        </div>
-                    </form>
-                @endif
-            </div>
-            @endguest
+            
             </div>
         </div>
     </div>

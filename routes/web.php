@@ -135,6 +135,12 @@ Route::post('/empresa/pass','EmpresaController@editarpassword')->name('newpasswo
 Route::post('/empresa/confirmpass','EmpresaController@verificarpass')->name('verificarpassword');
 Route::post('empresas/baja','EmpresaController@deleteemp')->name('deleteemp');
 Route::get('/empresas/logout',array('as'=>'empresas.logout', 'uses'=>'EmpresaLoginController@logout'));
+Route::get('empresas/mis-ofertas','EmpresaController@MisOfertas')->name('misofertas');
+Route::get('empresas/veroferta/{oferta}', array('as' =>'empresas.veroferta', 'uses' => 'EmpresaController@VerOferta'));
+Route::post('/empresas/mis-ofertas/buscar','EmpresaController@Buscar')->name('empresas.buscar');
+Route::get('/empresas/mis-ofertas/buscar','EmpresaController@Buscar')->name('empresas.buscar');
+Route::get('/empresas/registro/oferta','EmpresaController@regOferta')->name('empresas.nueva-oferta');
+//Route::get('/empresas/registro/oferta', array('as'=>'nueva-oferta','uses'=>'EmpresaController@regOferta'));
 /* ---------FIN RUTAS DE Empresas------- */
 
 //Logout

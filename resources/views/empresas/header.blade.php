@@ -24,7 +24,7 @@
         <div class="collapse navbar-collapse" id="navbarColor03">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Mis ofertas</a>
+                            <a class="nav-link" href="{{route('misofertas')}}">Mis ofertas</a>
                         </li>
                     </ul>
                     <div class="form-inline ">
@@ -41,7 +41,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item" href="{{route('empresas.perfil')}}">Mi perfil</a>
-                                     <a class="dropdown-item" data-toggle="modal" data-target="#modal-password" href="">Cambiar contraseña</a>
+                                     <a class="dropdown-item" href="{{route('empresas.logout')}}" >Cerrar sesión</a>
 
                                 </div>
                             </li>

@@ -225,6 +225,49 @@ class EmpresaController extends Controller
         $empresa->delete();
          return redirect()->route('empresas.logout');
     }
+    /*OFERTAS DE LA EMPRESA*/
+    function MisOfertas(){
+        $ofertas = Oferta::where('id_emp','=',auth()->guard('empresa')->user()->id)->paginate(10);
+        $empleo="";
+        $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
+        $paises = Pais::all();
+        $estados =Estado::all();
+        $ciudades = Municipio::all();
+        return view('empresas.ofertas', compact('empleo','paises','estados','ciudades','ofertas', 'rTags'));
+    }
+    function VerOferta($id){
+        $oferta = Oferta::findOrFail($id);
+        $tags = RelacionTag::where('id_oferta', '=', $id)->get();
+        $paises = Pais::all();
+        $estados =Estado::all();
+        $ciudades = Municipio::all();
+        return view('empresas.veroferta', compact('paises','estados','ciudades','oferta','tags'));   
+    }
+    function Buscar(){
+        $data = request()->all();
+        if(isset($data['empleo'])){
+            $empleo=$data['empleo'];
+            $ofertas = Oferta::where('id_emp','=',auth()->guard('empresa')->user()->id)
+            ->where('titulo','like','%'.$data['empleo'].'%')
+            ->paginate(10);
+            $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
+            $paises = Pais::all();
+            $estados =Estado::all();
+            $ciudades = Municipio::all();
+            return view('empresas.ofertas', compact('empleo','paises','estados','ciudades','ofertas', 'rTags'));
+        }else{
+            return redirect()->route('misofertas');
+        }
+       
+    }
+    function regOferta(){
+        $emp = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
+        $estados = Estado::all();
+        $paises = Pais::all();
+        $municipios = Municipio::all();
+        
+        return view('empresas.nueva-oferta', compact('emp', 'estados', 'paises', 'municipios'));
+    }
 
 }
 /*
