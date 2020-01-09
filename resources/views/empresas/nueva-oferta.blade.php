@@ -1,5 +1,5 @@
 @extends('empresas.master')
-<link href="{{ asset('css/admin/regOferta.css') }}" rel="stylesheet">
+<link href="{{ asset('css/nueva-oferta.css') }}" rel="stylesheet">
 @section('body')
 
     <main role="main" class="col-md-12 py-0 px-0">  
@@ -25,18 +25,20 @@
                     </div>
 
                     <div class="DivTags col-md-12 mb-3">
-                        <label for="">Habilidades/Identificadores (Tags)</label>
+                        <label for="">Habilidades/Identificadores (Tags) <small id="contador-tags" class=" text-muted">0 de 10</small></label><br>
                         <small  class="text-muted"> (Presiona 'enter' para añadir) </small><br>
                         <div class="col-md-8 ml-0 mr-2 pl-0">
                             <template id="listtag" size="5">
-                                {{--@foreach($tags as $tag)
+                                @foreach($tags as $tag)
                                     <option >{{ $tag->nombre }}</option>
-                                @endforeach  --}}  
+                                @endforeach   
                             </template>
                             <input name="inputtag" autocomplete="off"  list="searchresults" data-min-length='1' type="text" class="form-control"  id="inputtag" data-href="{{url('/perfil/createtags')}}" name="inputtag" placeholder="ej. computación, office, vendedora" >
                             <datalist id="searchresults"></datalist>
                         </div>
-                        <small class="text-warning info-tags"><i class="fa fa-info-circle"></i>Tienes el limites de tags permitido, elimina algunos para agregar más.</small>
+                        <small class="text-warning info-tags"><!--<i class="fa fa-info-circle"></i>Tienes el limites de tags permitido, elimina algunos para agregar más.--></small>
+                            <div id="DivTags" class="tags col-sm-12 pl-0 ml-0 mt-2 mb-2 text-secondary">
+                            </div>
                     </div>
                     <hr class="mb-1">
 
@@ -143,4 +145,7 @@
         </div>
     </main>
 
+@endsection
+@section('scripts')
+   <script src="{{asset('js/registrar-oferta.js')}}"> </script>
 @endsection

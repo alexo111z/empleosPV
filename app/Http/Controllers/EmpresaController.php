@@ -265,8 +265,8 @@ class EmpresaController extends Controller
         $estados = Estado::all();
         $paises = Pais::all();
         $municipios = Municipio::all();
-        
-        return view('empresas.nueva-oferta', compact('emp', 'estados', 'paises', 'municipios'));
+        $tags=Tag::all();
+        return view('empresas.nueva-oferta', compact('tags','emp', 'estados', 'paises', 'municipios'));
     }
 
 }

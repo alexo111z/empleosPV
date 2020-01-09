@@ -18,6 +18,7 @@
         <link href="{{asset('css/main.css')}}" rel="stylesheet">
         <!--icono que sale en la pestaña-->
         <link rel="shortcut icon" href="{{asset('images/icon/icono.ico')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body class="mt-6">
 

@@ -307,7 +307,7 @@
                                 @else
                                 <div class="col-md-12 my-0 ml-0 pl-0"><p class="text-muted col-sm-12 ml-0 pl-0 mt-3"><i class="fa fa-info-circle"></i>Sube tu curriculum para completar tu perfil.</p></div>
                                 @endif
-                                        <form method="POST" action="{{route('subirCV')}}" accept-charset="UTF-8" enctype="multipart/form-data">
+                                        <form class="col-sm-12 pl-0" method="POST" action="{{route('subirCV')}}" accept-charset="UTF-8" enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <input type="file" accept="application/pdf" id="archivo" name="archivo" required>
                                             <button type="submit" id="subircv" class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/upload.png')}}">Subir</button>

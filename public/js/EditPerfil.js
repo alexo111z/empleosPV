@@ -187,7 +187,7 @@ jQuery(document).ready(function(){
                }
              }}); 
       }
-  })
+  });
       /*VALIDACION INPUT TAGS*/
      $(document).on('input', function (e) {
          $("#inputtag").val($("#inputtag").val().toLowerCase());

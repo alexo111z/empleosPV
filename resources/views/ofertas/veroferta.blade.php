@@ -76,14 +76,14 @@
             <div id="div-post" style=" max-width:312px!important;" >
                 @if($solicitud=="[]")
                     <form  id="postulacion" method="post" action="{{ route('oferta.solicitud', [$oferta->id]) }}">
-                        <div class="col-sm-12 my-3 mx-5 text-center">
+                        <div class="col-sm-12 my-3 mx-auto text-center">
                             {{ csrf_field() }}
                             <button id="btn-postulacion" type="submit" class="btn btn-postular btn-block "><h5>Postularme</h5></button>
                         </div>
                     </form>
                 @else
                     <form id="postulacion" method="post" action="{{ route('oferta.solicitud.cancelar', [$oferta->id]) }}">
-                        <div class="col-sm-12 my-3 mx-5 text-center">
+                        <div class="col-sm-12 my-3 mx-auto text-center">
                             {{ csrf_field() }}
                             <button id="btn-postulacion" type="submit" class="btn btn-danger  btn-block "><h5>Cancelar postulación</h5></button>
                         </div>
