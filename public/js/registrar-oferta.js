@@ -157,7 +157,9 @@ jQuery(document).ready(function(){
         $(this).val("");
         $(this).val(val);
     });
-
+    $(document).on("paste",'input',function(e){
+        event.preventDefault();
+    });
     $(document).on("keypress",'#tContrato',function(key){   
         window.console.log(key.charCode)
         if (($(this).val().length>=30)||((key.charCode < 97 || key.charCode > 122)//letras mayusculas

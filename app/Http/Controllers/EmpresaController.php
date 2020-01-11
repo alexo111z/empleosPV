@@ -297,12 +297,8 @@ class EmpresaController extends Controller
             'salario' => $data['salario'],
             't_contrato' => $data['tContrato'],
             'existe' => true
-        ]);
-        
-     
+        ]);   
         if($etiquetas!=null && $etiquetas!=""){
-            
-            
             $id_oferta=$oferta->id;
             foreach($etiquetas as $etiqueta){
                     $idTag =Tag::where('nombre', $etiqueta)->value('id');
@@ -317,6 +313,12 @@ class EmpresaController extends Controller
             }
         }
        return redirect()->route('misofertas');
+    }
+    function deleteOferta($id){
+        $oferta=Oferta::findOrFail($id);
+        $oferta->existe = false;
+        $oferta->save();
+        return redirect()->route('misofertas');
     }
 
 
