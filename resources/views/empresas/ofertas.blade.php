@@ -23,8 +23,19 @@
         @forelse($ofertas as $oferta)
         <!--div oferta-->
         <div class="div-oferta mb-3 no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250" onclick="location.href='{{ route('empresas.veroferta', ['oferta' => $oferta->id, $oferta->titulo] ) }}'" novalidate>
-            <div class="col-sm-12 px-3 pt-3"><h4 class="mb-0">{{ $oferta->titulo }}</h4></div>
-            <div class="col-sm-12 px-3 mt-0 pt-0"><small class="text-muted text-uppercase">{{ $oferta->empresa->nombre }}</small></div>
+            <div class="row col-sm-12 px-3 pt-3"><h4 class="col-sm-6 mb-0">{{ $oferta->titulo }}</h4>
+              <div class="d-flex justify-content-end col-sm-6 text-right">
+                @if((Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->greaterThan(Carbon\Carbon::now())))
+                <div class="w-25 py-1 my-0 px-auto text-center alert alert-success text-success " role="alert">
+                  <small>Vigente</small>
+                </div> 
+                @else
+                  <div class="w-30 py-1 my-0 px-auto text-center alert alert-danger text-danger " role="alert">
+                    <small>No Vigente</small>
+                  </div>
+                @endif
+              </div>
+            </div>
             <div class="col-sm-12 px-3 mt-1">
                 <p>
                     {{ $oferta->d_corta }}
