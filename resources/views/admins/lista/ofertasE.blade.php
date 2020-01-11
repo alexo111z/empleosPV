@@ -50,10 +50,12 @@
                                 <td scope="row">{{ $ofer->titulo }}</td>
                                 <td scope="row">{{ $ofer->idciudad->municipio }}, {{$ofer->idestado->estado}}, {{$ofer->idpais->pais}}</td>
                                 <td scope="row" class="actions">
-                                    <button class="btn btn-primary">
-                                        Detalles
-                                        <i class="fa fa-eye"></i> 
-                                    </button>
+                                    <a href="{{ route('admin.det.ofr', ['oferta'=>$ofer->id, $ofer->titulo]) }}">
+                                        <button class="btn btn-primary">
+                                            Detalles
+                                            <i class="fa fa-eye"></i> 
+                                        </button>
+                                    </a>
                                 </td>
                                 <td scope="row" class="actions">
                                     <button class="btn btn-primary">

@@ -51,6 +51,7 @@ Route::get('/administrator/detalles/empresa/{empresa}', array('as'=>'admin.det.e
 Route::get('/administrator/detalles/empresa2/{empresa}', array('as'=>'admin.det.emp2','uses'=>'AdminController@detEmpresa2'));
 
 Route::get('/administrator/detalles/oferta/{oferta}', array('as'=>'admin.det.ofr','uses'=>'AdminController@detOferta'));
+Route::post('/administrator/detalles/oferta/{oferta}', array('as'=>'admin.edit.ofr','uses'=>'AdminController@editOferta'));
 
 Route::post('/administrator/create/empresa', array('as'=>'admin.c.emp','uses'=>'AdminController@createEmpresa'));
 Route::post('/administrator/create/usuario', array('as'=>'admin.c.user','uses'=>'AdminController@createUser'));

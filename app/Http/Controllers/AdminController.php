@@ -232,10 +232,47 @@ class AdminController extends Controller
         return view('admins.detalles.users', compact('user','paises','estados','municipios','userest','userarea','rtags','tags','estudios', 'areas'));
     }
     function detEmpresa($empresa){
-        return view('admins.detalles.empresas');
+        $emp = Empresa::findOrFail($empresa);
+        $giros = Giro::all();
+        $razones = RSocial::all();
+        $estados = Estado::all();
+        $paices = Pais::all();
+        $municipios = Municipio::all();
+
+        return view('admins.detalles.empresas', compact('emp' ,'estados', 'paices', 'municipios', 'giros', 'razones'));
     }
     function detOferta($oferta){
-        return view('admins.detalles.ofertas');
+        $oferta = Oferta::findOrFail($oferta);
+        $tags = RelacionTag::where('id_oferta', '=', $oferta)->get();
+        $paises = Pais::all();
+        $estados =Estado::all();
+        $ciudades = Municipio::all();
+
+        return view('admins.detalles.ofertas', compact('paises','estados','ciudades','oferta','tags'));
+    }
+    function editOferta($oferta, Request $request){
+        $data = $request->validate([
+            'titulo' => ['nullable'],
+            'desCorta' => ['nullable'],
+            'salario' => ['nullable'],
+            'pais' => ['nullable'],
+            'estado' => ['nullable'],
+            'ciudad' => ['nullable'],
+            'desc' => ['nullable'],
+        ]);
+
+        $ofer = Oferta::findOrFail($oferta);
+        $ofer->titulo = $data['titulo'];
+        $ofer->d_corta = $data['desCorta'];
+        $ofer->d_larga = $data['desc'];
+        $ofer->salario = $data['salario'];
+        $ofer->t_contrato;
+        $ofer->vigencia;
+        $ofer->id_pais = $data['pais'];
+        $ofer->id_estado = $data['estado'];
+        $ofer->id_ciudad = $data['ciudad'];
+        $ofer->save();
+
     }
     function detEmpresa2($empresa, Request $request){
 

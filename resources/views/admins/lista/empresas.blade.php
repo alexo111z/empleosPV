@@ -50,7 +50,7 @@
                                 <td scope="row">{{ $emp->nombre }}</td>
                                 <td scope="row">{{ $emp->email }}</td>
                                 <td scope="row" class="actions">
-                                    <a href="#">
+                                    <a href="{{ route('admin.det.emp', ['empresa'=>$emp->id, $emp->nombre]) }}">
                                         <button class="btn btn-primary">
                                             Detalles
                                             <i class="fa fa-building"></i> 
