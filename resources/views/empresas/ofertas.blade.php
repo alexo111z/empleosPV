@@ -23,15 +23,15 @@
         @forelse($ofertas as $oferta)
         <!--div oferta-->
         <div class="div-oferta mb-3 no-gutters border rounded overflow-hidden flex-md-row shadow-sm h-md-250" onclick="location.href='{{ route('empresas.veroferta', ['oferta' => $oferta->id, $oferta->titulo] ) }}'" novalidate>
-            <div class="row col-sm-12  px-3 pt-3"><h4 class="col-sm-6 mb-0">{{ $oferta->titulo }}</h4>
+            <div class="row col-sm-12 px-3 pt-3"><h4 class="col-sm-6 mb-0">{{ $oferta->titulo }}</h4>
               <div class="d-flex justify-content-end col-sm-6 text-right">
                 @if((Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->greaterThan(Carbon\Carbon::now())))
-                <div class="col-sm-3 py-1 my-1 text-center alert alert-success text-success " role="alert">
-                  <strong>Vigente</strong>
+                <div class="w-25 py-1 my-0 px-auto text-center alert alert-success text-success " role="alert">
+                  <small>Vigente</small>
                 </div> 
                 @else
-                  <div class="col-sm-3 py-1 my-1 text-center alert alert-danger text-danger " role="alert">
-                    <strong>No Vigente</strong>
+                  <div class="w-30 py-1 my-0 px-auto text-center alert alert-danger text-danger " role="alert">
+                    <small>No Vigente</small>
                   </div>
                 @endif
               </div>

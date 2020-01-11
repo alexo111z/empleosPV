@@ -321,7 +321,6 @@ class EmpresaController extends Controller
         return redirect()->route('misofertas');
     }
 
-
 }
 /*
 function softDelete(Carrera $carrera){

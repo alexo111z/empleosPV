@@ -71,7 +71,7 @@
                 </div>
                 <div class="text-center mx-auto" >
                         <div class="col-sm-12 my-3 mx-auto text-center">
-                            <button type="submit" class="btn btn-postular btn-block "><h5>Editar mi oferta</h5></button>
+                            <button onclick="location.href='{{ route('empresas.editar-oferta', ['id' => $oferta->id] ) }}'" type="submit" class="btn btn-postular btn-block "><h5>Editar mi oferta</h5></button>
                         </div>
 
                         <div class="col-sm-12 my-3 mx-auto text-center">
@@ -88,7 +88,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> ¿Está seguro que desea eliminar esta oferta?</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
