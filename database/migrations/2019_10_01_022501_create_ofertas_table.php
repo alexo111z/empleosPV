@@ -25,7 +25,7 @@ class CreateOfertasTable extends Migration
             $table->decimal('salario', 7, 2)->nullable();
             $table->string('t_contrato', 30)->nullable();
             $table->dateTime('vigencia');
-
+            $table->boolean('existe');
             //Direccion
             $table->bigInteger('id_pais')->nullable()->unsigned();
             $table->foreign('id_pais')->references('id')->on('paises');

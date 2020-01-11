@@ -19,6 +19,7 @@ class Oferta extends Model
         'id_pais',
         'id_estado',
         'id_ciudad',
+        'existe',
     ];
 
     public function empresa(){

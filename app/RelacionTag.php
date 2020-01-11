@@ -14,5 +14,6 @@ class RelacionTag extends Model
     protected $fillable = [
         'id_usuario', 
         'id_tag',
+        'id_oferta',
     ];
 }
