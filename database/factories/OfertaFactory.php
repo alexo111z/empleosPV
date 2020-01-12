@@ -18,5 +18,6 @@ $factory->define(Oferta::class, function (Faker $faker) {
         'id_pais' => $faker->numberBetween(1, 5),
         'id_estado' => $faker->numberBetween(1, 5),
         'id_ciudad' => $faker->numberBetween(1, 5),
+        'existe' => true,
     ];
 });

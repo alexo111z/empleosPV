@@ -227,7 +227,9 @@ class EmpresaController extends Controller
     }
     /*OFERTAS DE LA EMPRESA*/
     function MisOfertas(){
-        $ofertas = Oferta::where('id_emp','=',auth()->guard('empresa')->user()->id)->paginate(10);
+        $ofertas = Oferta::where('id_emp','=',auth()->guard('empresa')->user()->id)
+        ->where('existe','=',true)
+        ->paginate(10);
         $empleo="";
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
         $paises = Pais::all();
@@ -248,6 +250,7 @@ class EmpresaController extends Controller
         if(isset($data['empleo'])){
             $empleo=$data['empleo'];
             $ofertas = Oferta::where('id_emp','=',auth()->guard('empresa')->user()->id)
+            ->where('existe','=',true)
             ->where('titulo','like','%'.$data['empleo'].'%')
             ->paginate(10);
             $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
@@ -267,6 +270,55 @@ class EmpresaController extends Controller
         $municipios = Municipio::all();
         $tags=Tag::all();
         return view('empresas.nueva-oferta', compact('tags','emp', 'estados', 'paises', 'municipios'));
+    }
+    function createOferta(Request $request){
+        $data = request()->all();
+        $etiquetas= json_decode($data['etiquetas']);
+        $data = $request->validate([
+            'titulo' => ['required'],
+            'desc_corta' => ['required'],
+            'pais' => ['required','numeric'],
+            'estado' => ['required','numeric'],
+            'ciudad' => ['required','numeric'],
+            'vigencia' => ['required','date'],
+            'desc_det' => ['required'],
+            'salario' => ['nullable'],
+            'tContrato' => ['nullable'],
+        ]);
+        $oferta = Oferta::create([
+            'id_emp' => auth()->guard('empresa')->user()->id,
+            'titulo' => $data['titulo'],
+            'd_corta' => $data['desc_corta'],
+            'id_pais' => $data['pais'],
+            'id_estado' => $data['estado'],
+            'id_ciudad' => $data['ciudad'],
+            'vigencia' => $data['vigencia'],
+            'd_larga' => $data['desc_det'],
+            'salario' => $data['salario'],
+            't_contrato' => $data['tContrato'],
+            'existe' => true
+        ]);   
+        if($etiquetas!=null && $etiquetas!=""){
+            $id_oferta=$oferta->id;
+            foreach($etiquetas as $etiqueta){
+                    $idTag =Tag::where('nombre', $etiqueta)->value('id');
+                    if( $idTag ==null){
+                        Tag::create(['nombre' => $etiqueta,]);
+                        $idTag =Tag::where('nombre', $etiqueta)->value('id');
+                    }
+                    $rtag=RelacionTag::create([
+                        'id_oferta' => $id_oferta,
+                        'id_tag' => $idTag,
+                    ]);
+            }
+        }
+       return redirect()->route('misofertas');
+    }
+    function deleteOferta($id){
+        $oferta=Oferta::findOrFail($id);
+        $oferta->existe = false;
+        $oferta->save();
+        return redirect()->route('misofertas');
     }
 
 }

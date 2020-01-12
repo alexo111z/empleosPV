@@ -7,7 +7,7 @@
             <div class="py-5 text-center">
                 <h1 class="text-uppercase">Registrar nueva oferta</h1>
             </div>
-            {!! Form::open(array('route'=>array('admin.c.ofer', $emp->id),'method'=>'POST', 'id'=>'buscador')) !!}
+            {!! Form::open(array('route'=>array('empresas.crearOferta'),'method'=>'POST', 'id'=>'form-nuevaoferta')) !!}
             <form  class="needs-validation primary" novalidate>
             {{ csrf_field() }}
 
@@ -15,12 +15,12 @@
            <div class="col-md-8 order-md-1">
                 <h4 class="mb-1">Datos de la oferta</h4>
                 <div class="mb-3">
-                    <label for="titulo">Titulo</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ej. Desarrollador web" value="{{ old('titulo') }}" required>
+                    <label for="titulo">Título</label>
+                    <input autocomplete="off"  type="text" class="form-control" id="titulo" name="titulo" placeholder="Ej. Desarrollador web" value="{{ old('titulo') }}" required>
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label for="desc_corta">Descripcion corta de la oferta</label>
+                        <label for="desc_corta">Descripción breve de la oferta</label>
                         <textarea value="{{ old('desc_corta') }}" class="form-control mb-3 text-desc" id="desc_corta" name="desc_corta" rows="3" style="display: inline-block;" required></textarea>
                     </div>
 
@@ -43,11 +43,11 @@
                     <hr class="mb-1">
 
                     <div class="col-md-12 mb-3">   
-                        <h4 class="mb-1">Ubicaion de la oferta</h4>
+                        <h4 class="mb-1">Ubicación de la oferta</h4>
                         <div class="div-ubicacion col-md-6 ml-0 pl-0">
                             <span>País</span>
                             {{--{{$selectpais=""}}--}}  
-                            <select id="CmbPais"  name="pais" {{--onchange='funcpais(this.value,<! ?php echo json_encode($estados); ?>)'--}}  class="form-control">
+                            <select id="CmbPais"  name="pais" onchange='funcpais(this.value,<?php echo json_encode($estados); ?>)' class="form-control">
                                 @if ( old('pais') == '' )
                                     <option selected disabled hidden>Seleccionar....</option>
                                 @else
@@ -67,7 +67,7 @@
                         </div>
                         <div class="div-ubicacion col-md-6 pl-0">
                             <span>Estado</span>
-                            <select id="CmbEstado" name="estado" class="form-control" {{--onchange='funcestado(this.value,<! ?php echo json_encode($municipios); ?>)'--}}>
+                            <select id="CmbEstado" name="estado" class="form-control" onchange='funcestado(this.value,<?php echo json_encode($municipios); ?>)'>
                                 @if ( old('estado') == '' )
                                     <option selected disabled hidden>Seleccionar....</option>
                                 @else
@@ -87,7 +87,7 @@
                         </div>
                         <div class="div-ubicacion col-md-6 pl-0">
                             <span>Ciudad</span>
-                            <select id="CmbCiudad" name="ciudad" class="form-control"  >
+                            <select id="CmbCiudad" name="ciudad" class="form-control" >
                                 @if ( old('ciudad') == '' )
                                     <option selected disabled hidden>Seleccionar....</option>
                                 @else
@@ -116,23 +116,21 @@
                     <div class="col-md-6 mb-3">
                             <label for="vigencia">Fecha de vigencia</label>
                             <small  class="text-muted"> (Fecha limite para la oferta) </small><br>
-                            <input id="CmbFecha" name="vigencia" type="date" class="form-control" value="{{ old('vigencia')==''?'': old('vigencia') }}" min="2020-01-01">
+                            <input id="CmbFecha" name="vigencia" type="date" class="form-control" value="{{ old('vigencia')==''?'': old('vigencia') }}" min="2020-01-01" required>
                     </div>
                     <div class="col-md-12 mb-3">
                             <label for="desc_det">Descripcion detallada</label>
-                            <textarea class="form-control" id="desc_det" name="desc_det" rows="5" style="display: inline-block;">
-                                {{ old('desc_det') }}
-                            </textarea>
+                            <textarea class="form-control" id="desc_det" name="desc_det" rows="5" style="display: inline-block;">{{ old('desc_det') }}</textarea>
                     </div>
-                    <div class="div-det col-md-6 mb-3">
+                    <div class="div-det col-md-3 mb-3">
                         <label for="salario">Salario</label>
                         <small  class="text-muted"> (Opcional) </small><br>
-                        <input type="text" class="form-control" id="salario" name="salario" value="{{ old('salario') }}" placeholder="00000.00">     
+                        <input autocomplete="off"  type="text" class="form-control text-right" id="salario" name="salario" value="{{ old('salario') }}" placeholder="0.00">     
                     </div>
                     <div class="div-det col-md-6 mb-3">
                             <label for="tContrato">Tiempo de Contrato</label>
                             <small  class="text-muted"> (Opcional) </small><br>
-                            <input type="text" class="form-control" id="tContrato" name="tContrato" value="{{ old('tContrato') }}" placeholder="Indefinido, 1 semana">     
+                            <input autocomplete="off" type="text" class="form-control" id="tContrato" name="tContrato" value="{{ old('tContrato') }}" placeholder="Indefinido, 1 semana">     
                     </div>
                     
                 </div>
