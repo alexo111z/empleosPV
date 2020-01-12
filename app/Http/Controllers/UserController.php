@@ -13,6 +13,7 @@ use App\Pais;
 use App\Estado;
 use App\Municipio;
 use App\Calificacion;
+use App\Solicitud;
 use App\Comentario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -255,6 +256,26 @@ class UserController extends Controller
         }else{
             return 0;
         }
+    }
+    function eliminarUsuario(){
+        return view('usuarios.eliminar');
+    }
+    function verificarpass(){
+        $data = request()->all();
+        if(Hash::check($data['confirmpass'],auth()->user()->password)){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+    function deleteUser(){
+        $user = User::findOrFail(auth()->user()->id);
+        $rtags = RelacionTag::where('id_usuario','=',$user->id);
+        $rtags->delete();
+        $solicitudes = Solicitud::where('id_usuario','=',$user->id);
+        $solicitudes->delete();
+        $user->delete();
+        return redirect()->route('logout');
     }
  
 

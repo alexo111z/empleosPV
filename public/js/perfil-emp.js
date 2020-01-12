@@ -278,13 +278,15 @@ jQuery(document).ready(function(){
               success: function($result){
                  if($result==1){
                    $('#confirmbaja').modal('show');
-                   }else{
-                   $("#error-confirm").html('Contraseña erronea.')
-                   }
+                   $("#error-confirm").html('');
+                  }else{
+                   $("#error-confirm").html('Contraseña erronea.');
+                  }
           }});
           }
    });
    $("#confirmbaja").on('hidden.bs.modal', function () {
       location.reload(true);
   });
+  
 });

@@ -92,6 +92,7 @@ Route::post('/borrarfoto','UserController@borrarFoto')->name('borrarFoto');
 Route::post('/perfil/createtags', 'TagsController@Insert')->name('tags.insert');
 Route::post('/perfil/deletetags','TagsController@destroy')->name('tags.destroy');
 //Logout
+Route::get('/user/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));
 Route::post('/user/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));  //is in header.blade
 Route::post('/user/pass','UserController@editarpassword')->name('editarpassword');
 //reset password
@@ -99,6 +100,9 @@ Route::post('/password/email', 'UserForgotPasswordController@sendResetLinkEmail'
 Route::get('/password/reset', 'UserForgotPasswordController@showLinkRequestForm')->name('user.password.request');
 Route::post('/password/reset', 'UserResetPasswordController@reset');
 Route::get('/password/reset/{token}', 'UserResetPasswordController@showResetForm')->name('user.password.reset');
+Route::get('/eliminar-cuenta','UserCOntroller@eliminarUsuario')->name('usuarios.eliminar');
+Route::post('/usuario/confirmpass','UserController@verificarpass')->name('user.verificarpassword');
+Route::post('/usuario/delete','UserController@deleteUser')->name('user.delete');
 /*--------- FIN RUTAS DE USUARIO--------*/
 
 
