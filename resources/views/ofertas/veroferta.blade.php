@@ -56,6 +56,19 @@
 
 
         <div class="col-md-3 my-3 px-auto mx-auto" style="min-width: 250px;">
+            <div class=" border rounded overflow-hidden text-center mx-auto mb-2 py-3">
+                <div class="text-center" >
+                    @if($oferta->existe==false)
+                        <strong class="text-danger"> La empresa ha eliminado esta oferta, recomendamos que cancele postulación.</strong>
+                    @else
+                        @if((Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->greaterThan(Carbon\Carbon::now())))
+                            <strong class="text-success ">Vigente hasta {{Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->format('d \d\e F \d\e Y')}}</strong>
+                        @else
+                            <strong class="text-danger">No Vigente, se venció el {{Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->format('d \d\e F \d\e Y')}}</strong>
+                        @endif
+                    @endif
+                </div>
+            </div>
             <div class=" border rounded overflow-hidden text-center mx-auto py-3">
                 <div class="text-center mb-4" >
                     <small class="text-muted text-uppercase">Empresa que realizó la oferta:</small>
