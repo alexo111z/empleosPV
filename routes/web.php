@@ -143,6 +143,9 @@ Route::get('/empresas/mis-ofertas/buscar','EmpresaController@Buscar')->name('emp
 Route::get('/empresas/registro/oferta','EmpresaController@regOferta')->name('empresas.nueva-oferta');
 Route::post('/empresas/create/oferta', array('as'=>'empresas.crearOferta', 'uses'=>'EmpresaController@createOferta'));
 Route::post('/empresas/delete/{id}', 'EmpresaController@deleteOferta')->name('empresas.deleteOferta');
+Route::post('/empresas/editar/oferta/{id}', array('as'=>'empresas.editOferta','uses'=>'EmpresaController@editOferta'));
+Route::post('/empresas/oferta/createtag/{id}', array('as'=>'emp.oferta.createtags','uses'=>'EmpresaController@InsertTag'));
+Route::post('/empresas/deletetags','EmpresaController@destroyTag')->name('emp.tags.destroy');
 //Route::get('/empresas/registro/oferta', array('as'=>'nueva-oferta','uses'=>'EmpresaController@regOferta'));
 /* ---------FIN RUTAS DE Empresas------- */
 

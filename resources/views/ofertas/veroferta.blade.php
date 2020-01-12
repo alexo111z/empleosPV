@@ -73,7 +73,7 @@
                     <p><a href="{{route('usuarios.registrar')}}">!Registrate aquí!</a> para poder postularte en este empleo.</p>  
                 </div>
             @else
-            <div id="div-post" style=" max-width:312px!important;" >
+            <div id="div-post"  class="text-center mx-auto" style=" max-width:312px!important;" >
                 @if($solicitud=="[]")
                     <form  id="postulacion" method="post" action="{{ route('oferta.solicitud', [$oferta->id]) }}">
                         <div class="col-sm-12 my-3 mx-auto text-center">

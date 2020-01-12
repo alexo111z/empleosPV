@@ -239,11 +239,12 @@ class EmpresaController extends Controller
     }
     function VerOferta($id){
         $oferta = Oferta::findOrFail($id);
-        $tags = RelacionTag::where('id_oferta', '=', $id)->get();
+        $rtags = RelacionTag::where('id_oferta', '=', $id)->get();
+        $tags= Tag::all();
         $paises = Pais::all();
         $estados =Estado::all();
         $ciudades = Municipio::all();
-        return view('empresas.veroferta', compact('paises','estados','ciudades','oferta','tags'));   
+        return view('empresas.veroferta', compact('paises','estados','ciudades','oferta','tags','rtags'));   
     }
     function Buscar(){
         $data = request()->all();
@@ -320,7 +321,45 @@ class EmpresaController extends Controller
         $oferta->save();
         return redirect()->route('misofertas');
     }
+    function editOferta($id, Request $request){
 
+        $data = $request->all();
+
+        $ofer = Oferta::findOrFail($id);
+        $ofer->titulo = $data['titulo'];
+        $ofer->d_corta = $data['desc_corta'];
+        $ofer->d_larga = $data['descripcion'];
+        $ofer->salario = $data['salario'];
+        $ofer->t_contrato =$data['tContrato'];
+        $ofer->vigencia= $data['vigencia'];
+        $ofer->id_pais = $data['pais'];
+        $ofer->id_estado = $data['estado'];
+        $ofer->id_ciudad = $data['ciudad'];
+        $ofer->save();
+        return redirect()->route('empresas.veroferta',['oferta' => $ofer->id, $ofer->titulo]);
+    }
+    public function InsertTag($id){
+        if((RelacionTag::where('id_oferta',$id)->count())<10){
+            $data = request()->all();
+            $idTag =Tag::where('nombre', $data['nombre'])->value('id');
+            if( $idTag ==null){
+                Tag::create(['nombre' => $data['nombre'],]);
+                $idTag =Tag::where('nombre', $data['nombre'])->value('id');
+            }
+            $rtags = RelacionTag::where([['id_oferta', $id], ['id_tag',$idTag],])->value('id');
+            if($rtags==null){
+                RelacionTag::create(['id_oferta' => $id,'id_tag' => $idTag,]);
+            }
+            return 1;
+        }else{
+            return 0;
+        }  
+    }
+    public function destroyTag(){
+        $data = request()->all();
+        $tag = RelacionTag::where('id', $data['id']);
+        $tag->delete();
+    }
 }
 /*
 function softDelete(Carrera $carrera){
