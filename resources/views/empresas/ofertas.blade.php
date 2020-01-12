@@ -26,11 +26,11 @@
             <div class="row col-sm-12 px-3 pt-3"><h4 class="col-sm-6 mb-0">{{ $oferta->titulo }}</h4>
               <div class="d-flex justify-content-end col-sm-6 text-right">
                 @if((Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->greaterThan(Carbon\Carbon::now())))
-                <div class="w-25 py-1 my-0 px-auto text-center alert alert-success text-success " role="alert">
+                <div class="py-1 my-0 px-auto text-center alert alert-success text-success " role="alert">
                   <small>Vigente</small>
                 </div> 
                 @else
-                  <div class="w-30 py-1 my-0 px-auto text-center alert alert-danger text-danger " role="alert">
+                  <div class=" py-1 my-0 px-auto text-center alert alert-danger text-danger " role="alert">
                     <small>No Vigente</small>
                   </div>
                 @endif

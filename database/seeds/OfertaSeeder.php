@@ -18,7 +18,12 @@ class OfertaSeeder extends Seeder
             'd_corta' => 'Esta es la desccripcion corta',
             'd_larga' => 'Esta descripcio es mas larga .................................................',
         ]);
-
+        factory(Oferta::class)->create([
+            'id_emp' => 2,
+            'titulo' => 'Oferta 2',
+            'd_corta' => 'Esta es la desccripcion corta',
+            'd_larga' => 'Esta descripcio es mas larga .................................................',
+        ]);
         factory(Oferta::class)->times(10)->create();
     }
 }

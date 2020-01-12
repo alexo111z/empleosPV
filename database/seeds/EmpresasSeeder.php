@@ -18,6 +18,13 @@ class EmpresasSeeder extends Seeder
             'email' => 'luisfakecompany@mail.com',
             'contacto' => 'Luis Alejandro', //nombre de contacto
         ]);
+        factory(Empresa::class)->create([
+            'nombre' => 'Tacos elodia 2',
+            'password' =>  bcrypt('123456'),
+            'email' => 'lupis_patius@hotmail.com',
+            'contacto' => 'Elodia Wolff', //nombre de contacto
+        ]);
+
 
         factory(Empresa::class)->times(10)->create();
     }

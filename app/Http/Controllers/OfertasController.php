@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
+use Carbon\Carbon;
 use App\Oferta;
 use App\RelacionTag;
 use App\Solicitud;
@@ -19,7 +19,10 @@ use App\Empresa;
 class OfertasController extends Controller
 {
     function ListaOfertas(){
-        $ofertas = Oferta::paginate(10);
+        //@if((Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->greaterThan(Carbon\Carbon::now())))
+        $ofertas = Oferta::where('existe','=',true)
+        ->whereDate('vigencia','>',Carbon::now()->format('Y-m-d'))
+        ->paginate(10);
         $empleo="";
         $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
         $paises = Pais::all();
@@ -79,7 +82,10 @@ class OfertasController extends Controller
         $data = request()->all();
         if(isset($data['empleo'])){
             $empleo=$data['empleo'];
-            $ofertas = Oferta::where('titulo','like','%'.$data['empleo'].'%')->paginate(10);
+            $ofertas = Oferta::where('titulo','like','%'.$data['empleo'].'%')
+            ->where('existe','=',true)
+            ->whereDate('vigencia','>',Carbon::now()->format('Y-m-d'))
+            ->paginate(10);
             $rTags = RelacionTag::where('id_oferta', '>', 0)->get();
             $paises = Pais::all();
             $estados =Estado::all();
@@ -107,18 +113,29 @@ class OfertasController extends Controller
             else{ $page=1;}
             if($min!="null" && $max!="null"){
                 $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')
+                ->where('existe','=',true)
+                ->whereDate('vigencia','>',Carbon::now()->format('Y-m-d'))
                 ->whereBetween('salario', [$min, $max])
                 ->get();
             }elseif($min!="null"){
                 $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')
+                ->where('existe','=',true)
+                ->whereDate('vigencia','>',Carbon::now()->format('Y-m-d'))
                 ->where('salario',">", $min)
                 ->get();
             }elseif($max!="null"){
                 $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')
+                ->where('existe','=',true)
+                ->whereDate('vigencia','>',Carbon::now()->format('Y-m-d'))
                 ->where('salario',"<", $max)
                 ->get();
             }
-            else{$ofertas=Oferta::where('titulo','like','%'.$empleo.'%')->get();}
+            else{
+                $ofertas=Oferta::where('titulo','like','%'.$empleo.'%')
+                ->where('existe','=',true)
+                ->whereDate('vigencia','>',Carbon::now()->format('Y-m-d'))
+                ->get();
+            }
             if($etiquetas!=null && $etiquetas!="" && $etiquetas!=" "){
                 foreach($ofertas as $oferta){
                     foreach($etiquetas as $etiqueta){

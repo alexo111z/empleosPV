@@ -1,10 +1,10 @@
-@extends('master')
+@extends('empresas.master')
 <link href="{{asset('css/veroferta.css')}}" rel="stylesheet">
 @section('body')
 <main role="main">
     <nav class="nav-buscador navbar  flex-md-nowrap mt-6">
         <div class="row div-search input-group search-group text-leftpt-2 w-50 mb-1">
-            <a class="regresar" href="{{ url()->previous() }}"><i class="	fas fa-arrow-left"></i> volver</a>
+            <a class="regresar" href="{{ route('misofertas') }}"><i class="	fas fa-arrow-left"></i> volver</a>
         </div>
     </nav>
 
@@ -58,58 +58,53 @@
         <div class="col-md-3 my-3 px-auto mx-auto" style="min-width: 250px;">
             <div class=" border rounded overflow-hidden text-center mx-auto mb-2 py-3">
                 <div class="text-center" >
-                    @if($oferta->existe==false)
-                        <strong class="text-danger"> La empresa ha eliminado esta oferta, recomendamos que cancele postulación.</strong>
+                    @if((Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->greaterThan(Carbon\Carbon::now())))
+                        <strong class="text-success ">Vigente hasta {{Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->format('d \d\e F \d\e Y')}}</strong>
                     @else
-                        @if((Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->greaterThan(Carbon\Carbon::now())))
-                            <strong class="text-success ">Vigente hasta {{Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->format('d \d\e F \d\e Y')}}</strong>
-                        @else
-                            <strong class="text-danger">No Vigente, se venció el {{Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->format('d \d\e F \d\e Y')}}</strong>
-                        @endif
+                        <strong class="text-danger">No Vigente, se venció el {{Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->format('d \d\e F \d\e Y')}}</strong>
                     @endif
                 </div>
             </div>
             <div class=" border rounded overflow-hidden text-center mx-auto py-3">
                 <div class="text-center mb-4" >
-                    <small class="text-muted text-uppercase">Empresa que realizó la oferta:</small>
+                    <small class="text-muted text-uppercase">Opciones:</small>
                 </div>
                 <div class="text-center mx-auto" >
-                    @if(isset($oferta->empresa->logo))
-                        <img class="imagen" src="{{ route('empresas.logo',['file'=>$oferta->empresa->logo]) }}">
-                    @else
-                        <img class="imagen"src="{{ route('empresas.logo',['file'=>'empresa.png']) }}">
-                    @endif
-                    <h5 class="my-1 mx-3">{{ $oferta->empresa->nombre }}</h5>
-                </div>
-            @guest
-                <div class="col-sm-12 my-3 px-3 text-center">
-                    <p><a href="{{route('usuarios.registrar')}}">!Registrate aquí!</a> para poder postularte en este empleo.</p>  
-                </div>
-            @else
-            <div id="div-post"  class="text-center mx-auto" style=" max-width:312px!important;" >
-                @if($solicitud=="[]")
-                    <form  id="postulacion" method="post" action="{{ route('oferta.solicitud', [$oferta->id]) }}">
+                        <div class="col-sm-12 my-3 mx-auto text-center">
+                            <button onclick="location.href='{{ route('empresas.editar-oferta', ['id' => $oferta->id] ) }}'" type="submit" class="btn btn-postular btn-block "><h5>Editar mi oferta</h5></button>
+                        </div>
+
                         <div class="col-sm-12 my-3 mx-auto text-center">
                             {{ csrf_field() }}
-                            <button id="btn-postulacion" type="submit" class="btn btn-postular btn-block "><h5>Postularme</h5></button>
+                            <button data-toggle="modal" data-target="#confirmdelete" type="button" class="btn btn-danger  btn-block "><h5>Eliminar mi oferta</h5></button>
                         </div>
-                    </form>
-                @else
-                    <form id="postulacion" method="post" action="{{ route('oferta.solicitud.cancelar', [$oferta->id]) }}">
-                        <div class="col-sm-12 my-3 mx-auto text-center">
-                            {{ csrf_field() }}
-                            <button id="btn-postulacion" type="submit" class="btn btn-danger  btn-block "><h5>Cancelar postulación</h5></button>
-                        </div>
-                    </form>
-                @endif
-            </div>
-            @endguest
+
+                </div>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="confirmdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> ¿Está seguro que desea eliminar esta oferta?</h5>
+                        <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <span class="text-danger"><i class="fas fa-info-circle"></i>Se eliminará de forma definitiva, ya no aparecerá en su lista.</span>
+                    </div>
+                    <form id="deleteemp" action="{{ route('empresas.deleteOferta', [$oferta->id]) }}" enctype="multipart/form-data" method="post">
+                        {{ csrf_field() }}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button  class="btn btn-danger" type="submit" ><i class="fa fa-trash" aria-hidden="true"></i> Eliminar oferta</button>  
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 </main>
-@endsection
-@section('scripts')
-<script src="{{asset('js/veroferta.js')}}"> </script>
 @endsection

@@ -1,3 +1,34 @@
+#inputtag::-webkit-calendar-picker-indicator {
+  display: none;
+}
+#inputtag{
+  min-width: 300px !important;
+}
+.tags>span{
+  border-radius: 10px !important;
+  -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+        border-radius: 3px;
+  color: #757575;
+  border: 1px solid #BDBDBD;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 21px;
+  margin: 2px 3px 2px 2px;
+  padding: 1px 4px 2px;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  vertical-align: baseline;
+}
+.delete-tag{
+  cursor: pointer;
+}
+.delete-tag:hover{
+  color:red;
+}
+.info-tags,.DivTags,#BtnGuardarTag{
+  display: none;
+}
 .nav-buscador{
     background-color: #fff!important;
     border-bottom: solid 2px	#E6E6FA;

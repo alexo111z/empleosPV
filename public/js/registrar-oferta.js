@@ -184,9 +184,6 @@ jQuery(document).ready(function(){
               return false;
     });
 
-   /* jQuery.validator.addMethod("money", function(value, element) {
-        return this.optional(element) || /^\d{0,4}(\.\d{0,2})?$/.test(value);
-    }, "Usar formato de moneda");*/
     jQuery.validator.addMethod("fechas", function(value, element) {
         var d= new Date();
         var month = d.getMonth()+1;
@@ -228,13 +225,7 @@ jQuery(document).ready(function(){
                 required:true,
             },
     }});
-    /*$contactform.on('submit', function(e){
-        if (!$contactform.validate()) { 
-            e.preventDefault(); 
-            return false; 
-        }
-    });
-*/
+
     $contactform.on('submit', function(e){
         //e.preventDefault(); 
         if (!$contactform.validate()) { 
@@ -244,29 +235,6 @@ jQuery(document).ready(function(){
                 etiquetas=null;
             } 
             $contactform.attr("action",'/empresas/create/oferta?etiquetas='+JSON.stringify(etiquetas));
-           /* $.ajaxSetup({
-                headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                }
-            });
-                jQuery.ajax({
-                url: $(this).attr('action'),
-                method: 'post',
-                data: {
-                    titulo: $('#titulo').val(),
-                    desc_corta:$('#desc_corta').val(),
-                    pais: $('#CmbPais').val(),
-                    estado:$('#CmbEstado').val(),
-                    ciudad:$('#CmbCiudad').val(),
-                    vigencia:$('#CmbFecha').val(),
-                    desc_det:$('#desc_det').val(),
-                    salario: $('#salario').val(),
-                    tContrato: $('#tcontrato').val(),
-                },
-                success: function($result){
-                   
-                }
-            });*/
         }
     });
 });
