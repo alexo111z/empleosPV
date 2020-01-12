@@ -231,6 +231,8 @@ class AdminController extends Controller
 
         return view('admins.detalles.users', compact('user','paises','estados','municipios','userest','userarea','rtags','tags','estudios', 'areas'));
     }
+
+    //Empresas
     function detEmpresa($empresa){
         $emp = Empresa::findOrFail($empresa);
         $giros = Giro::all();
@@ -241,6 +243,15 @@ class AdminController extends Controller
 
         return view('admins.detalles.empresas', compact('emp' ,'estados', 'paices', 'municipios', 'giros', 'razones'));
     }
+    function deleteEmpresa($empresa){
+        $empresa = Empresa::findOrFail($empresa);
+        $ofertas= Oferta::where('id_emp','=', $empresa);
+        $ofertas->delete();
+        $empresa->delete();
+        return redirect()->route('admin.emp');
+    }
+
+    //Ofertas
     function detOferta($oferta){
         $oferta = Oferta::findOrFail($oferta);
         $tags = RelacionTag::where('id_oferta', '=', $oferta)->get();

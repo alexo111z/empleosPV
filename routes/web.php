@@ -46,7 +46,9 @@ Route::get('/administrator/registro/empresa', array('as'=>'admin.reg.emp','uses'
 Route::get('/administrator/registro/oferta/{empresa}', array('as'=>'admin.reg.ofr','uses'=>'AdminController@regOferta'));
 
 Route::get('/administrator/detalles/usuario/{usuario}', array('as'=>'admin.det.user','uses'=>'AdminController@detUser'));
+
 Route::get('/administrator/detalles/empresa/{empresa}', array('as'=>'admin.det.emp','uses'=>'AdminController@detEmpresa'));
+Route::post('/administrator/detalles/empresa/eliminar/{empresa}', array('as'=>'admin.delete.emp', 'uses'=>'AdminController@deleteEmpresa'));
 
 Route::get('/administrator/detalles/empresa2/{empresa}', array('as'=>'admin.det.emp2','uses'=>'AdminController@detEmpresa2')); //Eliminar con controlador y vistas
 

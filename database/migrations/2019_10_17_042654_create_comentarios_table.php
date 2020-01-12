@@ -20,7 +20,7 @@ class CreateComentariosTable extends Migration
             $table->foreign('id_usuario')->references('id')->on('users');
 
             $table->bigInteger('id_emp')->unsigned();
-            $table->foreign('id_emp')->references('id')->on('empresas');
+            $table->foreign('id_emp')->references('id')->on('empresas')->onDelete('cascade');
 
             $table->string('coment', 900);
 

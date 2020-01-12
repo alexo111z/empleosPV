@@ -35,6 +35,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Titulo</th>
                             <th scope="col">Lugar de la oferta</th>
+                            <th scope="col">Vigencia</th>
                             <th scope="col" colspan="2" class="actions text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -49,6 +50,25 @@
                                 <td scope="row">{{ $ofer->id }}</td>
                                 <td scope="row">{{ $ofer->titulo }}</td>
                                 <td scope="row">{{ $ofer->idciudad->municipio }}, {{$ofer->idestado->estado}}, {{$ofer->idpais->pais}}</td>
+                                <td scope="row">
+                                <div class="d-flex text-center">
+                                    @if(!$ofer->existe)
+                                        <div class="w-30 py-1 my-0 px-auto text-center alert alert-danger text-danger " role="alert">
+                                            <small>Eliminado</small>
+                                        </div>
+                                    @else
+                                        @if((Date::createFromFormat('Y-m-d H:i:s', $ofer->vigencia)->greaterThan(Carbon\Carbon::now())))
+                                            <div class="w-30 py-1 my-0 px-auto text-center alert alert-success text-success " role="alert">
+                                                <small>Vigente</small>
+                                            </div> 
+                                        @else
+                                            <div class="w-30 py-1 my-0 px-auto text-center alert alert-danger text-danger " role="alert">
+                                                <small>No Vigente</small>
+                                            </div>
+                                        @endif
+                                    @endif
+                                </div>
+                                </td>
                                 <td scope="row" class="actions">
                                     <a href="{{ route('admin.det.ofr', ['oferta'=>$ofer->id, $ofer->titulo]) }}">
                                         <button class="btn btn-primary">

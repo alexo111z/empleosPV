@@ -53,7 +53,7 @@ jQuery(document).ready(function(){
             } else {
                   msg = 'Uncaught Error.\n' + jqXHR.responseText;
             }
-            alert("Error al actualizar, intentelo más tarde: \n"+msg);
+            alert("Error al actualizar, intentelo más tarde");
             location.reload(true);
          }
       });

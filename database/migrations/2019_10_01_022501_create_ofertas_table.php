@@ -17,7 +17,7 @@ class CreateOfertasTable extends Migration
             $table->bigIncrements('id');
 
             $table->bigInteger('id_emp')->unsigned();
-            $table->foreign('id_emp')->references('id')->on('empresas');
+            $table->foreign('id_emp')->references('id')->on('empresas')->onDelete('cascade');
 
             $table->string('titulo', 70);
             $table->string('d_corta', 142);

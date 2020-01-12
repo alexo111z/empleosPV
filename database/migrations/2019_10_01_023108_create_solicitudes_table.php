@@ -17,7 +17,7 @@ class CreateSolicitudesTable extends Migration
             $table->bigIncrements('id');
 
             $table->bigInteger('id_oferta')->unsigned();
-            $table->foreign('id_oferta')->references('id')->on('ofertas');
+            $table->foreign('id_oferta')->references('id')->on('ofertas')->onDelete('cascade');
 
             $table->bigInteger('id_usuario')->unsigned();
             $table->foreign('id_usuario')->references('id')->on('users');
