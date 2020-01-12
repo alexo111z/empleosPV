@@ -251,29 +251,29 @@ class AdminController extends Controller
         return view('admins.detalles.ofertas', compact('paises','estados','ciudades','oferta','tags'));
     }
     function editOferta($oferta, Request $request){
-        $data = $request->validate([
-            'titulo' => ['nullable'],
-            'desCorta' => ['nullable'],
-            'salario' => ['nullable'],
-            'pais' => ['nullable'],
-            'estado' => ['nullable'],
-            'ciudad' => ['nullable'],
-            'desc' => ['nullable'],
-        ]);
+        $data = $request->all();
 
         $ofer = Oferta::findOrFail($oferta);
         $ofer->titulo = $data['titulo'];
         $ofer->d_corta = $data['desCorta'];
         $ofer->d_larga = $data['desc'];
         $ofer->salario = $data['salario'];
-        $ofer->t_contrato;
-        $ofer->vigencia;
+        //$ofer->t_contrato;
+        //$ofer->vigencia;
         $ofer->id_pais = $data['pais'];
         $ofer->id_estado = $data['estado'];
         $ofer->id_ciudad = $data['ciudad'];
         $ofer->save();
-
+        return redirect()->route('admin.det.ofr', compact('oferta') );
     }
+    function deleteOferta($oferta){
+        $oferta=Oferta::findOrFail($oferta);
+        $oferta->existe = false;
+        $oferta->save();
+
+        return redirect()->route('admin.emp.ofr', ['empresa'=>$oferta->id_emp] );
+    }
+
     function detEmpresa2($empresa, Request $request){
 
         $search = $request->get('search');

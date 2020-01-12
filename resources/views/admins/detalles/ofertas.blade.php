@@ -51,10 +51,6 @@
                 </div>
             </div>
 
-            <div class="col-md-12 mb-0 ml-0  text-right ">
-                <button id="BtnEditar" onclick="" type="button " class=" form-inline icon btn btn-light "><img src="{{asset('images/icon/edit.png')}}">Editar</button>
-            </div>
-
         </div>
 
         <div class="col-md-8 mx-auto divEditOferta">
@@ -168,32 +164,73 @@
                 </div>
             </div>
 
-            <div class="col-md-12 mb-0 ml-0  text-right ">
-                <button id="BtnCancelar" onclick="" type="button " class=" form-inline icon btn btn-light ">Cancelar</button>
-                <button id="BtnGuardar" data-href="{{ route('admin.edit.ofr', ['oferta'=>$oferta->id]) }}" type="button " class=" form-inline icon btn btn-light ">Guardar</button>
-            </div>
-
         </div>
 
-
-        <div class="col-md-3 my-3 mx-3">
+        <div class="col-md-3 my-3 px-auto mx-auto" style="min-width: 250px;">
+            <div class=" border rounded overflow-hidden text-center mx-auto mb-2 py-3">
+                <div class="text-center" >
+                    @if((Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->greaterThan(Carbon\Carbon::now())))
+                        <strong class="text-success ">Vigente hasta {{Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->format('d \d\e F \d\e Y')}}</strong>
+                    @else
+                        <strong class="text-danger">No Vigente, se venció el {{Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->format('d \d\e F \d\e Y')}}</strong>
+                    @endif
+                </div>
+            </div>
             <div class=" border rounded overflow-hidden text-center mx-auto py-3">
                 <div class="text-center mb-4" >
                     <small class="text-muted text-uppercase">Empresa que realizó la oferta:</small>
                 </div>
                 <div class="text-center mx-auto" >
-                    <img src="https://via.placeholder.com/200x200.png">
                     <h5 class="my-1 mx-3">{{ $oferta->empresa->nombre }}</h5>
+                </div>            
+            </div>
+            <div class=" border rounded overflow-hidden text-center mx-auto py-3">
+                <div class="text-center mb-4" >
+                    <small class="text-muted text-uppercase">Opciones:</small>
                 </div>
-            
-                {{-- revisar --}}
-                <form method="post" action="">
-                    <div class="col-sm-12 my-3 px-3 text-center">
-                        {{ csrf_field() }}
-                        <button type="submit" class="btn btn-postular btn-block "><h5>Editar</h5></button>
+                <div class="text-center mx-auto" >
+                        <div class="col-sm-12 my-3 mx-auto text-center mainButton">
+                            <button onclick="" id="BtnEditar" type="button" class="btn btn-postular btn-block "><h5>Editar oferta</h5></button>
+                        </div>
+
+                        <div class="col-sm-12 my-3 mx-auto text-center mainButton">
+                            {{ csrf_field() }}
+                            <button id="BtnEliminar" data-toggle="modal" data-target="#confirmdelete" type="button" class="btn btn-danger  btn-block "><h5>Eliminar oferta</h5></button>
+                        </div>
+
+                        <div class="col-sm-12 my-3 mx-auto text-center editButton">
+                            <button data-href="{{ route('admin.edit.ofr', ['oferta'=>$oferta->id]) }}" id="BtnGuardar" type="button" class="btn btn-postular btn-block "><h5>Guardar cambios</h5></button>
+                        </div>
+
+                        <div class="col-sm-12 my-3 mx-auto text-center editButton">
+                            <button type="button" id="BtnCancelar" class="btn btn-danger  btn-block "><h5>Cancelar edición</h5></button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="confirmdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> ¿Está seguro que desea eliminar esta oferta?</h5>
+                    <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span class="text-danger"><i class="fas fa-info-circle"></i>Se eliminará de forma definitiva, ya no aparecerá en su lista.</span>
+                </div>
+                <form id="deleteemp" action="{{ route('admin.delete.ofr', [$oferta->id]) }}" enctype="multipart/form-data" method="post">
+                    {{ csrf_field() }}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button  class="btn btn-danger" type="submit" ><i class="fa fa-trash" aria-hidden="true"></i> Eliminar oferta</button>  
                     </div>
                 </form>
-            
             </div>
         </div>
     </div>
