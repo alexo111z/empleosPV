@@ -16,6 +16,8 @@ use App\Giro;
 use App\RSocial;
 use App\RelacionTag;
 use App\Tag;
+use App\Comentario;
+use App\Calificacion;
 use Illuminate\Support\Facades\Hash;
 
 class EmpresaController extends Controller
@@ -219,10 +221,14 @@ class EmpresaController extends Controller
         }
     }
     function deleteemp(){
-        $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
+       /* $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
         $ofertas= Oferta::where('id_emp','=',auth()->guard('empresa')->user()->id);
+        $comentarios=Comentario::where('id_emp','=',auth()->guard('empresa')->user()->id);
+        $calificaciones=Calificacion::where('id_emp','=',auth()->guard('empresa')->user()->id);
+        $calificaciones->delete();
+        $comentarios->delete();
         $ofertas->delete();
-        $empresa->delete();
+        $empresa->delete();*/
          return redirect()->route('empresas.logout');
     }
     /*OFERTAS DE LA EMPRESA*/
