@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \Validator;
 use Carbon\Carbon;
 use App\Empresa;
 use App\Oferta;
@@ -249,6 +250,58 @@ class AdminController extends Controller
         $ofertas->delete();
         $empresa->delete();
         return redirect()->route('admin.emp');
+    }
+    function editDatos($empresa, Request $request){
+        $data = $request->all();
+        $empresa = Empresa::findOrFail($empresa);
+        $empresa->nombre = $data['nombre'];
+        $empresa->rfc = $data['rfc'];
+        $empresa->d_fiscal = $data['d_fiscal'];
+        $empresa->id_pais = $data['pais'];
+        $empresa->id_estado = $data['estado'];
+        $empresa->id_ciudad = $data['ciudad'];
+        $empresa->id_social = $data['rsocial'];
+        $empresa->id_giro = $data['giro'];
+        $empresa->save();
+        return redirect()->route('admin.det.emp', $empresa);
+    }
+    function editContacto($empresa, Request $request){
+        $data = $request->all();
+        $empresa = Empresa::findOrFail($empresa);
+        $empresa->contacto = $data['contacto'];
+        $empresa->telefono = $data['telefono'];
+        $empresa->save();
+        return redirect()->route('admin.det.emp', $empresa);
+    }
+    function logoEmpresa($id, Request $request){
+        $validator = Validator::make($request->all(),[
+            "foto" => " required|mimes:jpg,jpeg,png"
+        ]);
+        if ($validator->fails()) {
+            return back()
+            ->withErrors(['errorfoto' => 'El logo debe ser imagen jpg,jpeg o png.'])
+            ->withInput(request(['errorfoto']));
+        }else{
+            //obtenemos el campo file definido en el formulario
+            $file =  $request->file('foto');
+            $empresa = Empresa::findOrFail($id);
+            //obtenemos el nombre del archivo
+            $nombre = "Logo_".$id.".jpg";
+            $url="logos/".$nombre;
+            \Storage::disk('public')->delete("logos/".$empresa->logo);
+            //indicamos que queremos guardar un nuevo archivo en el disco local
+            \Storage::disk('public')->put($url,\File::get($file));
+            $empresa->logo= $nombre;
+            $empresa->save();
+            return redirect()->route('admin.det.emp', $id);
+        }
+    }
+    public function borrarLogo($id){
+        $empresa = Empresa::findOrFail($id);
+        \Storage::disk('public')->delete("logos/".$empresa->logo);
+         $empresa->logo=null;
+         $empresa->save();
+        return redirect()->route('admin.det.emp', $id);
     }
 
     //Ofertas

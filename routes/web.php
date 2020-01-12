@@ -49,6 +49,10 @@ Route::get('/administrator/detalles/usuario/{usuario}', array('as'=>'admin.det.u
 
 Route::get('/administrator/detalles/empresa/{empresa}', array('as'=>'admin.det.emp','uses'=>'AdminController@detEmpresa'));
 Route::post('/administrator/detalles/empresa/eliminar/{empresa}', array('as'=>'admin.delete.emp', 'uses'=>'AdminController@deleteEmpresa'));
+Route::post('/administrator/detalles/empresa/datos/{empresa}', array('as'=>'admin.datos.emp', 'uses'=>'AdminController@editDatos'));
+Route::post('/administrator/detalles/empresa/contacto/{empresa}', array('as'=>'admin.contacto.emp', 'uses'=>'AdminController@editContacto'));
+Route::post('/administrator/detalles/empresa/uplogo/{empresa}', array('as'=>'admin.logo.emp', 'uses'=>'AdminController@logoEmpresa'));
+Route::post('/administrator/detalles/empresa/downlogo/{empresa}', array('as'=>'admin.dlogo.emp', 'uses'=>'AdminController@borrarLogo'));
 
 Route::get('/administrator/detalles/empresa2/{empresa}', array('as'=>'admin.det.emp2','uses'=>'AdminController@detEmpresa2')); //Eliminar con controlador y vistas
 
