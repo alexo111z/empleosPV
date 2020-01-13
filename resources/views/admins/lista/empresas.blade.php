@@ -34,7 +34,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Otro dato</th>
+                            <th scope="col">Correo electrónico</th>
                             <th scope="col" colspan="2" class="actions text-center">Acciones</th>
                         </tr>
                     </thead>

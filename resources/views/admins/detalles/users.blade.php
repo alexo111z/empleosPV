@@ -314,6 +314,18 @@
                                 
                             </div>
                         </div>
+
+                        <div class="no-gutters mt-4 border rounded overflow-hidden flex-md-row shadow-sm h-md-250" novalidate>
+                            <h4 class=" ml-4  mt-3 mb-4 ">Opciones de cuenta</h4>
+                            
+                            <div class="mr-4 ml-4 mb-5">
+                                <div id="divBaja">
+                                    <button data-toggle="modal" data-target="#confirmbaja" id="btnBaja" type="button" class="btn btn-outline-danger"><i class="fa fa-trash" aria-hidden="true"></i> Dar de baja esta cuenta</button><br>
+                                    <span class="text-danger col-sm-12 pl-0"><i class="fa fa-info-circle" aria-hidden="true"></i> Esta opción le permite dar de baja la cuenta, sin embargo una vez dada de baja ya no sera posible ingresar a esta.</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -368,6 +380,30 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button id="btnFoto" class="btn btn-info" type="submit" ><i class="fa fa-trash" aria-hidden="true"></i> Eliminar foto</button>  
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{--  MODAL  --}}
+    <div class="modal fade" id="confirmbaja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> ¿Esta seguro que desea dar de baja esta cuenta?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span class="text-danger"><i class="fas fa-info-circle"></i>Una vez que se da de baja la cuenta ya no sera posible ingresar a está.</span>
+                </div>
+                <form id="deleteemp" action="{{ route('admin.del.user', $user->id) }}" enctype="multipart/form-data" method="post">
+                    {{ csrf_field() }}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button  class="btn btn-danger" type="submit" ><i class="fa fa-trash" aria-hidden="true"></i> Dar de baja</button>  
                     </div>
                 </form>
             </div>

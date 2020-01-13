@@ -30,6 +30,15 @@
                             <input type="password" class="form-control" id="password2" name="password2" required>
                         </div>
                     </div>
+                    
+                    <hr class="mb-1">
+                    <div class="tipo col-md-6 mb-3">
+                        <label for="tipo">Permisos</label>
+                        <select name="tipo" id="tipo" class="form-control">
+                            <option value="0">Administrador</option>
+                            <option value="1">Super Administrador</option>
+                        </select>
+                    </div>
                </div>
 
                 <hr class="mb-1">

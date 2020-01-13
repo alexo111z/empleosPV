@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \Validator;
 use Carbon\Carbon;
+use Hash;
+use Auth;
 use App\Empresa;
 use App\Oferta;
 use App\User;
@@ -83,6 +85,7 @@ class AdminController extends Controller
             "email" => ['required', 'email', 'unique:users,email'],
             "password" => ['required', 'same:password2'],
             "password2" => 'required',
+            "tipo"=> 'required',
             "firstName" => ['required', 'string'],
             "lastName" => ['required', 'string'],
         ],[]);
@@ -92,6 +95,7 @@ class AdminController extends Controller
             "password" =>  bcrypt($data['password']),
             "nombre" => $data['firstName'],
             "apellido" => $data['lastName'],
+            "tipo" => $data['tipo'],
         ]);
 
         return redirect()->route('admin.admins');
@@ -347,6 +351,11 @@ class AdminController extends Controller
          $user->save();
          return redirect()->route('admin.det.user', $id);
     }
+    function deleteUser($id){
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('admin.users');
+    }
 
     //Empresas
     function detEmpresa($empresa){
@@ -451,6 +460,56 @@ class AdminController extends Controller
         $oferta->save();
 
         return redirect()->route('admin.emp.ofr', ['empresa'=>$oferta->id_emp] );
+    }
+
+    //Administradores
+    function detAdmin($id){
+        $admin = Admin::findOrFail($id);
+        return view('admins.detalles.admin', compact('admin'));
+    }
+    function editAdmin($id, Request $request){
+        $data = $request->all();
+        $admin = Admin::findOrFail($id);
+        $admin->nombre = $data['name'];
+        $admin->apellido = $data['apellido'];
+        $admin->tipo = $data['tipo'];
+        $admin->save();
+        return redirect()->route('admin.det.admin', $id);
+    }
+    function deleteAdmin($id){
+        $admin = Admin::findOrFail($id);
+        $admin->delete();
+        return redirect()->route('admin.admins');
+    }
+    function adminPassword(Request $request){
+        $data = $request->all();
+
+        $v = Validator::make($data,
+        [
+            "password" => ['required'],
+            "nueva" => ['required', 'min:5', 'max:8', 'same:nueva2'],
+            "nueva2" => 'required',
+        ],[
+            'password.required' => 'Existe un campo vacio.',
+            'nueva.required' => 'Existe un campo vacio.',
+            'nueva2.required' => 'Existe un campo vacio.',
+            'nueva.min' => 'La nueva contrseña debe tener un mínimo de 5 caracteres.',
+            'nueva.max' => 'La nueva contrseña debe tener un máximo de 5 caracteres.',
+            'nueva.same' => 'Las contraseñas no coinciden.',
+        ]);
+        
+        if($v->fails()){
+            return back()->withErrors($v);
+        }
+
+        if (Hash::check($data['password'], Auth::guard('admin')->user()->password)){
+            $adm = Admin::findOrFail(Auth::guard('admin')->user()->id);
+            $adm->password = Hash::make($data['nueva']);
+            $adm->save();
+        }else{
+            return back()->with('message', 'La contraseña introducida no es correcta.');
+        }
+
     }
 
     function detEmpresa2($empresa, Request $request){  //eliminar

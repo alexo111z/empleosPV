@@ -34,7 +34,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Titulo</th>
-                            <th scope="col">Lugar de la oferta</th>
+                            <th scope="col">Localidad de la oferta</th>
                             <th scope="col">Vigencia</th>
                             <th scope="col" colspan="2" class="actions text-center">Acciones</th>
                         </tr>
@@ -77,12 +77,12 @@
                                         </button>
                                     </a>
                                 </td>
-                                <td scope="row" class="actions">
+                                {{--<td scope="row" class="actions">
                                     <button class="btn btn-primary">
                                         Otros
                                         <i class="fa fa-archive"></i>    
                                     </button>
-                                </td>
+                                </td>--}}
                             </tr>    
                         @endforeach
                     </tbody>

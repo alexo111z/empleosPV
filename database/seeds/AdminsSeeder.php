@@ -17,6 +17,7 @@ class AdminsSeeder extends Seeder
             'password' => bcrypt('admin'),
             'nombre' => 'Administrador',
             'apellido' => 'Firsto',
+            'tipo' => true,
         ]);
     }
 }

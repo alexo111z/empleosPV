@@ -55,6 +55,7 @@ Route::post('/administrator/detalles/usuario/delTag/{usuario}', array('as'=>'adm
 Route::post('/administrator/detalles/usuario/upfoto/{usuario}', array('as'=>'admin.foto.user', 'uses'=>'AdminController@fotoPerfil'));
 Route::post('/administrator/detalles/usuario/downfoto/{usuario}', array('as'=>'admin.dfoto.user', 'uses'=>'AdminController@borrarFoto'));
 Route::get('/administrator/detalles/usuario/downCV/{usuario}', array('as'=>'admin.dCV.user', 'uses'=>'AdminController@borrarCV'));
+Route::post('/administrator/detalles/usuario/eliminar/{usuario}', array('as'=>'admin.del.user', 'uses'=>'AdminController@deleteUser'));
 
 Route::get('/administrator/detalles/empresa/{empresa}', array('as'=>'admin.det.emp','uses'=>'AdminController@detEmpresa'));
 Route::post('/administrator/detalles/empresa/eliminar/{empresa}', array('as'=>'admin.delete.emp', 'uses'=>'AdminController@deleteEmpresa'));
@@ -68,6 +69,11 @@ Route::get('/administrator/detalles/empresa2/{empresa}', array('as'=>'admin.det.
 Route::get('/administrator/detalles/oferta/{oferta}', array('as'=>'admin.det.ofr','uses'=>'AdminController@detOferta'));
 Route::post('/administrator/detalles/oferta/{oferta}', array('as'=>'admin.edit.ofr','uses'=>'AdminController@editOferta'));
 Route::post('/administrator/detalles/oferta/eliminar/{oferta}', array('as'=>'admin.delete.ofr','uses'=>'AdminController@deleteOferta'));
+
+Route::get('/administrator/detalles/administrador/{admin}', array('as'=>'admin.det.admin','uses'=>'AdminController@detAdmin'));
+Route::post('/administrator/detalles/administrador/{admin}', array('as'=>'admin.edit.admin','uses'=>'AdminController@editAdmin'));
+Route::post('/administrator/password/cambio', array('as'=>'admin.pass.admin','uses'=>'AdminController@adminPassword'));
+Route::post('/administrator/eliminar/administrador/{admin}', array('as'=>'admin.del.admin','uses'=>'AdminController@deleteAdmin'));
 
 Route::post('/administrator/create/empresa', array('as'=>'admin.c.emp','uses'=>'AdminController@createEmpresa'));
 Route::post('/administrator/create/usuario', array('as'=>'admin.c.user','uses'=>'AdminController@createUser'));

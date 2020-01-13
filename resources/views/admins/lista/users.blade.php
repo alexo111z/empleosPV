@@ -57,12 +57,12 @@
                                     </button>
                                     {!! Form::close() !!}
                                 </td>
-                                <td scope="row" class="actions">
+                                {{--<td scope="row" class="actions">
                                     <button class="btn btn-primary">
                                         Otros
                                         <i class="fa fa-archive"></i>    
                                     </button>
-                                </td>
+                                </td>--}}
                             </tr>
                         @endforeach
                     </tbody>
