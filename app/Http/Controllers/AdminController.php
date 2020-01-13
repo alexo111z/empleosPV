@@ -18,6 +18,8 @@ use App\Giro;
 use App\RSocial;
 use App\RelacionTag;
 use App\Tag;
+use App\Calificacion;
+use App\Comentario;
 
 
 
@@ -217,7 +219,8 @@ class AdminController extends Controller
         return redirect()->route('admin.emp.ofr', $empresa);
     }
 
-    //Detalles
+    /****  Detalles ****/
+    //Usuarios
     function detUser($usuario){
         $user = User::findOrFail($usuario);
         $paises = Pais::all();
@@ -229,8 +232,120 @@ class AdminController extends Controller
         $areas = Area::all();
         $userest=NEstudio::findOrFail($user->id_estudios);
         $userarea=Area::findOrFail($user->id_area);
+        $cal=Calificacion::where('id_usuario', '=', $user->id)->avg('califi');
+        $comentarios= Comentario::join('empresas','empresas.id','=','comentarios.id_emp')
+        ->join('calificaciones','calificaciones.id_emp','=','empresas.id')
+        ->where('comentarios.id_usuario', '=', $user->id)
+        ->where('calificaciones.id_usuario', '=', $user->id)
+        ->get();
 
-        return view('admins.detalles.users', compact('user','paises','estados','municipios','userest','userarea','rtags','tags','estudios', 'areas'));
+        return view('admins.detalles.users', compact('user','comentarios','cal','paises','estados','municipios','userest','userarea','rtags','tags','estudios', 'areas'));
+    }
+    function editUPersonal($id, Request $request){
+        $data = $this->validate(request(), [
+            'nombre' => 'required', 
+            'apellido' => 'required',
+        ],[
+            'nombre.required' => 'El campo nombre esta vacio, favor de llenarlo correctamente',
+            'apellido.required' => 'El campo apellido esta vacio, favor de llenarlo correctamente',
+        ]);
+        $data = $request->all();
+        $user = User::findOrFail($id);
+        $date1 = Carbon::createFromDate($data['nacimiento']);
+        $ahora = Carbon::now();
+        $edad = $date1->diffInYears($ahora);
+        $user->nombre = $data['nombre'];
+        $user->apellido = $data['apellido'];
+        $user->nacimiento = $data['nacimiento'];
+        $user->genero = $data['sexo'];
+        $user->edad = $edad;
+        if($data['pais']!=null && $data['estado']!=null && $data['ciudad']!='null'){
+            $user->id_pais= $data['pais'];
+            $user->id_estado= $data['estado'];
+            $user->id_ciudad= $data['ciudad'];
+        }
+        $user->save();
+        return back()
+        ->withErrors(['error' => 'Por favor introduce tu información correctamente.'])
+        ->withInput(request(['error']));
+    }
+    function editUContacto($id, Request $request){
+        $data = request()->all();
+        $user = User::findOrFail($id);
+        $user->telefono=$data['telefono'];
+        $user->save();
+    }
+    function editUNyA($id, Request $request){
+        $data = request()->all();
+        $user = User::findOrFail($id);
+        $user->id_estudios=$data['nivel'];
+        $user->id_area=$data['area'];
+        $user->save();
+    }
+    function editUConoc($id, Request $request){
+        $data = request()->all();
+        $user = User::findOrFail($id);
+        $user->conocimientos=$data['conocimientos'];
+        $user->save();
+    }
+    function addUTag($id, Request $request){
+        if((RelacionTag::where('id_usuario',$id)->count())<10){
+            $data = $request->all();
+            $idTag =Tag::where('nombre', $data['nombre'])->value('id');
+            if( $idTag ==null){
+                Tag::create(['nombre' => $data['nombre'],]);
+                $idTag =Tag::where('nombre', $data['nombre'])->value('id');
+            }
+            $rtags = RelacionTag::where([['id_usuario', $id], ['id_tag',$idTag],])->value('id');
+            if($rtags==null){
+                RelacionTag::create(['id_usuario' => $id,'id_tag' => $idTag,]);
+            }
+            return 1;
+        }else{
+            return 0;
+        }  
+    }
+    function delUTag($id, Request $request){
+        $data = $request->all();
+        $tag = RelacionTag::where('id', $data['id']);
+        $tag->delete();
+    }
+    function fotoPerfil($id, Request $request){
+        $validator = Validator::make($request->all(),[
+            "foto" => " required|mimes:jpg,jpeg,png"
+        ]);
+        if ($validator->fails()) {
+            return back()
+            ->withErrors(['errorfoto' => 'La foto de perfil debe ser imagen jpg,jpeg o png.'])
+            ->withInput(request(['errorfoto']));
+        }else{
+            //obtenemos el campo file definido en el formulario
+            $file =  $request->file('foto');
+            $user = User::findOrFail($id);
+            //obtenemos el nombre del archivo
+            $nombre = "FotoPerfil_".$id.".jpg";
+            $url="fotos/".$nombre;
+            \Storage::disk('public')->delete("fotos/".$user->foto);
+            //indicamos que queremos guardar un nuevo archivo en el disco local
+            \Storage::disk('public')->put($url,\File::get($file));
+            $user->foto= $nombre;
+            $user->save();
+            return redirect()->route('admin.det.user', $id);
+        }
+    }
+    function borrarFoto($id){
+        $user = User::findOrFail($id);
+        \Storage::disk('public')->delete("fotos/".$user->foto);
+         $user->foto=null;
+         $user->save();
+         return redirect()->route('admin.det.user', $id);
+    }
+    function borrarCV($id){
+        $user = User::findOrFail($id);
+        \Storage::disk('public')->delete($user->curriculum);
+         $user->curriculum=null;
+         $user->save();
+         return redirect()->route('admin.det.user', $id);
     }
 
     //Empresas
@@ -338,7 +453,7 @@ class AdminController extends Controller
         return redirect()->route('admin.emp.ofr', ['empresa'=>$oferta->id_emp] );
     }
 
-    function detEmpresa2($empresa, Request $request){
+    function detEmpresa2($empresa, Request $request){  //eliminar
 
         $search = $request->get('search');
         if ($search == '' or $search == null or !$search) {
