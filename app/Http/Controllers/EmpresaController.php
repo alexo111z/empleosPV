@@ -18,6 +18,7 @@ use App\RelacionTag;
 use App\Tag;
 use App\Comentario;
 use App\Calificacion;
+use App\User;
 use Illuminate\Support\Facades\Hash;
 
 class EmpresaController extends Controller
@@ -221,14 +222,8 @@ class EmpresaController extends Controller
         }
     }
     function deleteemp(){
-       /* $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
-        $ofertas= Oferta::where('id_emp','=',auth()->guard('empresa')->user()->id);
-        $comentarios=Comentario::where('id_emp','=',auth()->guard('empresa')->user()->id);
-        $calificaciones=Calificacion::where('id_emp','=',auth()->guard('empresa')->user()->id);
-        $calificaciones->delete();
-        $comentarios->delete();
-        $ofertas->delete();
-        $empresa->delete();*/
+       $empresa = Empresa::findOrFail(auth()->guard('empresa')->user()->id);
+       $empresa->delete();
          return redirect()->route('empresas.logout');
     }
     /*OFERTAS DE LA EMPRESA*/
@@ -365,6 +360,29 @@ class EmpresaController extends Controller
         $data = request()->all();
         $tag = RelacionTag::where('id', $data['id']);
         $tag->delete();
+    }
+    public function verperfil($alias){
+        $user=User::where('alias','=',$alias)->first();
+        $paises = Pais::all();
+        $estados = Estado::all();
+        $municipios = municipio::all();
+        $rtags = RelacionTag::where('id_usuario', '=', $user->id)->get();
+        $tags = Tag::all();
+        $estudios = NEstudio::all();
+        $areas = Area::all();
+        $userest=NEstudio::findOrFail($user->id_estudios);
+        $userarea=Area::findOrFail($user->id_area);
+        $cal=Calificacion::where('id_usuario', '=', $user->id)->avg('califi');
+        $comentarios= Comentario::join('empresas','empresas.id','=','comentarios.id_emp')
+        ->join('calificaciones','calificaciones.id_emp','=','empresas.id')
+        ->where('comentarios.id_usuario', '=', $user->id)
+        ->where('calificaciones.id_usuario', '=', $user->id)
+        ->get();
+        return view('empresas.usuarios.perfil',compact('user','cal','comentarios','cal','paises','estados','municipios','userest','userarea','rtags','tags','estudios', 'areas'));
+    }
+    function DescargarCv($alias){
+        $user=User::where('alias','=',$alias)->first();
+        return \Storage::disk('public')->download($user->curriculum);
     }
 }
 /*

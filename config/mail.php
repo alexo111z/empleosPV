@@ -1,7 +1,7 @@
 <?php
 
 return [
-    "driver" => "log",
+    "driver" => "smtp",
     "host" => "smtp.mailtrap.io",
     "port" => 2525,
     "from" => array(

@@ -17,7 +17,7 @@ class CreateRelacionTagsTable extends Migration
             $table->bigIncrements('id');
 
             $table->bigInteger('id_usuario')->nullable()->unsigned();
-            $table->foreign('id_usuario')->references('id')->on('users');
+            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');;
 
             $table->bigInteger('id_oferta')->nullable()->unsigned();
             $table->foreign('id_oferta')->references('id')->on('ofertas')->onDelete('cascade');

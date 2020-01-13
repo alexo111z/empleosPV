@@ -105,6 +105,8 @@ Route::get('/borrarCV','UserController@borrarCV')->name('borrarCV');
 Route::get('/descargar/curriculums/{file}', function($file){
     return \Storage::disk('public')->download("/curriculums/$file");
 });
+Route::get('/usuarios/curriculums/{alias}','EmpresaController@DescargarCv')->name('empresas.usuariosCv');
+
 Route::post('/subirFoto','UserController@subirFoto')->name('subirFoto');
 Route::get('/perfil/fotos/{file}', function($file){
     return \Storage::disk('public')->response("/fotos/$file");
@@ -172,7 +174,17 @@ Route::post('/empresas/delete/{id}', 'EmpresaController@deleteOferta')->name('em
 Route::post('/empresas/editar/oferta/{id}', array('as'=>'empresas.editOferta','uses'=>'EmpresaController@editOferta'));
 Route::post('/empresas/oferta/createtag/{id}', array('as'=>'emp.oferta.createtags','uses'=>'EmpresaController@InsertTag'));
 Route::post('/empresas/deletetags','EmpresaController@destroyTag')->name('emp.tags.destroy');
+
+Route::get('/email-vista', array('as' => 'home','uses'=> function () {
+    //return "Index";
+    return view('email');
+}));
 //Route::get('/empresas/registro/oferta', array('as'=>'nueva-oferta','uses'=>'EmpresaController@regOferta'));
+
+/*ver usuarios*/
+Route::get('/usuarios/perfil/{alias}','EmpresaController@verperfil')->name('empresas.perfilusuario');
+
+
 /* ---------FIN RUTAS DE Empresas------- */
 
 //Logout
