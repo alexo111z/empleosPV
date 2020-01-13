@@ -502,6 +502,10 @@ class AdminController extends Controller
             return back()->withErrors($v);
         }
 
+        if(Hash::check($data['nueva'], Auth::guard('admin')->user()->password)){
+            return back()->with('message', 'La nueva contraseña debe ser distinta a tu contraseña actual.');
+        }
+
         if (Hash::check($data['password'], Auth::guard('admin')->user()->password)){
             $adm = Admin::findOrFail(Auth::guard('admin')->user()->id);
             $adm->password = Hash::make($data['nueva']);
