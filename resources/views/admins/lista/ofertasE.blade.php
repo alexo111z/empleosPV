@@ -6,9 +6,9 @@
         
         <div class="conten col-md-10 ">
                 <div class="title">
-                        <h2>Ofertas de {{ $ofertas[0]->empresa->nombre }}</h2>
+                        <h2>Ofertas de {{ $emp->nombre }}</h2>
                 </div>
-                {!! Form::open(array('route'=>array('admin.emp.ofr', $ofertas[0]->empresa->id),'method'=>'GET', 'id'=>'buscador')) !!}
+                {!! Form::open(array('route'=>array('admin.emp.ofr', $emp->id),'method'=>'GET', 'id'=>'buscador')) !!}
                 <div class="buscador">
                     <div class="div-buscador  flex-md-nowrap mt-6">
                         <div class="row div-search input-group search-group text-center pt-2 w-50 mb-1">
@@ -21,7 +21,7 @@
                 </div>
                 {!! Form::close() !!}
                 <div class="componet">
-                    <a href="{{ route('admin.reg.ofr', ['empresa' => $ofertas[0]->empresa->id, $ofertas[0]->empresa->nombre]) }}">
+                    <a href="{{ route('admin.reg.ofr', ['empresa' => $emp->id, $emp->nombre]) }}">
                         <button class="btn btn-primary add">
                             Crear oferta    
                             <i class="fa fa-plus"></i>

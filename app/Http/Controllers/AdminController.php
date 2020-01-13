@@ -62,8 +62,8 @@ class AdminController extends Controller
         }else{
             $ofertas = Oferta::where('id_emp',$empresa)->where('titulo','LIKE', '%'.$search.'%')->paginate(10);
         }
-        $title = Empresa::select('Nombre')->find($empresa);
-        return view('admins.lista.ofertasE', compact('ofertas','title'));
+        $emp = Empresa::findOrFail($empresa);
+        return view('admins.lista.ofertasE', compact('ofertas','emp'));
     }
 
     function administradores(Request $request){
