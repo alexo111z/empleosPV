@@ -15,6 +15,7 @@ use App\Estado;
 use App\Municipio;
 use App\Tag;
 use App\Empresa;
+use Mail; //Importante incluir la clase Mail, que será la encargada del envío
 
 class OfertasController extends Controller
 {
@@ -50,10 +51,21 @@ class OfertasController extends Controller
     }
     function solicitar($id){
         $oferta = Oferta::findOrFail($id);
+        $empresa= Empresa::findOrFail($oferta->id_emp);
         Solicitud::create([
             'id_oferta' => $id,
             'id_usuario' =>  auth()->user()->id,
         ]);
+        $subject = "Solicitud para el empleo: " . $oferta->titulo;
+        $for = $empresa->email;
+        $mensaje=[];
+        $mensaje['name']= 'elodia Wolff';
+        $mensaje['msg'] = 'Hola como estas';
+        Mail::send('email',$mensaje, function($msj) use($subject,$for){
+            $msj->from("administracion@pvwork.com.mx","Administración de PV WORK");
+            $msj->subject($subject);
+            $msj->to($for);
+        });
         return redirect()->back();
     }
 

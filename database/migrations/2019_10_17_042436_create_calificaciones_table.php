@@ -17,7 +17,7 @@ class CreateCalificacionesTable extends Migration
             $table->bigIncrements('id');
 
             $table->bigInteger('id_usuario')->nullable()->unsigned();
-            $table->foreign('id_usuario')->references('id')->on('users');
+            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');;
 
             $table->bigInteger('id_emp')->unsigned();
             $table->foreign('id_emp')->references('id')->on('empresas')->onDelete('cascade');
