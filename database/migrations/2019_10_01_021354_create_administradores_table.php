@@ -19,6 +19,7 @@ class CreateAdministradoresTable extends Migration
             $table->string('password');
             $table->string('nombre', 50);
             $table->string('apellido', 50);
+            $table->boolean('tipo');
 
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

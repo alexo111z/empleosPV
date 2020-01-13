@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div id="Datos2">
-                    <form id="form-Datos"  method="post" action="{{ route('empresas.datos') }}">
+                    <form id="form-Datos"  method="post" action="{{ route('admin.datos.emp', $emp->id) }}"> {{--here--}}
                     {{ csrf_field() }}
                         <h6 class="text-uppercase ml-3">Modificar datos de mi empresa</h6>
                         <div class="ml-4 mb-2">   
@@ -154,7 +154,7 @@
                             </div>
                         </div>
                         <div id="DivContacto2" class="col-sm-12 ml-3">
-                        <form id="form-Contacto"  method="post" action="{{ route('empresas.contacto') }}">
+                        <form id="form-Contacto"  method="post" action="{{ route('admin.contacto.emp', $emp->id) }}"> {{--here to--}}
                         {{ csrf_field() }}
                             <span class="text-muted mt-2">Nombre de Contacto</span>
                             <input type="text" class="form-control col-sm-6 mt-2" id="contacto" name="contacto" placeholder="" value="{{ $emp->contacto }}" required>
@@ -208,7 +208,7 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="subirFoto" action="{{route('subirLogo')}}" enctype="multipart/form-data" method="post">
+            <form id="subirFoto" action="{{route('admin.logo.emp', $emp->id)}}" enctype="multipart/form-data" method="post">
                     {{ csrf_field() }}
             <div class="modal-body">
                     <img id="modal-foto" class="foto-perfil" src="{{ route('empresas.logo',['file'=>'empresa.png']) }}">
@@ -235,7 +235,7 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="subirFoto" action="{{route('borrarlogo')}}" enctype="multipart/form-data" method="post">
+            <form id="subirFoto" action="{{route('admin.dlogo.emp', $emp->id)}}" enctype="multipart/form-data" method="post">
                 {{ csrf_field() }}
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

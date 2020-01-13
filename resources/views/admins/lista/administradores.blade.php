@@ -50,17 +50,19 @@
                                 <td scope="row">{{ $adm->nombre }} {{ $adm->apellido }}</td>
                                 <td scope="row">{{ $adm->email }}</td>
                                 <td scope="row" class="actions">
-                                    <button class="btn btn-primary">
-                                        Detalles
-                                        <i class="fa fa-user"></i> 
-                                    </button>
+                                    <a href="{{ route('admin.det.admin', ['admin'=>$adm->id]) }}">
+                                        <button class="btn btn-primary">
+                                            Detalles
+                                            <i class="fa fa-user"></i> 
+                                        </button>
+                                    </a>
                                 </td>
-                                <td scope="row" class="actions">
+                                {{--<td scope="row" class="actions">
                                     <button class="btn btn-primary">
                                         Otros
                                         <i class="fa fa-archive"></i>    
                                     </button>
-                                </td>
+                                </td>--}}
                             </tr>
                         @endforeach
                     </tbody>

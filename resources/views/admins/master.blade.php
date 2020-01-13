@@ -19,9 +19,11 @@
 </head>
 <body class="mt-6">
 
-@include('admins.header')
+@auth
+    @include('admins.header')
+    @yield('header-admin')
+@endauth
 
-@yield('header-admin')
 
 @yield('body')
 

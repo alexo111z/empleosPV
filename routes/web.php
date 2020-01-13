@@ -46,15 +46,34 @@ Route::get('/administrator/registro/empresa', array('as'=>'admin.reg.emp','uses'
 Route::get('/administrator/registro/oferta/{empresa}', array('as'=>'admin.reg.ofr','uses'=>'AdminController@regOferta'));
 
 Route::get('/administrator/detalles/usuario/{usuario}', array('as'=>'admin.det.user','uses'=>'AdminController@detUser'));
+Route::post('/administrator/detalles/usuario/personal/{usuario}', array('as'=>'admin.personal.user','uses'=>'AdminController@editUPersonal'));
+Route::post('/administrator/detalles/usuario/contacto/{usuario}', array('as'=>'admin.contacto.user','uses'=>'AdminController@editUContacto'));
+Route::post('/administrator/detalles/usuario/nya/{usuario}', array('as'=>'admin.nya.user','uses'=>'AdminController@editUNyA'));
+Route::post('/administrator/detalles/usuario/conocimientos/{usuario}', array('as'=>'admin.conocimientos.user','uses'=>'AdminController@editUConoc'));
+Route::post('/administrator/detalles/usuario/addTag/{usuario}', array('as'=>'admin.addtag.user','uses'=>'AdminController@addUTag'));
+Route::post('/administrator/detalles/usuario/delTag/{usuario}', array('as'=>'admin.deltag.user','uses'=>'AdminController@delUTag'));
+Route::post('/administrator/detalles/usuario/upfoto/{usuario}', array('as'=>'admin.foto.user', 'uses'=>'AdminController@fotoPerfil'));
+Route::post('/administrator/detalles/usuario/downfoto/{usuario}', array('as'=>'admin.dfoto.user', 'uses'=>'AdminController@borrarFoto'));
+Route::get('/administrator/detalles/usuario/downCV/{usuario}', array('as'=>'admin.dCV.user', 'uses'=>'AdminController@borrarCV'));
+Route::post('/administrator/detalles/usuario/eliminar/{usuario}', array('as'=>'admin.del.user', 'uses'=>'AdminController@deleteUser'));
 
 Route::get('/administrator/detalles/empresa/{empresa}', array('as'=>'admin.det.emp','uses'=>'AdminController@detEmpresa'));
 Route::post('/administrator/detalles/empresa/eliminar/{empresa}', array('as'=>'admin.delete.emp', 'uses'=>'AdminController@deleteEmpresa'));
+Route::post('/administrator/detalles/empresa/datos/{empresa}', array('as'=>'admin.datos.emp', 'uses'=>'AdminController@editDatos'));
+Route::post('/administrator/detalles/empresa/contacto/{empresa}', array('as'=>'admin.contacto.emp', 'uses'=>'AdminController@editContacto'));
+Route::post('/administrator/detalles/empresa/uplogo/{empresa}', array('as'=>'admin.logo.emp', 'uses'=>'AdminController@logoEmpresa'));
+Route::post('/administrator/detalles/empresa/downlogo/{empresa}', array('as'=>'admin.dlogo.emp', 'uses'=>'AdminController@borrarLogo'));
 
 Route::get('/administrator/detalles/empresa2/{empresa}', array('as'=>'admin.det.emp2','uses'=>'AdminController@detEmpresa2')); //Eliminar con controlador y vistas
 
 Route::get('/administrator/detalles/oferta/{oferta}', array('as'=>'admin.det.ofr','uses'=>'AdminController@detOferta'));
 Route::post('/administrator/detalles/oferta/{oferta}', array('as'=>'admin.edit.ofr','uses'=>'AdminController@editOferta'));
 Route::post('/administrator/detalles/oferta/eliminar/{oferta}', array('as'=>'admin.delete.ofr','uses'=>'AdminController@deleteOferta'));
+
+Route::get('/administrator/detalles/administrador/{admin}', array('as'=>'admin.det.admin','uses'=>'AdminController@detAdmin'));
+Route::post('/administrator/detalles/administrador/{admin}', array('as'=>'admin.edit.admin','uses'=>'AdminController@editAdmin'));
+Route::post('/administrator/password/cambio', array('as'=>'admin.pass.admin','uses'=>'AdminController@adminPassword'));
+Route::post('/administrator/eliminar/administrador/{admin}', array('as'=>'admin.del.admin','uses'=>'AdminController@deleteAdmin'));
 
 Route::post('/administrator/create/empresa', array('as'=>'admin.c.emp','uses'=>'AdminController@createEmpresa'));
 Route::post('/administrator/create/usuario', array('as'=>'admin.c.user','uses'=>'AdminController@createUser'));

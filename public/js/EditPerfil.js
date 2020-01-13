@@ -85,7 +85,7 @@ jQuery(document).ready(function(){
                $('#infopersonal2').hide();
             },
             error: function($result){
-               alert("Eror al actualizar, intentelo más tarde");
+               alert("Error al actualizar, intentelo más tarde");
                $('#infopersonal').load(' #infopersonal');
                $('#infopersonal').show();
                $('#infopersonal2').hide();
