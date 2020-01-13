@@ -58,9 +58,10 @@ class OfertasController extends Controller
         ]);
         $subject = "Solicitud para el empleo: " . $oferta->titulo;
         $for = $empresa->email;
-        $mensaje=[];
-        $mensaje['name']= 'elodia Wolff';
-        $mensaje['msg'] = 'Hola como estas';
+        $mensaje['url']= route('empresas.perfilusuario',['alias'=>auth()->user()->alias]);
+        $mensaje['oferta']=$oferta->titulo;
+        $mensaje['curriculum'] = route('empresas.usuariosCv',['alias' => auth()->user()->alias]);
+        $mensaje['home'] =route('home');
         Mail::send('email',$mensaje, function($msj) use($subject,$for){
             $msj->from("administracion@pvwork.com.mx","Administración de PV WORK");
             $msj->subject($subject);

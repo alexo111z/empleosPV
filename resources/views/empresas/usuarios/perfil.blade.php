@@ -7,7 +7,7 @@
     <div class="container px-auto">
         <div class="row px-auto">
             <div class="information-personal col-md-4 order-md-1 mx-auto mt-4 mb-0">
-                <div class="no-gutters border rounded overflow-hidden flex-md-row mb-4 pt-4 shadow-sm h-md-250 position-relative">
+                <div class="no-gutters border rounded overflow-hidden flex-md-row mb-2 pt-4 shadow-sm h-md-250 position-relative">
                     <div id="infopersonal">
                         <div class="text-center mx-auto" >
                             @if(isset($user->foto))
@@ -38,7 +38,7 @@
                             <hr class="ml-4 mr-4">
                         </div>
                         <h6 class="my-0 ml-4">PRESENTACIÓN </h6>
-                        <div class="col-md-12 ml-4 pr-5">
+                        <div class="col-md-12 ml-4 pb-4 pr-5">
                             @if($user->genero==1)
                             <Span id="TxtSexo" class="text-muted"><i class="fa fa-female"></i> Mujer</span> de <Span id="TxtSexo" class="text-muted">{{ $user->edad}} años</span><br>
                             @else

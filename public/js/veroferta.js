@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
    $(document).on("submit",'#postulacion',function(e){
-        //event.preventDefault();
+        event.preventDefault();
         $.ajaxSetup({
             headers: {
                   'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
