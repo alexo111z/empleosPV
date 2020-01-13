@@ -1,9 +1,6 @@
 @extends('admins.master')
 <link href="#" rel="stylesheet">
 
-@section('header-admin')
-@endsection
-
 @section('body')
 
     <main role="main" class="col-md-12 py-0 px-0">

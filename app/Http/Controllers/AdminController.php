@@ -494,7 +494,7 @@ class AdminController extends Controller
             'nueva.required' => 'Existe un campo vacio.',
             'nueva2.required' => 'Existe un campo vacio.',
             'nueva.min' => 'La nueva contrseña debe tener un mínimo de 5 caracteres.',
-            'nueva.max' => 'La nueva contrseña debe tener un máximo de 5 caracteres.',
+            'nueva.max' => 'La nueva contrseña debe tener un máximo de 8 caracteres.',
             'nueva.same' => 'Las contraseñas no coinciden.',
         ]);
         
@@ -506,6 +506,8 @@ class AdminController extends Controller
             $adm = Admin::findOrFail(Auth::guard('admin')->user()->id);
             $adm->password = Hash::make($data['nueva']);
             $adm->save();
+            Auth::guard('admin')->logout();
+            return redirect()->route('admin.v.login');
         }else{
             return back()->with('message', 'La contraseña introducida no es correcta.');
         }

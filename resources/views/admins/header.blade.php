@@ -16,7 +16,9 @@
                         <a class="nav-link" href="{{ route('admin.emp') }}">Emprsas</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('admin.users') }}">Usuarios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.admins') }}">Otros/Administradores</a></li>
+                    @if (auth()->guard('admin')->user()->tipo)
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.admins') }}">Administradores</a></li>
+                    @endif
                 </ul>
 
                 <div class="form-inline ">
@@ -26,7 +28,7 @@
                             <a class="btn btn-login dropdown-toggle" href="#" role="button" 
                             id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="icon-profile" src="https://via.placeholder.com/30x30.png">
-                                Administrador->nombre<!--María Guadalupe-->
+                                {{auth()->guard('admin')->user()->nombre}}<!--María Guadalupe-->
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="#">Mi perfil</a>

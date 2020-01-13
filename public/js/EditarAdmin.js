@@ -49,7 +49,7 @@ jQuery(document).ready(function(){
              } else {
                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
              }
-             alert("Error al actualizar, intentelo más tarde");
+             alert("Error al actualizar, intentelo más tarde: "+msg);
              location.reload(true);
           }
        });
