@@ -13,7 +13,7 @@
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.emp') }}">Emprsas</a>
+                        <a class="nav-link" href="{{ route('admin.emp') }}">Empresas</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('admin.users') }}">Usuarios</a></li>
                     @if (auth()->guard('admin')->user()->tipo)

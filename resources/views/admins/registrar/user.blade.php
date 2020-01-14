@@ -9,7 +9,7 @@
                     <h1 class="text-uppercase">Registrar usuario</h1>
                     {{--<p class="lead">Tenemos ofertas de empleo esperandote</p>--}}
                 </div>
-                {!! Form::open(array('route'=>'admin.c.user','method'=>'POST', 'id'=>'buscador')) !!}
+                {!! Form::open(array('route'=>'admin.c.user','method'=>'POST', 'id'=>'form-registro')) !!}
                 <form class="needs-validation primary">
                 {{ csrf_field() }}
     
@@ -56,7 +56,7 @@
                                 <label  for="sexo">Sexo</label>
                                     <div class="col-md-2 mb-2">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="f" name="sexo" value="1" class="custom-control-input">
+                                            <input type="radio" id="f" name="sexo" value="1" class="custom-control-input" checked>
                                             <label class="custom-control-label" for="f">Femenino</label>
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label>Nivel de estudios</label>
-                                <select class="form-control" name="estudios">
+                                <select class="form-control" name="estudios" required>
     
                                     @if ( old('estudios') == '' )
                                         <option selected disabled hidden>Seleccionar....</option>
@@ -89,7 +89,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="lastName">Área</label>
-                                <select class="form-control" name="area">
+                                <select class="form-control" name="area" required>
     
                                     @if ( old('area') == '' )
                                         <option selected disabled hidden>Seleccionar....</option>
@@ -114,4 +114,7 @@
             </div>
     </main>
 
+@endsection
+@section('scripts')
+    <script src="{{asset('js/registrar-usuarios.js')}}"> </script>
 @endsection

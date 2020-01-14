@@ -45,6 +45,9 @@ jQuery(document).ready(function(){
         var $contactform = $("#form-registro");
         $contactform.validate({
             rules:{
+                email:{
+                    required: true,
+                },
                 password: {
                     maxlength: 8,
                     minlength: 6

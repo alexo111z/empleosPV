@@ -75,7 +75,7 @@ Route::post('/administrator/detalles/oferta/delTag/{oferta}', array('as'=>'admin
 Route::get('/administrator/detalles/administrador/{admin}', array('as'=>'admin.det.admin','uses'=>'AdminController@detAdmin'));
 Route::post('/administrator/detalles/administrador/{admin}', array('as'=>'admin.edit.admin','uses'=>'AdminController@editAdmin'));
 Route::post('/administrator/password/cambio', array('as'=>'admin.pass.admin','uses'=>'AdminController@adminPassword'));
-Route::post('/administrator/eliminar/administrador/{admin}', array('as'=>'admin.del.admin','uses'=>'AdminController@deleteAdmin'));
+Route::post('/administrator/eliminar/administrador/{id}', array('as'=>'admin.del.admin','uses'=>'AdminController@deleteAdmin'));
 
 Route::post('/administrator/create/empresa', array('as'=>'admin.c.emp','uses'=>'AdminController@createEmpresa'));
 Route::post('/administrator/create/usuario', array('as'=>'admin.c.user','uses'=>'AdminController@createUser'));

@@ -9,7 +9,7 @@
                     <h1 class="text-uppercase">Registrar nueva empresa</h1>
                     {{--<p class="lead">Tenemos ofertas de empleo esperandote</p>--}}
                 </div>
-                {!! Form::open(array('route'=>'admin.c.emp','method'=>'POST', 'id'=>'buscador')) !!}
+                {!! Form::open(array('route'=>'admin.c.emp','method'=>'POST', 'id'=>'registro-empresa')) !!}
                 <form class="needs-validation primary" novalidate>
                 {{ csrf_field() }}
     
@@ -43,7 +43,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="RFC">RFC</label>
-                                <input type="text" class="form-control" id="RFC" name="RFC" value="{{ old('RFC') }}" required>
+                                <input type="text" class="form-control text-uppercase" id="RFC" name="RFC" value="{{ old('RFC') }}" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="giro">Giro</label>
@@ -86,7 +86,7 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="pais">Pais</label>
-                                        <select class="form-control" name="pais" required>
+                                        <select class="form-control" id="CmbPais"  onchange='funcpais(this.value,<?php echo json_encode($estados); ?>)' name="pais" required>
             
                                             @if ( old('pais') == '' )
                                                 <option selected disabled hidden>Seleccionar....</option>
@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="estado">Estado</label>
-                                        <select class="form-control" name="estado" required>
+                                        <select id="CmbEstado" onchange='funcestado(this.value,<?php echo json_encode($municipios); ?>)' class="form-control" name="estado" required>
             
                                             @if ( old('estado') == '' )
                                                 <option selected disabled hidden>Seleccionar....</option>
@@ -116,7 +116,7 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                             <label for="ciudad">Municipio/Ciudad</label>
-                                            <select class="form-control" name="ciudad" required>
+                                            <select id="CmbCiudad" class="form-control" name="ciudad" required>
                 
                                                 @if ( old('ciudad') == '' )
                                                     <option selected disabled hidden>Seleccionar....</option>
@@ -156,4 +156,7 @@
 
     </main>
 
+@endsection
+@section('scripts')
+    <script src="{{asset('js/registrar-empresa.js')}}"> </script>
 @endsection

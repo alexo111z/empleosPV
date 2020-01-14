@@ -4,13 +4,11 @@
 
 <main role="main" class="col-md-12 py-0 px-0">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
+        <div class="row  justify-content-center">
+            <div class="mt-5 col-md-10">
                 <div class="card">
                     <div class="card-header text-center"><h3>Bienvenido</h3></div>
-    
                     <div class="card-body">
-
                         <div class="datos">
                             <div class="row text-center">
                                 <div class="col-md-12 text-center float-left">
@@ -42,6 +40,7 @@
 
                         </div>
                         <div class="editar">
+                        <form id="form-edit" action="{{ route('admin.edit.admin', auth()->guard('admin')->user()->id) }}" method="post">
                             <h6 class="text-uppercase mx-auto">Modificar datos</h6>
                             <div class="ml-4 mb-2">  
                                 <div class="row">
@@ -54,23 +53,23 @@
                                         <input type="text" class="form-control" id="apellido" name="apellido"  value="{{ auth()->guard('admin')->user()->apellido }}" required>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <label for="email">Correo electrónico</label>
+                                <div class="col-md-12 pl-0 ">
+                                    <label for="email">Correo electrónico <small class="text-muted">(No se puede editar)</small></label>
                                     <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="{{ auth()->guard('admin')->user()->email }}" readonly>
                                 </div>
-                                
                                 <hr class="mb-1">
-                                <div class="tipo col-md-6 mb-3">
-                                    <label for="tipo">Permisos</label>
+                                <div class="tipo col-md-6 pl-0 mb-3">
+                                    <label for="tipo">Permisos<small class="text-muted"> (No se puede editar)</small></label>
                                     <select name="tipo" id="tipo" class="form-control" disabled>
                                         <option selected hidden value="{{auth()->guard('admin')->user()->tipo}}">{{auth()->guard('admin')->user()->tipo?"Super Administrador":"Administrador"}}</option>
                                     </select>    
                                 </div>
                             </div>
                             <div class="text-right Buttons">
-                                <button type="button "id="BtnCancelar"  class=" form-inline icon btn btn-light ">Cancelar</button>
-                                <button type="button "id="BtnGuardar" data-href="{{ route('admin.edit.admin', auth()->guard('admin')->user()->id) }}"  class=" form-inline icon btn btn-light ">Guardar</button>
+                                <button type="button" id="BtnCancelar"  class=" form-inline icon btn btn-light ">Cancelar</button>
+                                <button type="submit" id="BtnGuardar" data-href="{{ route('admin.edit.admin', auth()->guard('admin')->user()->id) }}"  class=" form-inline icon btn btn-light ">Guardar</button>
                             </div>
+                        </form>
                         </div>
                     </div>
 
@@ -89,7 +88,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="passwordChache" action="{{ route('admin.pass.admin') }}" enctype="multipart/form-data" method="post">
+                <form id="passwordChache" name="passwordChache"  action="{{ route('admin.pass.admin') }}" enctype="multipart/form-data" method="post">
                 {{ csrf_field() }}
                     <div class="modal-body">
                         
@@ -109,7 +108,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button  class="btn btn-primary" type="submit" >Cambiar</button>  
+                        <button type="submit"  class="btn btn-primary" >Cambiar</button>  
                     </div>
                 </form>
             </div>

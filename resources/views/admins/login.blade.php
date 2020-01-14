@@ -48,7 +48,7 @@
                                     <div class="col-md-6 offset-md-4">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Recordar
+                                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Recordar mi cuenta
                                             </label>
                                         </div>
                                     </div>
@@ -57,7 +57,7 @@
                                 <div class="form-group row mb-4">
                                     <div class="col-md-8 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
-                                            Iniciar seción
+                                            Iniciar sesión
                                         </button>
         
                                         <a class="btn btn-link" href="{{ route('admin.view.preset') }}">
@@ -75,4 +75,7 @@
 
     </main>
 
+@endsection
+@section('scripts')
+    <script src="{{asset('js/login.js')}}"> </script>
 @endsection

@@ -32,9 +32,9 @@
                     </div>
                     
                     <hr class="mb-1">
-                    <div class="tipo col-md-6 mb-3">
+                    <div class="tipo col-md-6 pl-0 mb-3">
                         <label for="tipo">Permisos</label>
-                        <select name="tipo" id="tipo" class="form-control">
+                        <select name="tipo" id="tipo" class="form-control" required>
                             <option value="0">Administrador</option>
                             <option value="1">Super Administrador</option>
                         </select>
@@ -63,9 +63,11 @@
                     </form>
                     </div>
 
-                </form>
                 {!! Form::close() !!}
             </div>
     </main>
 
+@endsection
+@section('scripts')
+    <script src="{{asset('js/registrar-admin.js')}}"> </script>
 @endsection

@@ -50,6 +50,7 @@
                             
                             </div>
                             <div class="editar">
+                            <form id="form-edit" action="{{ route('admin.edit.admin', auth()->guard('admin')->user()->id) }}" method="post">
                                 <h6 class="text-uppercase mx-auto">Modificar datos</h6>
                                 <div class="ml-4 mb-2">  
                                     <div class="row">
@@ -57,18 +58,18 @@
                                             <label for="name">Nombre (s)</label>
                                             <input type="text" class="form-control" id="name" name="name" value="{{ $admin->nombre }}" required>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 pl-0">
                                             <label for="apellido">Apellido</label>
                                             <input type="text" class="form-control" id="apellido" name="apellido"  value="{{ $admin->apellido }}" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 pl-0">
                                         <label for="email">Correo electrónico</label>
                                         <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="{{ $admin->email }}" readonly>
                                     </div>
                                     
                                     <hr class="mb-1">
-                                    <div class="tipo col-md-6 mb-3">
+                                    <div class="tipo col-md-6 mb-3 pl-0">
                                         <label for="tipo">Permisos</label>
                                         <select name="tipo" id="tipo" class="form-control">
                                             <option selected hidden value="{{$admin->tipo}}">{{$admin->tipo?"Super Administrador":"Administrador"}}</option>
@@ -79,8 +80,9 @@
                                 </div>
                                 <div class="text-right Buttons">
                                     <button type="button "id="BtnCancelar"  class=" form-inline icon btn btn-light ">Cancelar</button>
-                                    <button type="button "id="BtnGuardar" data-href="{{ route('admin.edit.admin', $admin->id) }}"  class=" form-inline icon btn btn-light ">Guardar</button>
+                                    <button type="submit"id="BtnGuardar" data-href="{{ route('admin.edit.admin', $admin->id) }}"  class=" form-inline icon btn btn-light ">Guardar</button>
                                 </div>
+                            </form>
                             </div>
                         </div>
 
@@ -102,13 +104,13 @@
                 <div class="modal-body">
                     <span class="text-danger"><i class="fas fa-info-circle"></i>Una vez que se da de baja la cuenta ya no sera posible ingresar a está.</span>
                 </div>
-                <form id="deleteemp" action="{{ route('admin.del.admin', $admin->id) }}" enctype="multipart/form-data" method="post">
-                    {{ csrf_field() }}
-                    <div class="modal-footer">
+                <div class="modal-footer">
+                    <form id="form-delete" name="form-delete" method="POST" action="{{route('admin.del.admin',['id' => $admin->id])}}">
+                        {{ csrf_field() }}
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button  class="btn btn-danger" type="submit" ><i class="fa fa-trash" aria-hidden="true"></i> Dar de baja</button>  
-                    </div>
-                </form>
+                        <button data-href="{{route('admin.del.admin',['id' => $admin->id])}}" id="delete-admin" type="submit"  class="btn btn-danger" ><i class="fa fa-trash" aria-hidden="true"></i> Dar de baja</button>  
+                    </form>
+                </div>
             </div>
         </div>
     </div>
