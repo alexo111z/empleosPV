@@ -109,7 +109,7 @@ button.icon:hover, #subircv{
     font-size: 12px !important;
 }
   /* elementos para editar*/
-.info-tags,.DivTags,#new-password2,#DivBaja2,#BtnGuardarTag,#infopersonal2,#Datos2, #CmbUniversidad,#TxtArea,#BtnGuardarAca, #TxtConocimientos, #BtnGuardarCon,#DivContacto2{
+#DivCalificar,.info-tags,.DivTags,#new-password2,#DivBaja2,#BtnGuardarTag,#infopersonal2,#Datos2, #CmbUniversidad,#TxtArea,#BtnGuardarAca, #TxtConocimientos, #BtnGuardarCon,#DivContacto2{
       display: none;
   }
   input,select{

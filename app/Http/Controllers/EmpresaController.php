@@ -378,11 +378,40 @@ class EmpresaController extends Controller
         ->where('comentarios.id_usuario', '=', $user->id)
         ->where('calificaciones.id_usuario', '=', $user->id)
         ->get();
-        return view('empresas.usuarios.perfil',compact('user','cal','comentarios','cal','paises','estados','municipios','userest','userarea','rtags','tags','estudios', 'areas'));
+        $empComentario=Comentario::where('id_emp','=',auth()->guard('empresa')->user()->id)->where('id_usuario', '=', $user->id)->first();
+        $empCalificacion= Calificacion::where('id_emp','=',auth()->guard('empresa')->user()->id)->where('id_usuario', '=', $user->id)->first();
+        return view('empresas.usuarios.perfil',compact('empComentario','empCalificacion','user','cal','comentarios','cal','paises','estados','municipios','userest','userarea','rtags','tags','estudios', 'areas'));
     }
     function DescargarCv($alias){
         $user=User::where('alias','=',$alias)->first();
         return \Storage::disk('public')->download($user->curriculum);
+    }
+    function Calificar($alias, request $request){
+        $user=User::where('alias','=',$alias)->first();
+        $data= $request->all();
+        $empComentario=Comentario::where('id_emp','=',auth()->guard('empresa')->user()->id)->where('id_usuario', '=', $user->id)->first();
+       if(isset($empComentario)){
+        $empComentario->coment= $data['comentario'];
+        $empComentario->save();
+        if($data['calificacion']!=0){
+            $empCalificacion= Calificacion::where('id_emp','=',auth()->guard('empresa')->user()->id)->where('id_usuario', '=', $user->id)->first();
+            $empCalificacion->califi=$data['calificacion'];
+            $empCalificacion->save();
+        }
+       }else{
+            Comentario::create([
+                'id_emp' => auth()->guard('empresa')->user()->id,
+                'id_usuario' => $user->id,
+                'coment' => $data['comentario'],
+                'fecha' => Carbon::now(),
+            ]);
+        Calificacion::create([
+                'id_emp' => auth()->guard('empresa')->user()->id,
+                'id_usuario' => $user->id,
+                'califi' => $data['calificacion'],
+            ]);
+       }
+        return redirect()->back();
     }
 }
 /*
