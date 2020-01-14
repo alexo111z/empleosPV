@@ -51,3 +51,11 @@
 .lugar{
     float: left;
 }
+
+/** TAGs **/
+.delete-tag{
+    cursor: pointer;
+}
+.delete-tag:hover{
+    color:red;
+}

@@ -429,9 +429,9 @@ class AdminController extends Controller
     }
 
     //Ofertas
-    function detOferta($oferta){
-        $oferta = Oferta::findOrFail($oferta);
-        $tags = RelacionTag::where('id_oferta', '=', $oferta)->get();
+    function detOferta($id){
+        $oferta = Oferta::findOrFail($id);
+        $tags = RelacionTag::where('id_oferta', '=', $oferta->id)->get();
         $paises = Pais::all();
         $estados =Estado::all();
         $ciudades = Municipio::all();
@@ -461,6 +461,52 @@ class AdminController extends Controller
 
         return redirect()->route('admin.emp.ofr', ['empresa'=>$oferta->id_emp] );
     }
+    function addOfTag($id){
+        if((RelacionTag::where('id_oferta',$id)->count())<10){
+            $data = $request->all();
+            $idTag =Tag::where('nombre', $data['nombre'])->value('id');
+            if( $idTag ==null){
+                Tag::create(['nombre' => $data['nombre'],]);
+                $idTag =Tag::where('nombre', $data['nombre'])->value('id');
+            }
+            $rtags = RelacionTag::where([['id_oferta', $id], ['id_tag',$idTag],])->value('id');
+            if($rtags==null){
+                RelacionTag::create(['id_usuario' => null,'id_oferta' => $id,'id_tag' => $idTag,]);
+            }
+            return 1;
+        }else{
+            return 0;
+        }  
+    }
+    function delOfTag($id){
+        $data = $request->all();
+        $tag = RelacionTag::where('id', $data['id']);
+        $tag->delete();
+    }
+    /*
+    function addUTag($id, Request $request){
+        if((RelacionTag::where('id_usuario',$id)->count())<10){
+            $data = $request->all();
+            $idTag =Tag::where('nombre', $data['nombre'])->value('id');
+            if( $idTag ==null){
+                Tag::create(['nombre' => $data['nombre'],]);
+                $idTag =Tag::where('nombre', $data['nombre'])->value('id');
+            }
+            $rtags = RelacionTag::where([['id_usuario', $id], ['id_tag',$idTag],])->value('id');
+            if($rtags==null){
+                RelacionTag::create(['id_usuario' => $id,'id_tag' => $idTag,]);
+            }
+            return 1;
+        }else{
+            return 0;
+        }  
+    }
+    function delUTag($id, Request $request){
+        $data = $request->all();
+        $tag = RelacionTag::where('id', $data['id']);
+        $tag->delete();
+    }
+    */
 
     //Administradores
     function detAdmin($id){
