@@ -31,8 +31,7 @@
                                 {{auth()->guard('admin')->user()->nombre}}<!--María Guadalupe-->
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Mi perfil</a>
-                                <a class="dropdown-item" href="#">Cambiar contraseña</a>
+                                <a class="dropdown-item" href="{{route('admin.index')}}">Mi perfil</a>
                                 <a class="dropdown-item" href="#" 
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Cerrar sesión

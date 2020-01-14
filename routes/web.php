@@ -69,6 +69,8 @@ Route::get('/administrator/detalles/empresa2/{empresa}', array('as'=>'admin.det.
 Route::get('/administrator/detalles/oferta/{oferta}', array('as'=>'admin.det.ofr','uses'=>'AdminController@detOferta'));
 Route::post('/administrator/detalles/oferta/{oferta}', array('as'=>'admin.edit.ofr','uses'=>'AdminController@editOferta'));
 Route::post('/administrator/detalles/oferta/eliminar/{oferta}', array('as'=>'admin.delete.ofr','uses'=>'AdminController@deleteOferta'));
+Route::post('/administrator/detalles/oferta/addTag/{oferta}', array('as'=>'admin.addtag.ofr','uses'=>'AdminController@addOfTag'));
+Route::post('/administrator/detalles/oferta/delTag/{oferta}', array('as'=>'admin.deltag.ofr','uses'=>'AdminController@delOfTag'));
 
 Route::get('/administrator/detalles/administrador/{admin}', array('as'=>'admin.det.admin','uses'=>'AdminController@detAdmin'));
 Route::post('/administrator/detalles/administrador/{admin}', array('as'=>'admin.edit.admin','uses'=>'AdminController@editAdmin'));

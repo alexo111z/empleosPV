@@ -146,7 +146,7 @@
                                 <option >{{ $tag->nombre }}</option>
                             @endforeach    
                         </template>
-                        <input name="inputtag" autocomplete="off"  list="searchresults" data-min-length='1' type="text" class="form-control"  id="inputtag" data-href="{{url('/perfil/createtags')}}" name="inputtag" placeholder="ej. computación, office, vendedora" >
+                        <input name="inputtag" autocomplete="off"  list="searchresults" data-min-length='1' type="text" class="form-control"  id="inputtag" data-href="{{ route('admin.addtag.ofr',$oferta->id) }}" name="inputtag" placeholder="ej. computación, office, vendedora" >
                         <datalist id="searchresults"></datalist>
                     </div>
                     <small class="text-warning info-tags"><i class="fa fa-info-circle"></i>Tienes el limites de tags permitido, elimina algunos para agregar más.</small>
@@ -156,9 +156,9 @@
                 @if($tags == "[]")
                 <p class="text-muted"><i class="fa fa-info-circle"></i>Agrega habilidades y tags de búsqueda para completar tu perfil.</p>
                 @endif
-                @foreach($tags as $tags)
-                    @if($tags->id_oferta == $user->id)
-                    <span class="tag">{{ $tags->tag->nombre }} <i id="{{$tags->id}}" data-href="{{url('/perfil/deletetags')}}"class="delete-tag fa fa-close"></i></span>
+                @foreach($tags as $tag)
+                    @if($tag->id_oferta == $oferta->id)
+                        <span class="tag">{{ $tag->tag->nombre }} <i id="{{$tag->id}}" data-href="{{ route('admin.deltag.ofr',$oferta->id) }}"class="delete-tag fa fa-close"></i></span>
                     @endif
                 @endforeach
                 </div>

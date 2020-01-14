@@ -62,8 +62,8 @@ class AdminController extends Controller
         }else{
             $ofertas = Oferta::where('id_emp',$empresa)->where('titulo','LIKE', '%'.$search.'%')->paginate(10);
         }
-        $title = Empresa::select('Nombre')->find($empresa);
-        return view('admins.lista.ofertasE', compact('ofertas','title'));
+        $emp = Empresa::findOrFail($empresa);
+        return view('admins.lista.ofertasE', compact('ofertas','emp'));
     }
 
     function administradores(Request $request){
@@ -429,9 +429,9 @@ class AdminController extends Controller
     }
 
     //Ofertas
-    function detOferta($oferta){
-        $oferta = Oferta::findOrFail($oferta);
-        $tags = RelacionTag::where('id_oferta', '=', $oferta)->get();
+    function detOferta($id){
+        $oferta = Oferta::findOrFail($id);
+        $tags = RelacionTag::where('id_oferta', '=', $oferta->id)->get();
         $paises = Pais::all();
         $estados =Estado::all();
         $ciudades = Municipio::all();
@@ -460,7 +460,30 @@ class AdminController extends Controller
         $oferta->save();
 
         return redirect()->route('admin.emp.ofr', ['empresa'=>$oferta->id_emp] );
+    }   
+    function addOfTag($id, Request $request){
+        if((RelacionTag::where('id_oferta',$id)->count())<10){
+            $data = $request->all();
+            $idTag =Tag::where('nombre', $data['nombre'])->value('id');
+            if( $idTag ==null){
+                Tag::create(['nombre' => $data['nombre'],]);
+                $idTag =Tag::where('nombre', $data['nombre'])->value('id');
+            }
+            $rtags = RelacionTag::where([['id_oferta', $id], ['id_tag',$idTag],])->value('id');
+            if($rtags==null){
+                RelacionTag::create(['id_oferta' => $id,'id_tag' => $idTag,]);
+            }
+            return 1;
+        }else{
+            return 0;
+        }  
     }
+    function delOfTag($id, Request $request){
+        $data = $request->all();
+        $tag = RelacionTag::where('id', $data['id']);
+        $tag->delete();
+    }
+    
 
     //Administradores
     function detAdmin($id){
@@ -500,6 +523,10 @@ class AdminController extends Controller
         
         if($v->fails()){
             return back()->withErrors($v);
+        }
+
+        if(Hash::check($data['nueva'], Auth::guard('admin')->user()->password)){
+            return back()->with('message', 'La nueva contraseña debe ser distinta a tu contraseña actual.');
         }
 
         if (Hash::check($data['password'], Auth::guard('admin')->user()->password)){

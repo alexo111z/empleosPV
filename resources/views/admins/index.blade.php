@@ -62,7 +62,9 @@
                                 <hr class="mb-1">
                                 <div class="tipo col-md-6 mb-3">
                                     <label for="tipo">Permisos</label>
-                                    <input type="tipo" class="form-control" id="tipo" name="tipo" value="{{auth()->guard('admin')->user()->tipo?"Super Administrador":"Administrador"}}" readonly>
+                                    <select name="tipo" id="tipo" class="form-control" disabled>
+                                        <option selected hidden value="{{auth()->guard('admin')->user()->tipo}}">{{auth()->guard('admin')->user()->tipo?"Super Administrador":"Administrador"}}</option>
+                                    </select>    
                                 </div>
                             </div>
                             <div class="text-right Buttons">
@@ -97,11 +99,11 @@
                         </div>
                         <div class="col-md-8 mb-3">
                             <label for="nueva">Nueva contraseña</label>
-                            <input type="text" class="form-control" id="nueva" name="nueva" required>
+                            <input type="password" class="form-control" id="nueva" name="nueva" maxlength="8" required>
                         </div>
                         <div class="col-md-8 mb-3">
                             <label for="nueva2">Repite contraseña</label>
-                            <input type="text" class="form-control" id="nueva2" name="nueva2" required>
+                            <input type="password" class="form-control" id="nueva2" name="nueva2" maxlength="8" required>
                         </div>
                         
                     </div>
