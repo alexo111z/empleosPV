@@ -1,7 +1,7 @@
 @extends('empresas.master')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="{{asset('css/perfil.css')}}" rel="stylesheet">
-
+       
 @section('body')
 <main role="main">
     <div class="container px-auto">
@@ -128,7 +128,51 @@
         <div class="col-md-12 order-md-1 mx-auto px-0 mt-4 mb-0">
             <div class="no-gutters mx-0 px-4 border rounded overflow-hidden flex-md-row mb-4 pt-4 shadow-sm h-md-250 position-relative">
                 <div class="row px-3">
-                    <h4 class=" my-0 py-0 mr-5 ">Opinión de las empresas</h4>
+                    <div class="col-sm-4 ml-0 pl-0">
+                        <h4 class=" my-0 py-0 mr-5 ">Opinión de las empresas</h4>
+                    </div>
+                    <div class="col-sm-8 text-right">
+                        @if(isset($empComentario))
+                        <button id="btn-calificar" type="button" class="btn btn-info">Editar mi calificacion y/o mi opinión</button>
+                        @else
+                            <button id="btn-calificar" type="button" class="btn btn-info">Calificar y dar mi opinión</button>
+                        @endif
+                        </div>
+                    <div id="DivCalificar" class="col-sm-7 mx-auto text-center" >
+                       <form id="form-calificacion"action="{{ route('empresas.calificar', [$user->alias]) }}" enctype="multipart/form-data" method="post">
+                        {{ csrf_field() }}
+                            <hr class="ml-3 mr-3">
+                            <div id="estrellas">
+                                @if(isset($empCalificacion)) 
+                                    @for ($i = 1; $i<=5; $i++)
+                                        @if($i<=$empCalificacion->califi)
+                                            <span id="{{$i}}" class="fa fa-star calificacion checked"></span>
+                                        @else
+                                            <span id="{{$i}}" class="fa fa-star calificacion"></span>
+                                        @endif
+                                    @endfor
+                                @else
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <span id="{{$i}}" class="fa fa-star calificacion"></span>
+                                    @endfor
+                                @endif
+                           
+                            </div>
+                            <div class="col-sm-12 mx-auto text-center form-group">
+                                <label for="comentario">Dar mi opinión o comentario sobre el usuario:</label>
+                                @if(isset($empComentario)) 
+                                    <textarea class="form-control" name="comentario" id="comentario" rows="3" required>{{$empComentario->coment}}</textarea>
+                                @else
+                                <textarea class="form-control" name="comentario" id="comentario" rows="3" required></textarea>
+                                @endif
+                            </div>
+                            <button id="btn-cancelar" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-info">Enviar opinión y calificación</button>
+                            <hr class="ml-3 mr-3">
+                        </form>
+                    </div>
+                    
+
                     @if(isset($comentarios) && $comentarios!="[]")
                         @if($user->coment==0)
                             <p class="text-muted col-sm-12 mt-3"><i class="fa fa-info-circle"></i>Este usuario tiene los comentarios en privado</p>
@@ -166,4 +210,7 @@
         </div>
     </div>
 </main>
+@endsection
+@section('scripts')
+<script src="{{asset('js/calificar.js')}}"> </script>
 @endsection

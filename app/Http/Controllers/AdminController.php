@@ -472,7 +472,7 @@ class AdminController extends Controller
         $admin = Admin::findOrFail($id);
         $admin->nombre = $data['name'];
         $admin->apellido = $data['apellido'];
-        $admin->tipo = $data['tipo'];
+       // $admin->tipo = $data['tipo'];
         $admin->save();
         return redirect()->route('admin.det.admin', $id);
     }
