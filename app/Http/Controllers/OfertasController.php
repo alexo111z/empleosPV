@@ -60,7 +60,9 @@ class OfertasController extends Controller
         $for = $empresa->email;
         $mensaje['url']= route('empresas.perfilusuario',['alias'=>auth()->user()->alias]);
         $mensaje['oferta']=$oferta->titulo;
-        $mensaje['curriculum'] = route('empresas.usuariosCv',['alias' => auth()->user()->alias]);
+        if(isset(auth()->user()->curriculum)){
+            $mensaje['curriculum'] = route('empresas.usuariosCv',['alias' => auth()->user()->alias]);
+            }
         $mensaje['home'] =route('home');
         Mail::send('email',$mensaje, function($msj) use($subject,$for){
             $msj->from("administracion@pvwork.com.mx","Administración de PV WORK");
