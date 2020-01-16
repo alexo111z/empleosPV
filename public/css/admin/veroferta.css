@@ -59,3 +59,6 @@
 .delete-tag:hover{
     color:red;
 }
+.info-tags,.DivTags,#BtnGuardarTag{
+  display: none;
+}

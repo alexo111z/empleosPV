@@ -10,7 +10,7 @@
                 {{--<p class="lead">Tenemos ofertas de empleo esperandote</p>--}}
             </div>
 
-            {!! Form::open(array('route'=>array('admin.c.ofer', $emp->id),'method'=>'POST', 'id'=>'buscador')) !!}
+            {!! Form::open(array('route'=>array('admin.c.ofer', $emp->id),'method'=>'POST', 'id'=>'form-nuevaoferta')) !!}
             <form  class="needs-validation primary" novalidate>
             {{ csrf_field() }}
 
@@ -24,24 +24,24 @@
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="desc_corta">Descripcion corta de la oferta</label>
-                        <textarea class="form-control mb-3 text-desc" id="desc_corta" name="desc_corta" rows="3" style="display: inline-block;" required>
-                            {{ old('desc_corta') }}
-                        </textarea>
+                        <textarea class="form-control mb-3 text-desc" id="desc_corta" name="desc_corta" rows="3" style="display: inline-block;" required>{{ old('desc_corta') }}</textarea>
                     </div>
 
                     <div class="DivTags col-md-12 mb-3">
-                        <label for="">Identificadores (Tags)</label>
+                        <label for="">Habilidades/Identificadores (Tags) <small id="contador-tags" class=" text-muted">0 de 10</small></label><br>
                         <small  class="text-muted"> (Presiona 'enter' para añadir) </small><br>
                         <div class="col-md-8 ml-0 mr-2 pl-0">
                             <template id="listtag" size="5">
-                                {{--@foreach($tags as $tag)
+                                @foreach($tags as $tag)
                                     <option >{{ $tag->nombre }}</option>
-                                @endforeach  --}}  
+                                @endforeach   
                             </template>
                             <input name="inputtag" autocomplete="off"  list="searchresults" data-min-length='1' type="text" class="form-control"  id="inputtag" data-href="{{url('/perfil/createtags')}}" name="inputtag" placeholder="ej. computación, office, vendedora" >
                             <datalist id="searchresults"></datalist>
                         </div>
-                        <small class="text-warning info-tags"><i class="fa fa-info-circle"></i>Tienes el limites de tags permitido, elimina algunos para agregar más.</small>
+                        <small class="text-warning info-tags"><!--<i class="fa fa-info-circle"></i>Tienes el limites de tags permitido, elimina algunos para agregar más.--></small>
+                            <div id="DivTags" class="tags col-sm-12 pl-0 ml-0 mt-2 mb-2 text-secondary">
+                            </div>
                     </div>
                     <hr class="mb-1">
 
@@ -50,7 +50,7 @@
                         <div class="div-ubicacion col-md-6">
                             <span>País</span>
                             {{--{{$selectpais=""}}--}}  
-                            <select id="CmbPais"  name="pais" {{--onchange='funcpais(this.value,<! ?php echo json_encode($estados); ?>)'--}}  class="form-control">
+                            <select id="CmbPais"  name="pais" onchange='funcpais(this.value,<?php echo json_encode($estados); ?>)' class="form-control">
                                 @if ( old('pais') == '' )
                                     <option selected disabled hidden>Seleccionar....</option>
                                 @else
@@ -70,7 +70,7 @@
                         </div>
                         <div class="div-ubicacion col-md-6">
                             <span>Estado</span>
-                            <select id="CmbEstado" name="estado" class="form-control" {{--onchange='funcestado(this.value,<! ?php echo json_encode($municipios); ?>)'--}}>
+                            <select id="CmbEstado" name="estado" class="form-control" onchange='funcestado(this.value,<?php echo json_encode($municipios); ?>)'>
                                 @if ( old('estado') == '' )
                                     <option selected disabled hidden>Seleccionar....</option>
                                 @else
@@ -90,7 +90,7 @@
                         </div>
                         <div class="div-ubicacion col-md-6">
                             <span>Ciudad</span>
-                            <select id="CmbCiudad" name="ciudad" class="form-control"  >
+                            <select id="CmbCiudad" name="ciudad" class="form-control" >
                                 @if ( old('ciudad') == '' )
                                     <option selected disabled hidden>Seleccionar....</option>
                                 @else
@@ -124,14 +124,12 @@
                     </div>
                     <div class="col-md-12 mb-3">
                             <label for="desc_det">Descripcion detallada</label>
-                            <textarea class="form-control" id="desc_det" name="desc_det" rows="5" style="display: inline-block;">
-                                {{ old('desc_det') }}
-                            </textarea>
+                            <textarea class="form-control" id="desc_det" name="desc_det" rows="5" style="display: inline-block;">{{ old('desc_det') }}</textarea>
                     </div>
-                    <div class="div-det col-md-6 mb-3">
+                    <div class="div-det col-md-3 mb-3">
                         <label for="salario">Salario</label>
                         <small  class="text-muted"> (Opcional) </small><br>
-                        <input type="text" class="form-control" id="salario" name="salario" value="{{ old('salario') }}" placeholder="00000.00">     
+                        <input autocomplete="off"  type="text" class="form-control text-right" id="salario" name="salario" value="{{ old('salario') }}" placeholder="0.00">     
                     </div>
                     <div class="div-det col-md-6 mb-3">
                             <label for="tContrato">Tiempo de Contrato</label>
@@ -149,4 +147,7 @@
         </div>
     </main>
 
+@endsection
+@section('scripts')
+   <script src="{{asset('js/registrar-ofertaAdmin.js')}}"> </script>
 @endsection

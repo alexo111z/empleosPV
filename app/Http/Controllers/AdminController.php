@@ -190,9 +190,12 @@ class AdminController extends Controller
         $estados = Estado::all();
         $paises = Pais::all();
         $municipios = Municipio::all();
-        return view('admins.registrar.oferta', compact('emp', 'estados', 'paises', 'municipios'));
+        $tags=Tag::all();
+        return view('admins.registrar.oferta', compact('tags','emp', 'estados', 'paises', 'municipios'));
     }
     function createOferta($empresa, Request $request){
+        $data = request()->all();
+        $etiquetas= json_decode($data['etiquetas']);
         $data = $request->validate([
             'titulo' => ['required'],
             'desc_corta' => ['required'],
@@ -217,9 +220,23 @@ class AdminController extends Controller
             'd_larga' => $data['desc_det'],
             'salario' => $data['salario'],
             't_contrato' => $data['tContrato'],
+            'existe' => true
         ]);
         //$oferta->id  
-        
+        if($etiquetas!=null && $etiquetas!=""){
+            $id_oferta=$oferta->id;
+            foreach($etiquetas as $etiqueta){
+                    $idTag =Tag::where('nombre', $etiqueta)->value('id');
+                    if( $idTag ==null){
+                        Tag::create(['nombre' => $etiqueta,]);
+                        $idTag =Tag::where('nombre', $etiqueta)->value('id');
+                    }
+                    $rtag=RelacionTag::create([
+                        'id_oferta' => $id_oferta,
+                        'id_tag' => $idTag,
+                    ]);
+            }
+        }
         return redirect()->route('admin.emp.ofr', $empresa);
     }
 
@@ -431,12 +448,13 @@ class AdminController extends Controller
     //Ofertas
     function detOferta($id){
         $oferta = Oferta::findOrFail($id);
-        $tags = RelacionTag::where('id_oferta', '=', $oferta->id)->get();
+        //$tags = RelacionTag::where('id_oferta', '=', $oferta->id)->get();
         $paises = Pais::all();
         $estados =Estado::all();
         $ciudades = Municipio::all();
-
-        return view('admins.detalles.ofertas', compact('paises','estados','ciudades','oferta','tags'));
+        $rtags = RelacionTag::where('id_oferta', '=', $id)->get();
+        $tags= Tag::all();
+        return view('admins.detalles.ofertas', compact('rtags','paises','estados','ciudades','oferta','tags'));
     }
     function editOferta($oferta, Request $request){
         $data = $request->all();
@@ -446,6 +464,8 @@ class AdminController extends Controller
         $ofer->d_corta = $data['desCorta'];
         $ofer->d_larga = $data['desc'];
         $ofer->salario = $data['salario'];
+        $ofer->t_contrato = $data['tContrato'];
+        $ofer->vigencia = $data['vigencia'];
         //$ofer->t_contrato;
         //$ofer->vigencia;
         $ofer->id_pais = $data['pais'];

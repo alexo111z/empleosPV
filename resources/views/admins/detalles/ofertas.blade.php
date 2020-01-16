@@ -40,15 +40,49 @@
             </div>
             <hr class="mb-4">
             <div class="col-sm-12 px-3 mt-1">
-                <h5><i class='fas fa-tags'></i> Tags:</h5>
+               {{-- <!--<h5><i class='fas fa-tags'></i> Tags:</h5>
                 <div class="tags">
-                    @if($tags->count() == 0)
+                    @if($rtags->count() == 0)
                         No hay tags en esta oferta.
                     @endif
-                    @foreach($tags as $tag)
+                    @foreach($rtags as $tag)
                         <span class="px-2  border rounded">{{ $tag->tag->nombre }}</span>
                     @endforeach
-                </div>
+                </div>-->--}}
+                    <!-- SECCION DE TAGS*****-->
+                    <div class="col-md-12 mb-0 pt-0">
+                        <h5><i class='fas fa-tags'></i> Tags <small id="contador-tags" class=" text-muted">{{count($rtags)}} de 10</small><button id="BtnEditarTag" onclick="" type="button " class=" form-inline icon btn btn-light "><small><img src="{{asset('images/icon/edit.png')}}">Editar</small></button></h5> 
+                        <div class="DivTags col-md-12  ml-0 pl-0 mb-2 mt-0 pt-0 text-left">
+                            <small  class="text-muted"> Introduce habilidad (Presiona 'enter' para añadir) </small><br>
+                            <div class="col-md-8 ml-0 mr-2 pl-0">
+                                <template id="listtag" size="5">
+                                    @foreach($tags as $tag)
+                                        <option >{{ $tag->nombre }}</option>
+                                    @endforeach    
+                                </template>
+                                <input name="inputtag" autocomplete="off"  list="searchresults" data-min-length='1' type="text" class="form-control"  id="inputtag"  data-href="{{ route('emp.oferta.createtags', ['id'=>$oferta->id]) }}" name="inputtag" placeholder="ej. computación, office, vendedora" >
+                                <datalist id="searchresults"></datalist>
+                            </div>
+                            <small class="text-warning info-tags"><i class="fa fa-info-circle"></i>Tienes el limites de tags permitido, elimina algunos para agregar más.</small>
+                        </div>
+                        
+                        <div id="DivTags" class="tags mb-2 text-secondary">
+                        @if($rtags == "[]")
+                        <p class="text-muted"><i class="fa fa-info-circle"></i>No hay tags en esta oferta.</p>
+                        @endif
+                        @foreach($rtags as $tags)
+                            @if($tags->id_oferta == $oferta->id)
+                            <span class="tag">{{ $tags->tag->nombre }} <i id="{{$tags->id}}" data-href="{{ route('emp.tags.destroy')}}" class="delete-tag fa fa-close"></i></span>
+                            @endif
+                        @endforeach
+                        </div>
+                        <div class="col-md-12 mb-0 ml-0  text-right ">
+                            
+                            <button id="BtnGuardarTag" onclick="" type="button " class=" form-inline icon btn btn-primary ">Guardar</button>
+                        </div>
+                        <hr class="ml-3 mr-3">
+                    </div>
+                <!-- SECCION DE TAGS*****-->
             </div>
 
         </div>
@@ -64,20 +98,29 @@
             <div class="col-sm-12 px-3 py-0 my-0 ">
                 <div class="form-group">
                     <label for="desCorta">Descripcion corta</label>
-                    <textarea class="form-control" id="desCorta" rows="3">
-                        {{ $oferta->d_corta }}
-                    </textarea>
+                    <textarea class="form-control" id="desCorta" rows="3">{{ $oferta->d_corta }}</textarea>
                 </div>
             </div>
-            <div class="col-sm-12 mt-0 pt-0 mt-0">
-                <div class="form-group">
+            <div class="row col-md-12">
+                <div class="col-md-3 mb-3 form-group" style="min-width: 195px!important; ">
                     <label for="salario">Salario</label>
+                    <small  class="text-muted"> (Opcional) </small><br>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <div class="input-group-text">$</div>
                         </div>
-                        <input type="salario" class="form-control" id="salario" placeholder="Salario" value="{{ $oferta->salario }}">
+                        <input autocomplete="off"  type="text" class="form-control text-right" id="salario" name="salario" value="{{ $oferta->salario }}" placeholder="0.00">
                     </div>
+                </div>
+                <div class="div-det col-md-5 mb-3" style="min-width: 235px!important; ">
+                    <label for="tContrato">Tiempo de Contrato</label>
+                    <small  class="text-muted"> (Opcional) </small><br>
+                    <input autocomplete="off" type="text" class="form-control" id="tContrato" name="tContrato" value="{{ $oferta->t_contrato }}" placeholder="Indefinido, 1 semana">     
+                </div>
+                <div class="col-md-4 mb-3" style="min-width: 195px!important; ">
+                    <label for="vigencia">Fecha de vigencia</label>
+                    <small  class="text-muted"> (Fecha limite) </small><br>
+                    <input id="CmbFecha" name="vigencia" type="date" class="form-control" value="{{Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->format('Y-m-d')}}" min="2020-01-01" required>
                 </div>
             </div>
 
@@ -130,40 +173,11 @@
             <div class="col-sm-12 px-3 mt-1">
                 <div class="form-group">
                     <label for="descripcion">Descripcion</label>
-                    <textarea class="form-control" id="descripcion" rows="5">
-                        {{ $oferta->d_larga }}
-                    </textarea>
+                    <textarea class="form-control" id="descripcion" rows="5">{{ $oferta->d_larga }}</textarea>
                 </div>
             </div>
             <hr class="mb-4">
-            <div class="col-sm-12 px-3 mt-1">
-                <h6>Habilidades (Tags) <small id="contador-tags" class=" text-muted">{{count($tags)}} de 10</small></h6> 
-                <div class="DivTags col-md-12  ml-0 pl-0 mb-2 mt-0 pt-0 text-left">
-                    <small  class="text-muted"> Introduce habilidad (Presiona 'enter' para añadir) </small><br>
-                    <div class="col-md-8 ml-0 mr-2 pl-0">
-                        <template id="listtag" size="5">
-                            @foreach($tags as $tag)
-                                <option >{{ $tag->nombre }}</option>
-                            @endforeach    
-                        </template>
-                        <input name="inputtag" autocomplete="off"  list="searchresults" data-min-length='1' type="text" class="form-control"  id="inputtag" data-href="{{ route('admin.addtag.ofr',$oferta->id) }}" name="inputtag" placeholder="ej. computación, office, vendedora" >
-                        <datalist id="searchresults"></datalist>
-                    </div>
-                    <small class="text-warning info-tags"><i class="fa fa-info-circle"></i>Tienes el limites de tags permitido, elimina algunos para agregar más.</small>
-                </div>
-                
-                <div id="DivTags" class="tags mb-2 text-secondary">
-                @if($tags == "[]")
-                <p class="text-muted"><i class="fa fa-info-circle"></i>Agrega habilidades y tags de búsqueda para completar tu perfil.</p>
-                @endif
-                @foreach($tags as $tag)
-                    @if($tag->id_oferta == $oferta->id)
-                        <span class="tag">{{ $tag->tag->nombre }} <i id="{{$tag->id}}" data-href="{{ route('admin.deltag.ofr',$oferta->id) }}"class="delete-tag fa fa-close"></i></span>
-                    @endif
-                @endforeach
-                </div>
-            </div>
-
+ 
         </div>
 
         <div class="col-md-3 my-3 px-auto mx-auto" style="min-width: 250px;">

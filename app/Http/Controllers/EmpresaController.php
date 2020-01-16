@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Hash;
 class EmpresaController extends Controller
 {
     public function __construct() {
-       $this->middleware('auth:empresa',['except' => ['Registrar','createEmpresa','Index','login']]);  //comentar para ver admin sin logear
+       $this->middleware('auth:empresa',['except' => ['Registrar','createEmpresa','Index','login','destroyTag','InsertTag']]);  //comentar para ver admin sin logear
     }
 
     function list(){
