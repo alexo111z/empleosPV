@@ -20,7 +20,6 @@ use Mail; //Importante incluir la clase Mail, que será la encargada del envío
 class OfertasController extends Controller
 {
     function ListaOfertas(){
-        //@if((Date::createFromFormat('Y-m-d H:i:s', $oferta->vigencia)->greaterThan(Carbon\Carbon::now())))
         $ofertas = Oferta::where('existe','=',true)
         ->whereDate('vigencia','>',Carbon::now()->format('Y-m-d'))
         ->paginate(10);
