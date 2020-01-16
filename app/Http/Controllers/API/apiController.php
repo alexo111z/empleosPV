@@ -9,9 +9,23 @@ use App\RelacionTag;
 
 class apiController extends Controller
 {
-    function ofertas(){
-        $ofertas = Oferta::all();
+    function ofertas(Request $request){
+        $search = $request->get('search');
+
+        if ($search == '' or $search == null) {
+            $ofertas = Oferta::all();
+        }else{
+            $ofertas = Oferta::where('titulo','LIKE', '%'.$search.'%')->get();
+        }
         $relT = RelacionTag::where('id_usuario', '=', null)->get();
+
+        if ($ofertas->isEmpty()) {
+            return response()->json(array(
+                'code' => 204,
+                'message' => 'No se encontraron ofertas.'
+            )    
+            ,204);
+        }
 
         foreach($ofertas as $id => $oferta){
         $jtag = [];
