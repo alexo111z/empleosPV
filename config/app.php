@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Jenssegers\Date\DateServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
         /*
          * Application Service Providers...
