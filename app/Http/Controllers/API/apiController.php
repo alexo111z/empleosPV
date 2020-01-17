@@ -6,9 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Oferta;
 use App\RelacionTag;
+use App\Solicitud;
 
 class apiController extends Controller
-{
+{   
+    /*
+    public function __construct(){
+        $this->middleware('auth:api', ['except' => ['registro']]);
+    }
+    */
+
+    /********Ver todas las ofertas  -> formato para json********/
     function ofertas(Request $request){
 
         $search = $request->get('search');
@@ -62,4 +70,111 @@ class apiController extends Controller
         }
         return response()->json($data);
     }
+    /********Ver detalles de oferta********/
+    function detalles($id){
+           
+        $ofertas = Oferta::findOrFail($id);
+        $relT = RelacionTag::where('id_usuario', '=', null)->get();
+
+        if ($ofertas->isEmpty()) {
+            return response()->json(array(
+                'code' => 204,
+                'message' => 'No se encontraron ofertas.'
+            )    
+            ,204);
+        }
+
+        //dar formato a json, copiarlo de ofertas
+        
+    }
+
+    /********Ver ofertas de usuario********/
+    function misOfertas(){
+        $search = $request->get('search');
+
+        if ($search == '' or $search == null) {
+            $ofertas = Oferta::join('solicitudes','ofertas.id','solicitudes.id_oferta')
+            ->where('solicitudes.id_usuario','=',auth('api')->user()->id)//->where('ofertas.titulo','LIKE', '%'.$search.'%')
+            ->select('ofertas.*')->get();
+        }else{
+            $ofertas = Oferta::join('solicitudes','ofertas.id','solicitudes.id_oferta')
+            ->where('solicitudes.id_usuario','=',auth('api')->user()->id)->where('ofertas.titulo','LIKE', '%'.$search.'%')
+            ->select('ofertas.*')->get();
+        }
+        $relT = RelacionTag::where('id_usuario', '=', null)->get();
+
+        if ($ofertas->isEmpty()) {
+            return response()->json(array(
+                'code' => 204,
+                'message' => 'No se encontraron ofertas.'
+            )    
+            ,204);
+        }
+
+        //dar formato a json, copiarlo de ofertas
+
+    }
+    /********Postularce en una oferta********/
+    function postular($id){
+        $oferta = Oferta::findOrFail($id);
+        $empresa= Empresa::findOrFail($oferta->id_emp);
+        Solicitud::create([
+            'id_oferta' => $id,
+            'id_usuario' =>  auth('api')->user()->id,
+        ]);
+        $subject = "Solicitud para el empleo: " . $oferta->titulo;
+        $for = $empresa->email;
+        $mensaje['url']= route('empresas.perfilusuario',['alias'=>auth('api')->user()->alias]);
+        $mensaje['oferta']=$oferta->titulo;
+        if(isset(auth('api')->user()->curriculum)){
+            $mensaje['curriculum'] = route('empresas.usuariosCv',['alias' => auth('api')->user()->alias]);
+            }
+        $mensaje['home'] =route('home');
+        Mail::send('email',$mensaje, function($msj) use($subject,$for){
+            $msj->from("administracion@pvwork.com.mx","Administración de PV WORK");
+            $msj->subject($subject);
+            $msj->to($for);
+        });
+        
+        return 'solicitud realizada.json';
+    }
+    /********Cancelar postulacion********/
+    function cancelarPost($id){
+        $solicitud = Solicitud::where('id_oferta', $id)->where('id_usuario', auth('api')->user()->id)->firstOrFail();
+        $solicitud->delete();
+        return 'solicitud eliminada';
+    }
+    /********Registrar usuario********/
+    function registro(){
+        $validator = Validator::make($request->all(),[
+            "email" => 'unique:users,email'
+        ]);
+        if ($validator->fails()) {
+            return 'Ya existe una cuenta registrada con este correo.';
+        }else{
+            $data= $request->all();
+            $date1 = Carbon::createFromDate($data['born_date']);
+            $ahora = Carbon::now();
+            $edad = $date1->diffInYears($ahora);
+            $alias = substr($data['email'], 0, strpos($data['email'], "@"));
+            User::create([
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'nombre' => $data['nombre'],
+                'apellido' => $data['apellido'],
+                'nacimiento' => $data['born_date'],
+                'genero' => $data['sexo'],
+                'id_estudios' => $data['estudios'],
+                'id_area' => $data['area'],
+                'edad' => $edad,
+                'alias' => $alias,
+            ]);
+            return 'registrado';
+        }
+    }
+    /********Editar datos de perfil********/
+    function editarPerfil(){
+
+    }
+
 }

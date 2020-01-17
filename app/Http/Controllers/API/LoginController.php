@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth:api', ['except' => ['login']]);
     }
     function login(){
@@ -20,22 +19,27 @@ class LoginController extends Controller
 
         return $this->respondWithToken($token);
     }
-    public function refresh()
-    {
+
+    public function refresh(){
         return $this->respondWithToken(auth('api')->refresh());
     }
-    public function logout()
-    {
+
+    public function logout(){
         auth('api')->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
-    protected function respondWithToken($token)
-    {
+
+    protected function respondWithToken($token){
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);
     }
+
+    public function perfil(){
+        return response()->json(auth('api')->user());
+    }
+
 }
