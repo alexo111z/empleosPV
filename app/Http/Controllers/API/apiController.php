@@ -10,6 +10,7 @@ use App\RelacionTag;
 class apiController extends Controller
 {
     function ofertas(Request $request){
+
         $search = $request->get('search');
 
         if ($search == '' or $search == null) {
