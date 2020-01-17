@@ -72,20 +72,46 @@ class apiController extends Controller
     }
     /********Ver detalles de oferta********/
     function detalles($id){
-           
-        $ofertas = Oferta::findOrFail($id);
+        $oferta = Oferta::findOrFail($id);
         $relT = RelacionTag::where('id_usuario', '=', null)->get();
-
-        if ($ofertas->isEmpty()) {
+        
+        if (!isset($oferta)) {
             return response()->json(array(
                 'code' => 204,
                 'message' => 'No se encontraron ofertas.'
             )    
             ,204);
         }
-
+        $jtag = [];
+        foreach($relT as $t){
+            $in = [];
+            if ($t->id_oferta == $oferta->id) {
+                $in = [
+                'id' => $t->id,
+                'id_of' => $t->id_oferta,
+                'id_t' => $t->id_tag,
+                'tag' => $t->tag->nombre,
+                ];
+                array_push($jtag, $in);
+            } 
+        }
         //dar formato a json, copiarlo de ofertas
-        
+        $data = [
+            'id' => $oferta->id,
+            'id_emp' => $oferta->empresa->nombre,
+            'titulo' => $oferta->titulo,
+            'd_corta' => $oferta->d_corta,
+            'd_larga' => $oferta->d_larga,
+            'salario' => $oferta->salario,
+            't_contrato' => $oferta->t_contrato,
+            'vigencia' => $oferta->vigencia,
+            'existe' => $oferta->existe,
+            'id_pais' => $oferta->idpais->pais,
+            'id_estado' => $oferta->idestado->estado,
+            'id_ciudad' => $oferta->idciudad->municipio,
+            'tags' => $jtag,
+        ];
+        return response()->json($data);
     }
 
     /********Ver ofertas de usuario********/
