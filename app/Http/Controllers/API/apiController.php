@@ -98,6 +98,7 @@ class apiController extends Controller
         //dar formato a json, copiarlo de ofertas
         $data = [
             'id' => $oferta->id,
+            'logo' =>$oferta->empresa->logo,
             'id_emp' => $oferta->empresa->nombre,
             'titulo' => $oferta->titulo,
             'd_corta' => $oferta->d_corta,
@@ -112,6 +113,9 @@ class apiController extends Controller
             'tags' => $jtag,
         ];
         return response()->json($data);
+    }
+    function logo($file){
+        return \Storage::disk('public')->response("/logos/$file");
     }
 
     /********Ver ofertas de usuario********/
