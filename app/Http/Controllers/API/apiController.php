@@ -119,16 +119,16 @@ class apiController extends Controller
     }
 
     /********Ver ofertas de usuario********/
-    function misOfertas(){
+    function misOfertas(Request $request, $id){
         $search = $request->get('search');
 
         if ($search == '' or $search == null) {
             $ofertas = Oferta::join('solicitudes','ofertas.id','solicitudes.id_oferta')
-            ->where('solicitudes.id_usuario','=',auth('api')->user()->id)//->where('ofertas.titulo','LIKE', '%'.$search.'%')
+            ->where('solicitudes.id_usuario','=', $id)//->where('ofertas.titulo','LIKE', '%'.$search.'%')
             ->select('ofertas.*')->get();
         }else{
             $ofertas = Oferta::join('solicitudes','ofertas.id','solicitudes.id_oferta')
-            ->where('solicitudes.id_usuario','=',auth('api')->user()->id)->where('ofertas.titulo','LIKE', '%'.$search.'%')
+            ->where('solicitudes.id_usuario','=', $id)->where('ofertas.titulo','LIKE', '%'.$search.'%')
             ->select('ofertas.*')->get();
         }
         $relT = RelacionTag::where('id_usuario', '=', null)->get();
@@ -141,7 +141,39 @@ class apiController extends Controller
             ,204);
         }
 
-        //dar formato a json, copiarlo de ofertas
+        foreach($ofertas as $id => $oferta){
+            $jtag = [];
+                foreach($relT as $t){
+                    $in = [];
+                    if ($t->id_oferta == $oferta->id) {
+                        $in = [
+                        'id' => $t->id,
+                        'id_of' => $t->id_oferta,
+                        'id_t' => $t->id_tag,
+                        'tag' => $t->tag->nombre,
+                        ];
+                        array_push($jtag, $in);
+                        //return gettype($in);
+                    }  
+                }
+                //return $jtag;
+                $data[$id] = [
+                    'id' => $oferta->id,
+                    'id_emp' => $oferta->empresa->nombre,
+                    'titulo' => $oferta->titulo,
+                    'd_corta' => $oferta->d_corta,
+                    'd_larga' => $oferta->d_larga,
+                    'salario' => $oferta->salario,
+                    't_contrato' => $oferta->t_contrato,
+                    'vigencia' => $oferta->vigencia,
+                    'existe' => $oferta->existe,
+                    'id_pais' => $oferta->idpais->pais,
+                    'id_estado' => $oferta->idestado->estado,
+                    'id_ciudad' => $oferta->idciudad->municipio,
+                    'tags' => $jtag,
+                ];
+            }
+            return response()->json($data);
 
     }
     /********Postularce en una oferta********/
