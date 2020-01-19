@@ -11,21 +11,19 @@ class LoginController extends Controller
     public function __construct(){
         $this->middleware('auth:api', ['except' => ['login']]);
     }
-    public function login(Request $request){
-      // return response()->json(['error' => $request->email]);
-       // return response()->json(['error' =>]);
-      // $preauth = Auth::check();
-       //return response()->json(['error' => $preauth]);
-       
-       // if (! $token = auth('api')->attempt($credentials)) {
-        $user= User::where('email','=',$request->email)->first();
-        return response()->json([$user]);
-        if (auth('api')->attempt(['email' => $email, 'password' => $password], $remember)) {
-            //$posauth = Auth::check();
-            //return $this->respondWithToken($token);
-            return response()->json(['pre' => 'jali']);
-        }else{
-            return response()->json(['error' => $request->all()]);
+
+
+    function login(Request $request){
+        
+        $a = json_decode($request->getContent(), true);
+        $mail = $a['email'];
+        $pass = $a['password'];
+        $credentials = [
+            'email' => $mail,
+            'password' => $pass
+        ];
+        if (! $token = auth('api')->attempt($credentials)) {
+            return response()->json(['error' => 'Usuario y/o contraseña invalidos.'], 401);
         }
     
         
@@ -45,6 +43,7 @@ class LoginController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
+            'id' => auth('api')->user()->id,
             'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);
     }
