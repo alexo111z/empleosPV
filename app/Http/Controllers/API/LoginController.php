@@ -4,20 +4,31 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use App\User;
 class LoginController extends Controller
 {
     public function __construct(){
         $this->middleware('auth:api', ['except' => ['login']]);
     }
-    function login(){
-        $credentials = request(['email', 'password']);
-
-        if (! $token = auth('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Usuario y/o contraseña invalidos.'], 401);
+    public function login(Request $request){
+      // return response()->json(['error' => $request->email]);
+       // return response()->json(['error' =>]);
+      // $preauth = Auth::check();
+       //return response()->json(['error' => $preauth]);
+       
+       // if (! $token = auth('api')->attempt($credentials)) {
+        $user= User::where('email','=',$request->email)->first();
+        return response()->json([$user]);
+        if (auth('api')->attempt(['email' => $email, 'password' => $password], $remember)) {
+            //$posauth = Auth::check();
+            //return $this->respondWithToken($token);
+            return response()->json(['pre' => 'jali']);
+        }else{
+            return response()->json(['error' => $request->all()]);
         }
-
-        return $this->respondWithToken($token);
+    
+        
     }
 
     public function refresh(){

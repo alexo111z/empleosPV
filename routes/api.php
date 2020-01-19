@@ -19,8 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::group(['middleware' => ['cors']], function () {
-    //Rutas de control de secion
-    Route::post('/login', array('as'=>'api.login', 'uses'=> 'API\LoginController@login'));  
+    //Rutas de control de sesion
+    Route::post('/login','API\LoginController@login');  
     Route::post('/logout', array('as'=>'api.logout', 'uses'=> 'API\LoginController@logout'));
     Route::post('/refresh', array('as'=>'api.refresh', 'uses'=> 'API\LoginController@refresh'));
 

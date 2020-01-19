@@ -1,13 +1,21 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Oferta;
 use App\RelacionTag;
 use App\Solicitud;
-
+use App\User;
+use Illuminate\Http\Request;
+use App\Pais;
+use App\Estado;
+use App\Municipio;
+use App\Tag;
+use App\Empresa;
+use Mail;
 class apiController extends Controller
 {   
     /*
@@ -148,25 +156,25 @@ class apiController extends Controller
     function postular($id){
         $oferta = Oferta::findOrFail($id);
         $empresa= Empresa::findOrFail($oferta->id_emp);
+        $user = User::findOrFail(12);
         Solicitud::create([
             'id_oferta' => $id,
-            'id_usuario' =>  auth('api')->user()->id,
+            'id_usuario' =>  12,
         ]);
-        $subject = "Solicitud para el empleo: " . $oferta->titulo;
+       /*$subject = "Solicitud para el empleo: " . $oferta->titulo;
         $for = $empresa->email;
-        $mensaje['url']= route('empresas.perfilusuario',['alias'=>auth('api')->user()->alias]);
+        $mensaje['url']= route('empresas.perfilusuario',['alias'=>$user->alias]);
         $mensaje['oferta']=$oferta->titulo;
-        if(isset(auth('api')->user()->curriculum)){
-            $mensaje['curriculum'] = route('empresas.usuariosCv',['alias' => auth('api')->user()->alias]);
+        if(isset($user->curriculum)){
+            $mensaje['curriculum'] = route('empresas.usuariosCv',['alias' => $user->alias]);
             }
         $mensaje['home'] =route('home');
         Mail::send('email',$mensaje, function($msj) use($subject,$for){
             $msj->from("administracion@pvwork.com.mx","Administración de PV WORK");
             $msj->subject($subject);
             $msj->to($for);
-        });
-        
-        return 'solicitud realizada.json';
+        });*/
+        return 'true';
     }
     /********Cancelar postulacion********/
     function cancelarPost($id){
