@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Oferta;
 use App\RelacionTag;
 use App\Solicitud;
-
+use App\User;
+use App\Empresa;
+use Mail; 
 class apiController extends Controller
 {   
     /*
@@ -71,10 +73,15 @@ class apiController extends Controller
         return response()->json($data);
     }
     /********Ver detalles de oferta********/
-    function detalles($id){
+    function detalles($id, Request $request){
         $oferta = Oferta::findOrFail($id);
+        $estado = 0;
         $relT = RelacionTag::where('id_usuario', '=', null)->get();
-        
+        $postulado = Solicitud::where('id_oferta','=',$id)
+        ->where('id_usuario','=',$request['id_user'],)->first();
+        if(isset($postulado)){
+            $estado=1;
+        }
         if (!isset($oferta)) {
             return response()->json(array(
                 'code' => 204,
@@ -111,6 +118,7 @@ class apiController extends Controller
             'id_estado' => $oferta->idestado->estado,
             'id_ciudad' => $oferta->idciudad->municipio,
             'tags' => $jtag,
+            'estado' => $estado
         ];
         return response()->json($data);
     }
@@ -145,32 +153,33 @@ class apiController extends Controller
 
     }
     /********Postularce en una oferta********/
-    function postular($id){
+    function postular($id, Request $request){
         $oferta = Oferta::findOrFail($id);
+        $user = User::findOrFail($request->id_user);
         $empresa= Empresa::findOrFail($oferta->id_emp);
         Solicitud::create([
             'id_oferta' => $id,
-            'id_usuario' =>  auth('api')->user()->id,
+            'id_usuario' => $user->id,
         ]);
-        $subject = "Solicitud para el empleo: " . $oferta->titulo;
+     /*   $subject = "Solicitud para el empleo: " . $oferta->titulo;
         $for = $empresa->email;
-        $mensaje['url']= route('empresas.perfilusuario',['alias'=>auth('api')->user()->alias]);
+        $mensaje['url']= route('empresas.perfilusuario',['alias'=>$user->alias]);
         $mensaje['oferta']=$oferta->titulo;
-        if(isset(auth('api')->user()->curriculum)){
-            $mensaje['curriculum'] = route('empresas.usuariosCv',['alias' => auth('api')->user()->alias]);
+        if(isset($user->curriculum)){
+            $mensaje['curriculum'] = route('empresas.usuariosCv',['alias' => $user->alias]);
             }
         $mensaje['home'] =route('home');
         Mail::send('email',$mensaje, function($msj) use($subject,$for){
             $msj->from("administracion@pvwork.com.mx","Administración de PV WORK");
             $msj->subject($subject);
             $msj->to($for);
-        });
+        });*/
         
         return 'solicitud realizada.json';
     }
     /********Cancelar postulacion********/
-    function cancelarPost($id){
-        $solicitud = Solicitud::where('id_oferta', $id)->where('id_usuario', auth('api')->user()->id)->firstOrFail();
+    function cancelarPost($id, Request $request){
+        $solicitud = Solicitud::where('id_oferta', $id)->where('id_usuario', $request->id_user)->firstOrFail();
         $solicitud->delete();
         return 'solicitud eliminada';
     }
