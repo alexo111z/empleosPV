@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Oferta;
 use App\RelacionTag;
 use App\Solicitud;
+use App\User;
 
 class apiController extends Controller
 {   
@@ -233,6 +234,49 @@ class apiController extends Controller
             ]);
             return 'registrado';
         }
+    }
+    /********Mostrar datos de perfil********/
+    function perfil($id){
+        $user = User::findOrFail($id);
+        $relT = RelacionTag::where('id_oferta', '=', null)->get();
+        //return $user->estudios->id;
+        $jtag = [];
+        foreach($relT as $t){
+            $in = [];
+            if ($t->id_usuario == $user->id) {
+                $in = [
+                'id' => $t->id,
+                'id_us' => $t->id_usuario,
+                'id_t' => $t->id_tag,
+                'tag' => $t->tag->nombre,
+                ];
+                array_push($jtag, $in);
+                //return gettype($in);
+            }  
+        }
+        $data = [
+            'email' => $user->email,
+            'nombre' => $user->nombre,
+            'apellido' => $user->apellido,
+            'edad' => $user->edad,
+            'genero' => $user->genero,
+            'id_estudios' => [
+                'id' => $user->estudios->id,
+                'estudios' => $user->estudios->nivel,
+            ],
+            'id_area' => [
+                'id' => $user->area->id,
+                'area' => $user->area->area,
+            ],
+            'id_pais' => $user->pais,
+            'id_estado' => $user->estado,
+            'id_ciudad' => $user->ciudad,
+            'telefono' => $user->telefono,
+            'conocimientos' => $user->conocimientos,
+            'tags' => $jtag,
+        ];
+                    
+        return response()->json($data);
     }
     /********Editar datos de perfil********/
     function editarPerfil(){

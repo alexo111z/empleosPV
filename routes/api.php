@@ -32,7 +32,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/logos/{file}', 'API\apiController@logo');
 
     //Rutas de usuario
-    Route::post('/perfil', array('as'=>'api.perfil', 'uses'=> 'API\LoginController@perfil'));
+    Route::get('/perfil/{id}', array('as'=>'api.perfil', 'uses'=> 'API\apiController@perfil'));
     Route::post('/registrar', array('as'=>'api.newuser','user'=>'API\apiController@registro'));
     Route::post('/perfil/editar', array('as'=>'api.editperfil','uses'=>'API\apiController@editarPerfil'));
     Route::get('/misofertas/{id}', array('as'=>'api.misofertas','uses'=>'API\apiController@misOfertas'));

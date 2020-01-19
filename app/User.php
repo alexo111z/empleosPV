@@ -37,6 +37,15 @@ class User extends Authenticatable implements JWTSubject
     public function area(){
         return $this->belongsTo(Area::class, 'id_area');
     }
+    public function pais(){
+        return $this->belongsTo(Pais::class, 'id_pais');
+    }
+    public function estado(){
+        return $this->belongsTo(Estado::class, 'id_estado');
+    }
+    public function ciudad(){
+        return $this->belongsTo(Municipio::class, 'id_ciudad');
+    }
 
     /**
      * The attributes that should be hidden for arrays.
