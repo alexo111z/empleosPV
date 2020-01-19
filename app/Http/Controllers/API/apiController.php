@@ -8,6 +8,10 @@ use App\Oferta;
 use App\RelacionTag;
 use App\Solicitud;
 use App\User;
+use App\Pais;
+use App\Municipio;
+use App\Estado;
+
 
 class apiController extends Controller
 {   
@@ -259,6 +263,7 @@ class apiController extends Controller
             'nombre' => $user->nombre,
             'apellido' => $user->apellido,
             'edad' => $user->edad,
+            'nacimiento' => \Carbon\Carbon::parse($user->nacimiento)->format('Y-m-d'),
             'genero' => $user->genero,
             'id_estudios' => [
                 'id' => $user->estudios->id,
@@ -278,8 +283,54 @@ class apiController extends Controller
                     
         return response()->json($data);
     }
+    /********Obtener localidades********/
+    function Localidades(){
+        $paises = Pais::all();
+        $ciudades = Municipio::all();
+        $estados = Estado::all();
+
+        $localidades = [
+            'pais' => $paises,
+            'ciudad' => $ciudades,
+            'estado' => $estados,
+        ];
+
+        return response()->json($localidades);
+
+    }
     /********Editar datos de perfil********/
-    function editarPerfil(){
+    function editarPersonal(Request $request, $id){
+
+        $user = User::findOrFail($id);
+        $data = json_decode($request->getContent(), true);
+        
+        $nombre = $data['nombre'];
+        $apellido = $data['apellido'];
+        $telefono = $data['telefono'];
+        $genero = $data['genero'];
+        $fecha = $data['fecha'];
+
+        $date1 = Carbon::createFromDate($fecha);
+        $ahora = Carbon::now();
+        $edad = $date1->diffInYears($ahora);
+
+        $user->nombre = $nombre;
+        $user->apellido = $apellido;
+        $user->telefono = $telefono;
+        $user->genero = $genero;
+        $user->nacimiento = $fecha;
+        $user->edad = $edad;
+        $user->save();
+        
+        return 0;
+    }
+    function editarLocalidad(Request $request, $id){
+        
+    }
+    function editarLaboral(Request $request, $id){
+        
+    }
+    function editarAcademica(Request $request, $id){
 
     }
 

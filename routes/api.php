@@ -35,6 +35,13 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/perfil/{id}', array('as'=>'api.perfil', 'uses'=> 'API\apiController@perfil'));
     Route::post('/registrar', array('as'=>'api.newuser','user'=>'API\apiController@registro'));
     Route::post('/perfil/editar', array('as'=>'api.editperfil','uses'=>'API\apiController@editarPerfil'));
+    Route::get('/localidades', array('as'=>'api.lugares','uses'=>'API\apiController@Localidades'));
+    
+    Route::post('/edit/personales/{id}', array('as'=>'api.edit.personal','uses'=>'API\apiController@editarPersonal'));
+    Route::post('/edit/localidad/{id}', array('as'=>'api.edit.localidad','uses'=>'API\apiController@editarLocalidad'));
+    Route::post('/edit/laboral/{id}', array('as'=>'api.edit.laboral','uses'=>'API\apiController@editarLaboral'));
+    Route::post('/edit/academica/{id}', array('as'=>'api.edit.academica','uses'=>'API\apiController@editarAcademica'));
+
     Route::get('/misofertas/{id}', array('as'=>'api.misofertas','uses'=>'API\apiController@misOfertas'));
     
 });
