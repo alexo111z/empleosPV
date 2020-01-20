@@ -240,9 +240,9 @@ class apiController extends Controller
     /********Registrar usuario********/
     function registro(request $request){
         $data = json_decode($request->getContent(), true);
-            $email=User::where('email','=',$data['email']);
-            if(isset($email)){
-                return 0;
+            $email=User::where('email','=',$data['email'])->first();
+            if(isset($email->id)){
+                return 'false';
             }else{
             $date1 = Carbon::createFromDate($data['born_date']);
             $ahora = Carbon::now();
@@ -260,7 +260,7 @@ class apiController extends Controller
                 'edad' => $edad,
                 'alias' => $alias,
             ]);
-            return 1;
+            return 'true';
         }
     }
     /********Mostrar datos de perfil********/
