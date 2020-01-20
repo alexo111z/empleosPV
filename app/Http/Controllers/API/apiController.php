@@ -11,6 +11,10 @@ use App\User;
 use App\Pais;
 use App\Municipio;
 use App\Estado;
+use App\NEstudio;
+use App\Area;
+use App\Tag;
+use Carbon\Carbon;
 
 
 class apiController extends Controller
@@ -288,11 +292,17 @@ class apiController extends Controller
         $paises = Pais::all();
         $ciudades = Municipio::all();
         $estados = Estado::all();
+        $nivel = NEstudio::all();
+        $area = Area::all();
+        $tags = Tag::all();
 
         $localidades = [
             'pais' => $paises,
             'ciudad' => $ciudades,
             'estado' => $estados,
+            'nivel' => $nivel,
+            'area' => $area,
+            'tags' => $tags,
         ];
 
         return response()->json($localidades);
@@ -322,16 +332,72 @@ class apiController extends Controller
         $user->edad = $edad;
         $user->save();
         
-        return 0;
+        return response()->json(array('code' => 200,'message' => 'Cambios realizados con exito.'),200);
     }
     function editarLocalidad(Request $request, $id){
+        $user = User::findOrFail($id);
+        $data = json_decode($request->getContent(), true);
         
-    }
-    function editarLaboral(Request $request, $id){
+        $pais = $data['pais'];
+        $estado = $data['estado'];
+        $ciudad = $data['ciudad'];
+
+        $user->id_pais = $pais;
+        $user->id_estado = $estado;
+        $user->id_ciudad = $ciudad;
+
+        $user->save();
         
+        return response()->json(array('code' => 200,'message' => 'Cambios realizados con exito.'),200);
     }
     function editarAcademica(Request $request, $id){
+        $user = User::findOrFail($id);
+        $data = json_decode($request->getContent(), true);
+        
+        $estudios = $data['estudios'];
+        $area = $data['area'];
 
+        $user->id_estudios = $estudios;
+        $user->id_area = $area;
+
+        $user->save();
+
+        return response()->json(array('code' => 200,'message' => 'Cambios realizados con exito.'),200);
     }
+    function editarLaboral(Request $request, $id){
+        $user = User::findOrFail($id);
+        $data = json_decode($request->getContent(), true);
+        
+        $add = $data['add'];
+        $del = $data['delete'];
+        $conos = $data['conoc'];
+
+        for( $i = 0; $i < count($add); $i++ ){
+
+            $data = request()->all();
+            $idTag =Tag::where('nombre',$add[$i])->value('id');
+            if( $idTag ==null){
+                Tag::create(['nombre' =>$add[$i],]);
+                $idTag =Tag::where('nombre',$add[$i])->value('id');
+            }
+            $rtags = RelacionTag::where([['id_usuario', $id], ['id_tag',$idTag],])->value('id');
+            if($rtags==null){
+                RelacionTag::create(['id_usuario' => $id,'id_tag' => $idTag,]);
+            }
+
+        }
+
+        for ($j = 0; $j < count($del); $j++){
+            $tag = RelacionTag::where('id', $del[$j]);
+            $tag->delete();
+        }   
+
+        $user->conocimientos = $conos;
+
+        $user->save();
+
+        return response()->json(array('code' => 200,'message' => 'Cambios realizados con exito.'),200);
+    }
+    
 
 }
