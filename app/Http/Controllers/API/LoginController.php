@@ -47,6 +47,10 @@ class LoginController extends Controller
             'nombre' => auth('api')->user()->nombre,
             'apellido' => auth('api')->user()->apellido,
             'email' => auth('api')->user()->email,
+<<<<<<< HEAD
+=======
+            'id'=>auth('api')->user()->id,
+>>>>>>> luis
             'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);
     }
