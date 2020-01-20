@@ -19,6 +19,6 @@ class Cors
         ->header('Access-Control-Allow-Origin', '*')
         ->header('Access-Control-Allow-Credentials', 'true')
         ->header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
-        ->header('Access-Control-Allow-Headers', 'accept, content-type, x-xsrf-token, x-csrf-token'); // Add any required headers here
+        ->header('Access-Control-Allow-Headers', 'accept, content-type, x-xsrf-token, x-csrf-token, Bearer, Authorization'); // Add any required headers here
     }
 }

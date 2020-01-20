@@ -1,15 +1,27 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
+use \Validator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Oferta;
 use App\RelacionTag;
 use App\Solicitud;
 use App\User;
 use App\Empresa;
 use Mail; 
+
+use Illuminate\Http\Request;
+use App\Pais;
+use App\Estado;
+use App\Municipio;
+use App\Tag;
+
+use App\Area;
+use App\NEstudio;
+
 class apiController extends Controller
 {   
     /*
@@ -127,16 +139,16 @@ class apiController extends Controller
     }
 
     /********Ver ofertas de usuario********/
-    function misOfertas(){
+    function misOfertas(Request $request, $id){
         $search = $request->get('search');
 
         if ($search == '' or $search == null) {
             $ofertas = Oferta::join('solicitudes','ofertas.id','solicitudes.id_oferta')
-            ->where('solicitudes.id_usuario','=',auth('api')->user()->id)//->where('ofertas.titulo','LIKE', '%'.$search.'%')
+            ->where('solicitudes.id_usuario','=', $id)//->where('ofertas.titulo','LIKE', '%'.$search.'%')
             ->select('ofertas.*')->get();
         }else{
             $ofertas = Oferta::join('solicitudes','ofertas.id','solicitudes.id_oferta')
-            ->where('solicitudes.id_usuario','=',auth('api')->user()->id)->where('ofertas.titulo','LIKE', '%'.$search.'%')
+            ->where('solicitudes.id_usuario','=', $id)->where('ofertas.titulo','LIKE', '%'.$search.'%')
             ->select('ofertas.*')->get();
         }
         $relT = RelacionTag::where('id_usuario', '=', null)->get();
@@ -149,7 +161,39 @@ class apiController extends Controller
             ,204);
         }
 
-        //dar formato a json, copiarlo de ofertas
+        foreach($ofertas as $id => $oferta){
+            $jtag = [];
+                foreach($relT as $t){
+                    $in = [];
+                    if ($t->id_oferta == $oferta->id) {
+                        $in = [
+                        'id' => $t->id,
+                        'id_of' => $t->id_oferta,
+                        'id_t' => $t->id_tag,
+                        'tag' => $t->tag->nombre,
+                        ];
+                        array_push($jtag, $in);
+                        //return gettype($in);
+                    }  
+                }
+                //return $jtag;
+                $data[$id] = [
+                    'id' => $oferta->id,
+                    'id_emp' => $oferta->empresa->nombre,
+                    'titulo' => $oferta->titulo,
+                    'd_corta' => $oferta->d_corta,
+                    'd_larga' => $oferta->d_larga,
+                    'salario' => $oferta->salario,
+                    't_contrato' => $oferta->t_contrato,
+                    'vigencia' => $oferta->vigencia,
+                    'existe' => $oferta->existe,
+                    'id_pais' => $oferta->idpais->pais,
+                    'id_estado' => $oferta->idestado->estado,
+                    'id_ciudad' => $oferta->idciudad->municipio,
+                    'tags' => $jtag,
+                ];
+            }
+            return response()->json($data);
 
     }
     /********Postularce en una oferta********/
@@ -157,11 +201,17 @@ class apiController extends Controller
         $oferta = Oferta::findOrFail($id);
         $user = User::findOrFail($request->id_user);
         $empresa= Empresa::findOrFail($oferta->id_emp);
+        $user = User::findOrFail(12);
         Solicitud::create([
             'id_oferta' => $id,
             'id_usuario' => $user->id,
         ]);
      /*   $subject = "Solicitud para el empleo: " . $oferta->titulo;
+=======
+            'id_usuario' =>  12,
+        ]);
+       /*$subject = "Solicitud para el empleo: " . $oferta->titulo;
+>>>>>>> luis
         $for = $empresa->email;
         $mensaje['url']= route('empresas.perfilusuario',['alias'=>$user->alias]);
         $mensaje['oferta']=$oferta->titulo;
@@ -174,7 +224,6 @@ class apiController extends Controller
             $msj->subject($subject);
             $msj->to($for);
         });*/
-        
         return 'solicitud realizada.json';
     }
     /********Cancelar postulacion********/
@@ -183,15 +232,18 @@ class apiController extends Controller
         $solicitud->delete();
         return 'solicitud eliminada';
     }
+    function registrar(){
+        $areas=Area::all();
+        $nestudios=NEstudio::all();
+        return response()->json(['areas'=>$areas,'nestudios' =>$nestudios]);
+    }
     /********Registrar usuario********/
-    function registro(){
-        $validator = Validator::make($request->all(),[
-            "email" => 'unique:users,email'
-        ]);
-        if ($validator->fails()) {
-            return 'Ya existe una cuenta registrada con este correo.';
-        }else{
-            $data= $request->all();
+    function registro(request $request){
+        $data = json_decode($request->getContent(), true);
+            $email=User::where('email','=',$data['email']);
+            if(isset($email)){
+                return 0;
+            }else{
             $date1 = Carbon::createFromDate($data['born_date']);
             $ahora = Carbon::now();
             $edad = $date1->diffInYears($ahora);
@@ -208,11 +260,101 @@ class apiController extends Controller
                 'edad' => $edad,
                 'alias' => $alias,
             ]);
-            return 'registrado';
+            return 1;
         }
     }
+    /********Mostrar datos de perfil********/
+    function perfil($id){
+        $user = User::findOrFail($id);
+        $relT = RelacionTag::where('id_oferta', '=', null)->get();
+        //return $user->estudios->id;
+        $jtag = [];
+        foreach($relT as $t){
+            $in = [];
+            if ($t->id_usuario == $user->id) {
+                $in = [
+                'id' => $t->id,
+                'id_us' => $t->id_usuario,
+                'id_t' => $t->id_tag,
+                'tag' => $t->tag->nombre,
+                ];
+                array_push($jtag, $in);
+                //return gettype($in);
+            }  
+        }
+        $data = [
+            'email' => $user->email,
+            'nombre' => $user->nombre,
+            'apellido' => $user->apellido,
+            'edad' => $user->edad,
+            'nacimiento' => \Carbon\Carbon::parse($user->nacimiento)->format('Y-m-d'),
+            'genero' => $user->genero,
+            'id_estudios' => [
+                'id' => $user->estudios->id,
+                'estudios' => $user->estudios->nivel,
+            ],
+            'id_area' => [
+                'id' => $user->area->id,
+                'area' => $user->area->area,
+            ],
+            'id_pais' => $user->pais,
+            'id_estado' => $user->estado,
+            'id_ciudad' => $user->ciudad,
+            'telefono' => $user->telefono,
+            'conocimientos' => $user->conocimientos,
+            'tags' => $jtag,
+        ];
+                    
+        return response()->json($data);
+    }
+    /********Obtener localidades********/
+    function Localidades(){
+        $paises = Pais::all();
+        $ciudades = Municipio::all();
+        $estados = Estado::all();
+
+        $localidades = [
+            'pais' => $paises,
+            'ciudad' => $ciudades,
+            'estado' => $estados,
+        ];
+
+        return response()->json($localidades);
+
+    }
     /********Editar datos de perfil********/
-    function editarPerfil(){
+    function editarPersonal(Request $request, $id){
+
+        $user = User::findOrFail($id);
+        $data = json_decode($request->getContent(), true);
+        
+        $nombre = $data['nombre'];
+        $apellido = $data['apellido'];
+        $telefono = $data['telefono'];
+        $genero = $data['genero'];
+        $fecha = $data['fecha'];
+
+        $date1 = Carbon::createFromDate($fecha);
+        $ahora = Carbon::now();
+        $edad = $date1->diffInYears($ahora);
+
+        $user->nombre = $nombre;
+        $user->apellido = $apellido;
+        $user->telefono = $telefono;
+        $user->genero = $genero;
+        $user->nacimiento = $fecha;
+        $user->edad = $edad;
+        $user->save();
+        
+        return 0;
+    }
+    function editarLocalidad(Request $request, $id){
+        
+    }
+    function editarLaboral(Request $request, $id){
+        
+    }
+    function editarAcademica(Request $request, $id){
 
     }
 
