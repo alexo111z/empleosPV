@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
+use \Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,10 @@ use App\Estado;
 use App\Municipio;
 use App\Tag;
 use App\Empresa;
+use App\Area;
+use App\NEstudio;
 use Mail;
+
 class apiController extends Controller
 {   
     /*
@@ -79,10 +83,15 @@ class apiController extends Controller
         return response()->json($data);
     }
     /********Ver detalles de oferta********/
-    function detalles($id){
+    function detalles($id, Request $request){
         $oferta = Oferta::findOrFail($id);
+        $estado = 0;
         $relT = RelacionTag::where('id_usuario', '=', null)->get();
-        
+        $postulado = Solicitud::where('id_oferta','=',$id)
+        ->where('id_usuario','=',$request['id_user'],)->first();
+        if(isset($postulado)){
+            $estado=1;
+        }
         if (!isset($oferta)) {
             return response()->json(array(
                 'code' => 204,
@@ -119,6 +128,7 @@ class apiController extends Controller
             'id_estado' => $oferta->idestado->estado,
             'id_ciudad' => $oferta->idciudad->municipio,
             'tags' => $jtag,
+            'estado' => $estado
         ];
         return response()->json($data);
     }
@@ -209,20 +219,23 @@ class apiController extends Controller
         return 'true';
     }
     /********Cancelar postulacion********/
-    function cancelarPost($id){
-        $solicitud = Solicitud::where('id_oferta', $id)->where('id_usuario', auth('api')->user()->id)->firstOrFail();
+    function cancelarPost($id, Request $request){
+        $solicitud = Solicitud::where('id_oferta', $id)->where('id_usuario', $request->id_user)->firstOrFail();
         $solicitud->delete();
         return 'solicitud eliminada';
     }
+    function registrar(){
+        $areas=Area::all();
+        $nestudios=NEstudio::all();
+        return response()->json(['areas'=>$areas,'nestudios' =>$nestudios]);
+    }
     /********Registrar usuario********/
-    function registro(){
-        $validator = Validator::make($request->all(),[
-            "email" => 'unique:users,email'
-        ]);
-        if ($validator->fails()) {
-            return 'Ya existe una cuenta registrada con este correo.';
-        }else{
-            $data= $request->all();
+    function registro(request $request){
+        $data = json_decode($request->getContent(), true);
+            $email=User::where('email','=',$data['email']);
+            if(isset($email)){
+                return 0;
+            }else{
             $date1 = Carbon::createFromDate($data['born_date']);
             $ahora = Carbon::now();
             $edad = $date1->diffInYears($ahora);
@@ -239,11 +252,101 @@ class apiController extends Controller
                 'edad' => $edad,
                 'alias' => $alias,
             ]);
-            return 'registrado';
+            return 1;
         }
     }
+    /********Mostrar datos de perfil********/
+    function perfil($id){
+        $user = User::findOrFail($id);
+        $relT = RelacionTag::where('id_oferta', '=', null)->get();
+        //return $user->estudios->id;
+        $jtag = [];
+        foreach($relT as $t){
+            $in = [];
+            if ($t->id_usuario == $user->id) {
+                $in = [
+                'id' => $t->id,
+                'id_us' => $t->id_usuario,
+                'id_t' => $t->id_tag,
+                'tag' => $t->tag->nombre,
+                ];
+                array_push($jtag, $in);
+                //return gettype($in);
+            }  
+        }
+        $data = [
+            'email' => $user->email,
+            'nombre' => $user->nombre,
+            'apellido' => $user->apellido,
+            'edad' => $user->edad,
+            'nacimiento' => \Carbon\Carbon::parse($user->nacimiento)->format('Y-m-d'),
+            'genero' => $user->genero,
+            'id_estudios' => [
+                'id' => $user->estudios->id,
+                'estudios' => $user->estudios->nivel,
+            ],
+            'id_area' => [
+                'id' => $user->area->id,
+                'area' => $user->area->area,
+            ],
+            'id_pais' => $user->pais,
+            'id_estado' => $user->estado,
+            'id_ciudad' => $user->ciudad,
+            'telefono' => $user->telefono,
+            'conocimientos' => $user->conocimientos,
+            'tags' => $jtag,
+        ];
+                    
+        return response()->json($data);
+    }
+    /********Obtener localidades********/
+    function Localidades(){
+        $paises = Pais::all();
+        $ciudades = Municipio::all();
+        $estados = Estado::all();
+
+        $localidades = [
+            'pais' => $paises,
+            'ciudad' => $ciudades,
+            'estado' => $estados,
+        ];
+
+        return response()->json($localidades);
+
+    }
     /********Editar datos de perfil********/
-    function editarPerfil(){
+    function editarPersonal(Request $request, $id){
+
+        $user = User::findOrFail($id);
+        $data = json_decode($request->getContent(), true);
+        
+        $nombre = $data['nombre'];
+        $apellido = $data['apellido'];
+        $telefono = $data['telefono'];
+        $genero = $data['genero'];
+        $fecha = $data['fecha'];
+
+        $date1 = Carbon::createFromDate($fecha);
+        $ahora = Carbon::now();
+        $edad = $date1->diffInYears($ahora);
+
+        $user->nombre = $nombre;
+        $user->apellido = $apellido;
+        $user->telefono = $telefono;
+        $user->genero = $genero;
+        $user->nacimiento = $fecha;
+        $user->edad = $edad;
+        $user->save();
+        
+        return 0;
+    }
+    function editarLocalidad(Request $request, $id){
+        
+    }
+    function editarLaboral(Request $request, $id){
+        
+    }
+    function editarAcademica(Request $request, $id){
 
     }
 
