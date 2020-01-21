@@ -27,7 +27,6 @@
                         <li class="nav-item dropdown show">
                             <a class="btn btn-login dropdown-toggle" href="#" role="button" 
                             id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="icon-profile" src="https://via.placeholder.com/30x30.png">
                                 {{auth()->guard('admin')->user()->nombre}}<!--María Guadalupe-->
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

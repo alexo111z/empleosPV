@@ -35,9 +35,12 @@ class apiController extends Controller
         $search = $request->get('search');
 
         if ($search == '' or $search == null) {
-            $ofertas = Oferta::all();
+            $ofertas = Oferta::where('existe','=',true)
+            ->whereDate('vigencia','>',Carbon::now()->format('Y-m-d'))
+            ->get();
         }else{
-            $ofertas = Oferta::where('titulo','LIKE', '%'.$search.'%')->get();
+            $ofertas = Oferta::where('titulo','LIKE', '%'.$search.'%')->where('existe','=',true)
+            ->whereDate('vigencia','>',Carbon::now()->format('Y-m-d'))->get();
         }
         $relT = RelacionTag::where('id_usuario', '=', null)->get();
 
